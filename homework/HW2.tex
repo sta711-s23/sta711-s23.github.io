@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+\usepackage{url}
+\usepackage{alltt}
+\usepackage{bm}
+\usepackage{bbm}
+\linespread{1}
+\textwidth 6.5in
+\oddsidemargin 0.in
+\addtolength{\topmargin}{-1in}
+\addtolength{\textheight}{2in}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+
+\begin{center}
+\Large
+STA 711 Homework 2\\
+\normalsize
+\vspace{5mm}
+\end{center}
+
+\noindent \textbf{Due:} Friday, January 27, 12:00pm (noon) on Canvas.\\ 
+
+\noindent \textbf{Instructions:} Submit your work as a single PDF. For this assignment, you may include written work by scanning it and incorporating it into the PDF. Include all R code needed to reproduce your results in your submission.
+
+\section*{Maximum likelihood estimation}
+
+\begin{enumerate}
+\item Let $X_1,...,X_n \overset{iid}{\sim} Poisson(\lambda)$, and let $X_1^n = (X_1,...,X_n)$ denote the combined sample.
+
+\begin{enumerate}
+\item Write down the likelihood $L(\lambda | X_1^n)$.
+
+\item Find the maximum likelihood estimate $\widehat{\lambda}$ of $\lambda$.
+\end{enumerate}
+
+\item Let $X_1,...,X_n \overset{iid}{\sim} Exponential(\theta)$, so $f(x | \theta) = \theta e^{-\theta x}$.
+
+\begin{enumerate}
+\item Write down the likelihood $L(\theta | X_1^n)$.
+
+\item Find the maximum likelihood estimate $\widehat{\theta}$ of $\theta$.
+
+\item Show that $X_{(1)} \sim Exponential(n \theta)$.
+
+\item Suppose that instead of observing $X_1,...,X_n$, we only observe the minimum $X_{(1)}$. What would be the maximum likelihood estimate of $\theta$?
+\end{enumerate}
+
+\item Let $X_1,...,X_n$ be iid from a distribution with pdf
+$$f(x|\theta) = \theta x^{-2} \mathbbm{1}\{x \geq \theta \},$$
+where $\theta > 0$. Find the maximum likelihood estimate of $\theta$.
+
+\item Let $X_1,...,X_n$ be iid with one of two pdfs. If $\theta = 0$, then
+$$f(x | \theta) = \begin{cases}
+1 & 0 < x < 1 \\
+0 & \text{else}.
+\end{cases}$$
+If $\theta = 1$, then
+$$f(x | \theta) = \begin{cases}
+\dfrac{1}{2 \sqrt{x}} & 0 < x < 1 \\
+0 & \text{else}.
+\end{cases}$$
+Find the maximum likelihood estimate of $\theta$.
+
+\item Let $X$ be a single observation from a normal distribution with mean $\theta$ and variance $\theta^2$, where $\theta > 0$. Find the maximum likelihood estimate of $\theta^2$.
+
+\item Let $X_1,...,X_n$ be a random sample from a distribution with pdf
+$$f(x | \mu, \sigma) = \frac{1}{\sigma} \exp \left \lbrace - \left( \dfrac{x - \mu}{\sigma} \right) \right \rbrace \mathbbm{1}\{x \geq \mu \},$$
+where $-\infty < \mu < \infty$, and $\sigma > 0$.
+
+\begin{enumerate}
+\item Find the maximum likelihood estimates of $\mu$ and $\sigma$. \textit{(Hint: find $\widehat{\mu}$ first)}
+
+\item Let $\tau(\mu, \sigma) = \mathbb{P}_{\mu, \sigma}(X_1 \geq t)$, where $t > \mu$, and $\mathbb{P}_{\mu, \sigma}$ denotes probability when $\mu, \sigma$ are the true parameters. Find the maximum likelihood estimate of $\tau(\mu, \sigma)$.
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
