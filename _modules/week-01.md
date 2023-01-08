@@ -4,6 +4,7 @@ title: Binary data and logistic regression
 
 January 9
 : Welcome to STA 711, Intro to logistic regression
+  : [Slides](https://sta711-s23.github.io/slides/lecture_1.pdf)
   
 : Dunn and Smyth 4.2, 9.1, 9.2, 9.5
 
