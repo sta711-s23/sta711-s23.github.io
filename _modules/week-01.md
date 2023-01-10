@@ -16,6 +16,7 @@ January 9
 
 January 11
 : Fitting and interpreting logistic regression models
+  : [Slides](https://sta711-s23.github.io/slides/lecture_2.pdf)
 
 January 13
 : Likelihoods, maximum likelihood estimation

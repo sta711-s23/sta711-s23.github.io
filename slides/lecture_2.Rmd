@@ -1,0 +1,291 @@
+---
+title: Fitting and interpreting logistic regression models
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=F}
+library(knitr)
+library(tidyverse)
+
+dengue <- read.csv("https://sta279-s22.github.io/labs/dengue.csv")
+
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(more, x[lines], more)
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+```
+
+### Last time: Dengue data
+
+.large[
+**Data:** Data on 5720 Vietnamese children, admitted to the hospital with possible dengue fever. Variables include:
+
+* *Sex*: patient's sex (female or male)
+* *Age*: patient's age (in years)
+* *WBC*: white blood cell count
+* *PLT*: platelet count
+* other diagnostic variables...
+* *Dengue*: whether the patient has dengue (0 = no, 1 = yes)
+]
+
+---
+
+### Logistic regression model
+
+.large[
+$$Y_i \sim Bernoulli(p_i)$$
+
+$$\log \left(\dfrac{p_i}{1 - p_i}\right) = \beta_0 + \beta_1 WBC_i$$
+]
+
+---
+
+### Logistic regression model
+
+.large[
+$$Y_i \sim Bernoulli(p_i)$$
+
+$$\log \left(\dfrac{p_i}{1 - p_i}\right) = \beta_0 + \beta_1 WBC_i$$
+
+.question[
+Why is there no noise term $\varepsilon_i$ in the logistic regression model? Discuss for 1--2 minutes with your neighbor, then we will discuss as a class.
+]
+]
+
+---
+
+### Fitting the logistic regression model
+
+.large[
+
+$$Y_i \sim Bernoulli(p_i)$$
+
+$$\log \left(\dfrac{p_i}{1 - p_i}\right) = \beta_0 + \beta_1 WBC_i$$
+
+```{r, eval=F}
+m1 <- glm(Dengue ~ WBC, data = dengue, 
+          family = binomial)
+summary(m1)
+```
+]
+
+---
+
+### Fitting the logistic regression model
+
+.large[
+
+$$Y_i \sim Bernoulli(p_i)$$
+
+$$\log \left(\dfrac{p_i}{1 - p_i}\right) = \beta_0 + \beta_1 WBC_i$$
+
+```{r, output.lines=9:13}
+m1 <- glm(Dengue ~ WBC, data = dengue, 
+          family = binomial)
+summary(m1)
+```
+]
+
+---
+
+### Making predictions
+
+.large[
+$$Y_i \sim Bernoulli(p_i)$$
+
+$$\log \left(\dfrac{\widehat{p}_i}{1 - \widehat{p}_i}\right) = 1.737 - 0.361 \ WBC_i$$
+
+.question[
+Work in groups of 2-3 for 5 minutes on the following questions:
+
+* What is the predicted odds of dengue for a patient with a WBC of 10?
+* For a patient with a WBC of 10, is the predicted probability of dengue $> 0.5$, $< 0.5$, or $= 0.5$?
+* What is the predicted *probability* of dengue for a patient with a WBC of 10?
+]
+]
+
+---
+
+### Shape of the regression curve
+
+.large[
+.pull-left[
+$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 \ X_i \hspace{0.5cm}$
+
+```{r echo=F, message=F, warning=F, fig.align='center', fig.width=6, fig.height=4}
+
+data.frame(x = seq(-5, 6, length.out=100),
+           y1 = -1 + seq(-5, 6, length.out=100)) %>%
+  ggplot(aes(x = x, y = y1)) +
+  geom_line(lwd = 2.5) +
+  theme_bw() +
+  labs(x = "x", y = "Log odds") +
+  theme(text = element_text(size = 30))
+```
+]
+
+.pull-right[
+$p_i = \dfrac{e^{\beta_0 + \beta_1 \ X_i}}{1 + e^{\beta_0 + \beta_1 \ X_i}}$
+
+```{r echo=F, message=F, warning=F, fig.align='center', fig.width=6, fig.height=4}
+
+expit <- function(p){
+  return(exp(p)/(1 + exp(p)))
+}
+
+data.frame(x = seq(-5, 6, length.out=100),
+           y1 = expit(-1 + seq(-5, 6, length.out=100))) %>%
+  ggplot(aes(x = x, y = y1)) +
+  geom_line(lwd = 2.5) +
+  theme_bw() +
+  labs(x = "x", y = "P(y = 1)") +
+  theme(text = element_text(size = 30))
+```
+]
+]
+
+---
+
+### Plotting the fitted model for dengue data
+
+```{r echo=F, message=F, warning=F, fig.align='center', fig.width=7, fig.height=5}
+dengue %>%
+  ggplot(aes(x = WBC, y = Dengue)) +
+  geom_point(size=2) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"),
+              lwd = 1.2, se=F) +
+  theme_bw() +
+  theme(text = element_text(size = 20)) +
+  labs(y = "P(Dengue = 1 | WBC)")
+```
+
+---
+
+### Shape of the regression curve
+
+.large[
+How does the shape of the fitted logistic regression depend on $\beta_0$ and $\beta_1$?
+
+.pull-left[
+$p_i = \dfrac{\exp\{\beta_0 +  X_i \}}{1 + \exp\{\beta_0 + X_i \}} \hspace{0.5cm}$ for $\beta_0 = -3, -1, 1$
+
+```{r echo=F, message=F, warning=F, fig.align='center', fig.width=6, fig.height=4}
+
+expit <- function(p){
+  return(exp(p)/(1 + exp(p)))
+}
+
+data.frame(x = seq(-5, 6, length.out=100),
+           y1 = expit(-1 + seq(-5, 6, length.out=100)),
+           y2 = expit(-3 + seq(-5, 6, length.out=100)),
+           y3 = expit(1 + seq(-5, 6, length.out=100))) %>%
+  ggplot(aes(x = x, y = y1)) +
+  geom_line(lwd = 2.5) +
+  geom_line(aes(y = y2), lwd=2.5, lty = 2, color="blue") +
+  geom_line(aes(y = y3), lwd=2.5, lty = 3, color="red") +
+  theme_bw() +
+  labs(x = "x", y = "P(y = 1)") +
+  annotate("text", x = -2, y = 0.4, label="1", size=8) +
+  annotate("text", x = 0, y = 0.4, label="-1", size=9) +
+  annotate("text", x = 3.5, y = 0.4, label="-3", size=8) +
+  theme(text = element_text(size = 30))
+```
+]
+
+.pull-right[
+$p_i = \dfrac{\exp\{-1 +  \beta_1 \ X_i \}}{1 + \exp\{-1 +  \beta_1 \ X_i \}} \hspace{0.5cm}$ for $\beta_1 = 0.5, 1, 2$
+
+```{r echo=F, message=F, warning=F, fig.align='center', fig.width=6, fig.height=4}
+
+data.frame(x = seq(-5, 6, length.out=100),
+           y1 = expit(-1 + 0.5*seq(-5, 6, length.out=100)),
+           y2 = expit(-1 + seq(-5, 6, length.out=100)),
+           y3 = expit(-1 + 2*seq(-5, 6, length.out=100))) %>%
+  ggplot(aes(x = x, y = y1)) +
+  geom_line(lwd = 2.5) +
+  geom_line(aes(y = y2), lwd=2.5, lty = 2, color="blue") +
+  geom_line(aes(y = y3), lwd=2.5, lty = 3, color="red") +
+  theme_bw() +
+  labs(x = "x", y = "P(y = 1)") +
+  annotate("text", x = 3, y = 0.75, label="0.5", size=8) +
+  annotate("text", x = 1.5, y = 0.75, label="1", size=9) +
+  annotate("text", x = 0.5, y = 0.75, label="2", size=8) +
+  theme(text = element_text(size = 30))
+```
+]
+]
+
+---
+
+### Interpretation
+
+.large[
+$$Y_i \sim Bernoulli(p_i)$$
+
+$$\log \left(\dfrac{\widehat{p}_i}{1 - \widehat{p}_i}\right) = 1.737 - 0.361 \ WBC_i$$
+
+.question[
+Work in groups of 2-3 for 5 minutes on the following questions:
+
+* Are patients with a higher WBC more or less likely to have dengue?
+* What is the change in *log odds* associated with a unit increase in WBC?
+* What is the change in *odds* asociated with a unit increase in WBC?
+]
+]
+
+---
+
+### Recap: ways of fitting a *linear* regression model
+
+.large[
+$$Y_i = \beta_0 + \beta_1 X_{i, 1} + \beta_2 X_{i, 2} + \cdots + \beta_k X_{i, k} + \varepsilon_i \hspace{1.5cm} \varepsilon_i \overset{iid}{\sim} N(0, \sigma_\varepsilon^2)$$
+]
+
+.large[
+.question[
+Suppose we observe data $(X_1, Y_1), (X_2, Y_2), ..., (X_n, Y_n)$, where $X_i = (1, X_{i,1}, ..., X_{i,k})^T$.
+
+How do we fit this linear regression model? That is, how do we estimate $$\beta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_k \end{bmatrix}$$
+]
+]
+
+---
+
+### Summary: three ways of fitting linear regression models
+
+.large[
+* Minimize SSE, via derivatives of $\sum \limits_{i=1}^n (Y_i - \beta_0 - \beta_1 X_{i,1} - \cdots - \beta_k X_{i,k})^2$
+* Minimize $||Y - \widehat{Y}||$ (equivalent to minimizing SSE)
+* Maximize likelihood (for *normal* data, equivalent to minimizing SSE)
+]
+
+.large[
+.question[
+Which of these three methods, if any, is appropriate for fitting a logistic regression model? Do any changes need to be made for the logistic regression setting?
+]
+]
