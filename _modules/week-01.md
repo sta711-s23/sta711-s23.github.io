@@ -20,6 +20,7 @@ January 11
 
 January 13
 : Likelihoods, maximum likelihood estimation
+  : [Slides](https://sta711-s23.github.io/slides/lecture_3.pdf)
 
 : Casella and Berger 6.3, 7.2.2
 

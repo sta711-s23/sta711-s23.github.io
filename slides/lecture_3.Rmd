@@ -1,0 +1,111 @@
+---
+title: Maximum likelihood estimation
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: ways of fitting linear regression models
+
+.large[
+$$Y_i = \beta_0 + \beta_1 X_{i, 1} + \beta_2 X_{i, 2} + \cdots + \beta_k X_{i, k} + \varepsilon_i \hspace{1.5cm} \varepsilon_i \overset{iid}{\sim} N(0, \sigma_\varepsilon^2)$$
+
+We observe data $(X_1, Y_1), (X_2, Y_2), ..., (X_n, Y_n)$, where $X_i = (1, X_{i,1}, ..., X_{i,k})^T$. We want to estimate
+
+$$\beta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_k \end{bmatrix}$$
+]
+
+---
+
+### Summary: three ways of fitting linear regression models
+
+.large[
+* Minimize SSE, via derivatives of $\sum \limits_{i=1}^n (Y_i - \beta_0 - \beta_1 X_{i,1} - \cdots - \beta_k X_{i,k})^2$
+* Minimize $||Y - \widehat{Y}||$ (equivalent to minimizing SSE)
+* Maximize likelihood (for *normal* data, equivalent to minimizing SSE)
+]
+
+.large[
+.question[
+Which of these three methods, if any, is appropriate for fitting a logistic regression model? Do any changes need to be made for the logistic regression setting?
+]
+]
+
+---
+
+### Step back: likelihoods and estimation
+
+.large[
+Let $Y \sim Bernoulli(p)$ be a Bernoulli random variable, with $p \in [0,1]$. We observe 5 independent samples from this distribution:
+
+$$Y_1 = 1, \ Y_2 = 1, \ Y_3 = 0, \ Y_4 = 0, \ Y_5 = 1$$
+
+.question[
+The true value of $p$ is unknown, so two friends propose different guesses for the value of $p$: 0.3 and 0.7. Which do you think is a "better" guess?
+]
+]
+
+---
+
+### Likelihood
+
+.large[
+**Definition:** Let ${\bf Y} = (Y_1,...,Y_n)$ be a sample of $n$ observations, and let $f({\bf y}|\theta)$ denote the joint pdf or pmf of ${\bf Y}$, with parameter(s) $\theta$. The *likelihood function* is
+$$L(\theta | {\bf Y}) = f({\bf Y} | \theta)$$
+]
+
+---
+
+### Example: Bernoulli data
+
+---
+
+### Example: Bernoulli data
+
+.large[
+$Y_1,...,Y_5 \overset{iid}{\sim} Bernoulli(p)$, with observed data
+$$Y_1 = 1, \ Y_2 = 1, \ Y_3 = 0, \ Y_4 = 0, \ Y_5 = 1$$
+
+$L(p|{\bf Y}) = p^3(1 - p)^2$
+]
+
+```{r, echo=F, fig.align='center', fig.width=7, fig.height=5, message=F, warning=F}
+library(tidyverse)
+p <- seq(0, 1, 0.01)
+y <- p^3*(1 - p)^2
+data.frame(p, y) %>%
+  ggplot(aes(x = p, y = y)) +
+  geom_line(lwd=1.5) +
+  theme_bw() +
+  labs(x = "p", y = "L(p|Y)") +
+  theme(text = element_text(size = 20))
+```
+
+---
+
+### Maximum likelihood estimator
+
+.large[
+**Definition:** Let ${\bf Y} = (Y_1,...,Y_n)$ be a sample of $n$ observations. The *maximum likelihood estimator* (MLE) is 
+
+$$\widehat{\theta} = \ \text{argmax}_{\theta} \ L(\theta | {\bf Y})$$
+]
+
+---
+
+### Example: $Bernoulli(p)$
+
+---
+
+### Example: $N(\theta, 1)$
+
+---
+
+### Example: $Uniform(0, \theta)$
