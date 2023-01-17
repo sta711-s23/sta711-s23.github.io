@@ -1,0 +1,67 @@
+---
+title: Maximum likelihood estimation
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+### Recap: maximum likelihood estimation
+
+.large[
+**Definition:** Let ${\bf Y} = (Y_1,...,Y_n)$ be a sample of $n$ observations, and let $f({\bf y}|\theta)$ denote the joint pdf or pmf of ${\bf Y}$, with parameter(s) $\theta$. The *likelihood function* is
+$$L(\theta | {\bf Y}) = f({\bf Y} | \theta)$$
+
+**Definition:** Let ${\bf Y} = (Y_1,...,Y_n)$ be a sample of $n$ observations. The *maximum likelihood estimator* (MLE) is 
+
+$$\widehat{\theta} = \ \text{argmax}_{\theta} \ L(\theta | {\bf Y})$$
+]
+
+---
+
+### Continuing $N(\theta, 1)$ example
+
+---
+
+### Example: $Uniform(0, \theta)$
+
+.large[
+Let $Y_1,...,Y_n \overset{iid}{\sim} Uniform(0, \theta)$, where $\theta > 0$. We want the maximum likelihood estimator of $\theta$.
+
+.question[
+Discuss with your neighbors what the MLE of $\theta$ might be. *Hint: focus on finding and sketching the likelihood function* $L({\bf Y}|\theta)$
+]
+]
+
+---
+
+### Example: $N(\theta, \sigma^2)$
+
+---
+
+### Invariance of the MLE
+
+---
+
+### Maximum likelihood estimation for logistic regression
+
+.large[
+$$Y_i \sim Bernoulli(p_i)$$
+
+$$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 X_{i,1} + \cdots + \beta_k X_{i,k}$$
+
+.question[
+Suppose we observe independent samples $(X_1, Y_1),...,(X_n, Y_n)$. Write down the likelihood function
+
+$$L(\beta | {\bf X}, {\bf Y}) = \prod \limits_{i=1}^n f(Y_i| \beta, X_i)$$
+
+for the logistic regression problem.
+]
+]
