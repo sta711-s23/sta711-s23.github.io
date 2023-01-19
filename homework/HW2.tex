@@ -29,52 +29,52 @@ STA 711 Homework 2\\
 \section*{Maximum likelihood estimation}
 
 \begin{enumerate}
-\item Let $X_1,...,X_n \overset{iid}{\sim} Poisson(\lambda)$, and let $X_1^n = (X_1,...,X_n)$ denote the combined sample.
+\item Let $Y_1,...,Y_n \overset{iid}{\sim} Poisson(\lambda)$, and let ${\bf Y} = (Y_1,...,Y_n)$ denote the combined sample.
 
 \begin{enumerate}
-\item Write down the likelihood $L(\lambda | X_1^n)$.
+\item Write down the likelihood $L(\lambda |{\bf Y} )$.
 
-\item Find the maximum likelihood estimate $\widehat{\lambda}$ of $\lambda$.
+\item Find the maximum likelihood estimator $\widehat{\lambda}$ of $\lambda$.
 \end{enumerate}
 
-\item Let $X_1,...,X_n \overset{iid}{\sim} Exponential(\theta)$, so $f(x | \theta) = \theta e^{-\theta x}$.
+\item Let $Y_1,...,Y_n \overset{iid}{\sim} Exponential(\theta)$, so $f(y | \theta) = \theta e^{-\theta y}$.
 
 \begin{enumerate}
-\item Write down the likelihood $L(\theta | X_1^n)$.
+\item Write down the likelihood $L(\theta | {\bf Y})$.
 
-\item Find the maximum likelihood estimate $\widehat{\theta}$ of $\theta$.
+\item Find the maximum likelihood estimator $\widehat{\theta}$ of $\theta$.
 
-\item Show that $X_{(1)} \sim Exponential(n \theta)$.
+\item Show that $Y_{(1)} \sim Exponential(n \theta)$.
 
-\item Suppose that instead of observing $X_1,...,X_n$, we only observe the minimum $X_{(1)}$. What would be the maximum likelihood estimate of $\theta$?
+\item Suppose that instead of observing $Y_1,...,Y_n$, we only observe the minimum $Y_{(1)}$. What would be the maximum likelihood estimator of $\theta$?
 \end{enumerate}
 
-\item Let $X_1,...,X_n$ be iid from a distribution with pdf
-$$f(x|\theta) = \theta x^{-2} \mathbbm{1}\{x \geq \theta \},$$
-where $\theta > 0$. Find the maximum likelihood estimate of $\theta$.
+\item Let $Y_1,...,Y_n$ be iid from a distribution with pdf
+$$f(y|\theta) = \theta y^{-2} \mathbbm{1}\{y \geq \theta \},$$
+where $\theta > 0$. Find the maximum likelihood estimator of $\theta$.
 
-\item Let $X_1,...,X_n$ be iid with one of two pdfs. If $\theta = 0$, then
-$$f(x | \theta) = \begin{cases}
-1 & 0 < x < 1 \\
+\item Let $Y_1,...,Y_n$ be iid with one of two pdfs. If $\theta = 0$, then
+$$f(y | \theta) = \begin{cases}
+1 & 0 < y < 1 \\
 0 & \text{else}.
 \end{cases}$$
 If $\theta = 1$, then
-$$f(x | \theta) = \begin{cases}
-\dfrac{1}{2 \sqrt{x}} & 0 < x < 1 \\
+$$f(y | \theta) = \begin{cases}
+\dfrac{1}{2 \sqrt{y}} & 0 < y < 1 \\
 0 & \text{else}.
 \end{cases}$$
-Find the maximum likelihood estimate of $\theta$.
+Find the maximum likelihood estimator of $\theta$.
 
-\item Let $X$ be a single observation from a normal distribution with mean $\theta$ and variance $\theta^2$, where $\theta > 0$. Find the maximum likelihood estimate of $\theta^2$.
+\item Let $Y$ be a single observation from a normal distribution with mean $\theta$ and variance $\theta^2$, where $\theta > 0$. Find the maximum likelihood estimator of $\theta^2$.
 
-\item Let $X_1,...,X_n$ be a random sample from a distribution with pdf
-$$f(x | \mu, \sigma) = \frac{1}{\sigma} \exp \left \lbrace - \left( \dfrac{x - \mu}{\sigma} \right) \right \rbrace \mathbbm{1}\{x \geq \mu \},$$
+\item Let $Y_1,...,Y_n$ be a random sample from a distribution with pdf
+$$f(y | \mu, \sigma) = \frac{1}{\sigma} \exp \left \lbrace - \left( \dfrac{y - \mu}{\sigma} \right) \right \rbrace \mathbbm{1}\{y \geq \mu \},$$
 where $-\infty < \mu < \infty$, and $\sigma > 0$.
 
 \begin{enumerate}
-\item Find the maximum likelihood estimates of $\mu$ and $\sigma$. \textit{(Hint: find $\widehat{\mu}$ first)}
+\item Find the maximum likelihood estimators of $\mu$ and $\sigma$. \textit{(Hint: find $\widehat{\mu}$ first)}
 
-\item Let $\tau(\mu, \sigma) = \mathbb{P}_{\mu, \sigma}(X_1 \geq t)$, where $t > \mu$, and $\mathbb{P}_{\mu, \sigma}$ denotes probability when $\mu, \sigma$ are the true parameters. Find the maximum likelihood estimate of $\tau(\mu, \sigma)$.
+\item Let $\tau(\mu, \sigma) = \mathbb{P}_{\mu, \sigma}(Y_1 \geq t)$, where $t > \mu$, and $\mathbb{P}_{\mu, \sigma}$ denotes probability when $\mu, \sigma$ are the true parameters. Find the maximum likelihood estimator of $\tau(\mu, \sigma)$.
 \end{enumerate}
 \end{enumerate}
 
