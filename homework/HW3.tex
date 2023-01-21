@@ -29,27 +29,32 @@ STA 711 Homework 3\\
 \section*{Maximum likelihood estimation}
 
 \begin{enumerate}
-\item Let $X_1,...,X_n$ be an iid sample from a distribution with pdf 
-$$f(x | \lambda, \sigma) = \dfrac{\sigma^{1/\lambda}}{\lambda} \exp \left\lbrace -\left(1 + \frac{1}{\lambda}\right) \log(x) \right\rbrace \mathbbm{1}\{ x \geq \sigma \},$$
-where $\lambda, \sigma > 0$. Find the maximum likelihood estimates of $\lambda$ and $\sigma$. \textit{(Hint: find $\widehat{\sigma}$ first)}
+\item Let $Y_1,...,Y_n$ be an iid sample from a distribution with pdf 
+$$f(y | \lambda, \sigma) = \dfrac{\sigma^{1/\lambda}}{\lambda} \exp \left\lbrace -\left(1 + \frac{1}{\lambda}\right) \log(y) \right\rbrace \mathbbm{1}\{ y \geq \sigma \},$$
+where $\lambda, \sigma > 0$. Find the maximum likelihood estimators of $\lambda$ and $\sigma$. \textit{(Hint: find $\widehat{\sigma}$ first)}
 \end{enumerate}
 
 \section*{Score and information}
 
 \begin{enumerate}
-\item[2.] Let $X_1,...,X_n \overset{iid}{\sim} Poisson(\lambda)$.  Find the score function $\mathcal{U}(\lambda)$ and the Fisher information $\mathcal{I}(\lambda)$.
+\item[2.] Let $Y_1,...,Y_n \overset{iid}{\sim} Poisson(\lambda)$.
+\begin{enumerate}
+\item Find the score function $U(\lambda)$.
+\item Calculate the Fisher information $\mathcal{I}(\lambda)$ using $Var(U(\lambda))$.
+\item Calculate the Fisher information $\mathcal{I}(\lambda)$ using $-\mathbb{E}\left[ \dfrac{d^2}{d \lambda^2} \ell(\lambda | {\bf Y}) \right]$ (the required regularity conditions hold in this example).
+\end{enumerate}
 
-\item[3.] Consider a clinical trial to compare two treatments. $n_1$ subjects are given treatment 1, and $n_2$ subjects are given treatment 2. Let $X_1$ be the number of people on treatment 1 who respond favorably, and $X_2$ the number of people on treatment 2 who respond favorably. Assume that $X_1 \sim Binomial(n_1, p_1)$ and $X_2 \sim Binomial(n_2, p_2)$. The quantity of interest is the difference in the two treatments: $\psi = p_1 - p_2$.
+\item[3.] Consider a clinical trial to compare two treatments. $n_1$ subjects are given treatment 1, and $n_2$ subjects are given treatment 2. Let $Y_1$ be the number of people on treatment 1 who respond favorably, and $Y_2$ the number of people on treatment 2 who respond favorably. Assume that $Y_1 \sim Binomial(n_1, p_1)$ and $Y_2 \sim Binomial(n_2, p_2)$. The quantity of interest is the difference in the two treatments: $\psi = p_1 - p_2$.
 
 \begin{enumerate}
 \item Find the maximum likelihood estimate $\widehat{\psi}$ for $\psi$.
 
 \item Since we have \textit{two} parameters, $p_1$ and $p_2$, Fisher information is no longer a scalar. Instead, $\mathcal{I}(p_1, p_2)$ is a $2 \times 2$ matrix. By definition, the $i,j$ entry of this Fisher information matrix is
-$$[\mathcal{I}(p_1, p_2)]_{ij} = \mathbb{E} \left[ \left(\frac{\partial}{\partial p_i} \ell(p_1, p_2 | X_1^n) \right) \left(\frac{\partial}{\partial p_j} \ell(p_1, p_2 | X_1^n) \right) \right]. $$
+$$[\mathcal{I}(p_1, p_2)]_{ij} = \mathbb{E} \left[ \left(\frac{\partial}{\partial p_i} \ell(p_1, p_2 | {\bf Y}) \right) \left(\frac{\partial}{\partial p_j} \ell(p_1, p_2 | {\bf Y}) \right) \right]. $$
 Use this definition to find $\mathcal{I}(p_1, p_2)$.
 
 \item The definition in part (b) is often a clunky way to calculate Fisher information. Under appropriate regularity conditions, it can be shown that the Fisher information is also
-$$[\mathcal{I}(p_1, p_2)]_{ij} = - \mathbb{E}\left[ \frac{\partial^2}{\partial p_i \partial p_j} \ell(p_1, p_2) \right].$$
+$$[\mathcal{I}(p_1, p_2)]_{ij} = - \mathbb{E}\left[ \frac{\partial^2}{\partial p_i \partial p_j} \ell(p_1, p_2 | {\bf Y}) \right].$$
 Confirm that this second method of calculating $\mathcal{I}(p_1, p_2)$ gives the same answer as in part (b).
 
 \item A sufficient condition for the formula in part (c) is given in Lemma 7.3.11 of Casella \& Berger, which essentially requires that we can differentiate under the integral sign. Read Section 2.4 of Casella \& Berger (particularly Theorem 2.4.2), on rules for differentiating under the integral sign. Then explain why the regularity conditions hold for this problem.
@@ -62,43 +67,17 @@ In class, we learned how to use Fisher scoring to fit a logistic regression mode
 
 \begin{itemize}
 \item Start with an initial guess $\beta^{(0)}$
-\item Update the estimate: $\beta^{(r+1)} = \beta^{(r)} + \mathcal{I}^{-1}(\beta^{(r)}) \mathcal{U}(\beta^{(r)})$
+\item Update the estimate: $\beta^{(r+1)} = \beta^{(r)} + \mathcal{I}^{-1}(\beta^{(r)}) U(\beta^{(r)})$
 \item Stop when $\beta^{(r+1)} \approx \beta^{(r)}$
 \end{itemize}
 
 \noindent The purpose of these questions is to practice with Fisher scoring.\\
 
 \begin{enumerate}
-\item[4.] In class, we derived the score $\mathcal{U}(\beta)$ and the information matrix $\mathcal{I}(\beta)$ for logistic regression in the case of a \textit{single} explanatory variable. What happens when we have multiple explanatory variables?
 
-Suppose that
-\begin{align*}
-Y_i &\sim Bernoulli(p_i)\\
-\log \left( \dfrac{p_i}{1 - p_i} \right) &= \beta_0 + \beta_1 X_{i,1} + \cdots + \beta_k X_{i,k}
-\end{align*}
-We can write the systematic component more concisely as $\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta^T X_i$, where $\beta = (\beta_0, \beta_1, ..., \beta_k)^T$ and $X_i = (1, X_{i,1}, ..., X_{i,k})^T$ are $k+1$-dimensional vectors.
-
-\begin{enumerate}
-\item Show that $\mathcal{U}(\beta) = \sum \limits_{i=1}^n \left( Y_i - \dfrac{e^{\beta^T X_i}}{1 + e^{\beta^T X_i}} \right) X_i$
-\item Show that $\mathcal{I}(\beta) = \sum \limits_{i=1}^n \dfrac{e^{\beta^T X_i}}{(1 + e^{\beta^T X_i})^2} X_i X_i^T$
-\end{enumerate}
-
-\textbf{Hints:} There are a couple different ways to approach this problem. It is probably cleanest to use rules for matrix calculus; that is, what it means to take derivatives when vectors and matrices are involved. 
-
-Remember that $\mathcal{U}(\beta) = \dfrac{\partial \ell(\beta)}{\partial \beta}$ and $\mathcal{J}(\beta) = -\dfrac{\partial \mathcal{U}(\beta)}{\partial \beta}$, where $\ell(\beta)$ is the log-likelihood.
-
-Rules for matrix calculus can be found in the Matrix Cookbook \url{https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf} and in Wikipedia's article on matrix calculus \url{https://en.wikipedia.org/wiki/Matrix_calculus}. The following rules are particularly helpful:
-\begin{itemize}
-\item If $\mathbf{x}$ is a vector, $g(\mathbf{x}) \in \mathbb{R}$, and $f: \mathbb{R} \to \mathbb{R}$, then $\dfrac{\partial f(g(\mathbf{x}))}{\partial \mathbf{x}} = f'(g(\mathbf{x})) \dfrac{\partial g(\mathbf{x})}{\partial \mathbf{x}}$
-\item If $\mathbf{x}$ and $\mathbf{a}$ are both vectors, then $\dfrac{\partial \mathbf{x}^T \mathbf{a}}{\partial \mathbf{x}} = \mathbf{a}$
-\item If $\mathbf{x}$ and $\mathbf{a}$ are both vectors, and $g(\mathbf{x}) \in \mathbb{R}$, then $\dfrac{\partial g(\mathbf{x}) \mathbf{a}}{\partial \mathbf{x}} = \left( \dfrac{\partial g(\mathbf{x})}{\partial \mathbf{x}} \right) \mathbf{a}^T$
-\end{itemize}
-
-\newpage
-
-\item[5.] In this problem, we will work with the dengue data we discussed in class. A CSV containing the data can be downloaded in \texttt{R} by running
+\item[4.] In this problem, we will work with the dengue data we discussed in class. A CSV containing the data can be downloaded in \texttt{R} by running
 \begin{center}
-\texttt{dengue <- read.csv("https://sta711-s22.github.io/homework/dengue.csv")}
+\texttt{dengue <- read.csv("https://sta711-s23.github.io/homework/dengue.csv")}
 \end{center}
 
 For this problem, we are interested in modeling the relationship between platelet count and dengue fever. Let $PLT_i$ denote the platelet count of patient $i$, and $Y_i$ denote their dengue status (0 = negative, 1 = positive). Our logistic regression model is
@@ -132,7 +111,40 @@ U(c(1.8, 0))
 $$\max \{ |\beta_0^{(r+1)} - \beta_0^{(r)}|, \ |\beta_1^{(r+1)} - \beta_1^{(r)}| \} < 0.0001$$
 Does your final estimate match the estimated coefficients in (a)? How many scoring iterations did it take to converge?
 
-\item Modify your code from (e) to implement gradient ascent instead of Fisher scoring. Use a learning rate (step size) of $\gamma = 0.0000001$, begin with $\beta^{(0)} = (1.8, 0)^T$, and run for 5000 iterations (do not run until convergence!). Report the estimated coefficients after 5000 steps. Why do you think Fisher scoring performs better here than gradient ascent?
+\end{enumerate}
+
+\item[5.] One alternative to Fisher scoring is \textit{gradient ascent}, variations of which are often used to fit complicated machine learning models for which it is challenging to calculate the Hessian / Fisher information. Rather than the Fisher information, gradient ascent uses a \textit{learning rate} (or \textit{step size}) $\gamma > 0$ to update coefficient estimates. 
+
+\begin{itemize}
+\item Start with an initial guess $\beta^{(0)}$
+\item Update the estimate: $\beta^{(r+1)} = \beta^{(r)} + \gamma U(\beta^{(r)})$
+\item Stop when $\beta^{(r+1)} \approx \beta^{(r)}$
+\end{itemize}
+
+\begin{enumerate}
+\item Modify your code from 4(e) to implement gradient ascent instead of Fisher scoring. Use a learning rate (step size) of $\gamma = 0.0000001$, begin with $\beta^{(0)} = (1.8, 0)^T$, and run for 5000 iterations (do not run until convergence!). Report the estimated coefficients after 5000 steps. Why do you think Fisher scoring performs better here than gradient ascent?
+\end{enumerate}
+
+\item[6.] So far, we have applied Fisher scoring to estimate parameters in logistic regression models. How does this relate to estimation for \textit{linear} regression models?\\
+
+Consider the model
+\begin{align*}
+Y_i &\sim N(\mu_i, \sigma^2) \\
+\mu_i &= \beta^T X_i
+\end{align*}
+where $\beta = (\beta_0, \beta_1, ..., \beta_k)^T$ and $X_i = (1, X_{i,1},...,X_{i,k})^T$. Suppose we observe data $(X_1,Y_1),...,(X_n,Y_n)$, and we want to estimate $\beta$.
+
+\begin{enumerate}
+\item Write down the log likelihood function $\ell(\beta | {\bf X}, {\bf Y})$.
+
+\item Show that the score function, in matrix form, is given by
+$$U(\beta) = \frac{1}{\sigma^2} {\bf X}^T ({\bf Y} - \mu),$$
+where $\mu = {\bf X} \beta$.
+
+\item Set the score equal to 0 and solve for $\beta$ to get
+$$\widehat{\beta} = ({\bf X}^T {\bf X})^{-1} {\bf X}^T {\bf Y}$$
+
+\item 
 \end{enumerate}
 
 \end{enumerate}
