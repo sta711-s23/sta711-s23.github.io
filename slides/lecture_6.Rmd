@@ -1,0 +1,61 @@
+---
+title: Maximum likelihood estimation for logistic regression
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: Newton's method
+
+---
+
+### Example
+
+.large[
+Suppose that $\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 X_{i}$, and we have
+
+$$\beta^{(r)} = \begin{bmatrix} -3.1 \\ 0.9 \end{bmatrix}, \hspace{1cm} U(\beta^{(r)}) = \begin{bmatrix} 9.16 \\ 31.91 \end{bmatrix},$$
+$${\bf H}(\beta^{(r)}) = -\begin{bmatrix} 17.834 & 53.218 \\ 53.218 & 180.718 \end{bmatrix}$$
+
+.question[
+Use Newton's method to calculate $\beta^{(r + 1)}$ (you may use R or a calculator, you do not need to do the matrix arithmetic by hand).
+]
+]
+
+---
+
+### Newton's method for logistic regression
+
+---
+
+### Checking the solution is a unique maximum
+
+.large[
+.question[
+Newton's method finds $\beta^*$ such that $U(\beta^*) = 0$. How do we know that $\beta^*$ maximizes the likelihood?
+]
+]
+
+---
+
+### Some intuition about Hessians
+
+---
+
+### Fisher information
+
+---
+
+### Properties
+
+---
+
+### Example
+
