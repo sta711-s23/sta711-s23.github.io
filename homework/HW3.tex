@@ -144,7 +144,12 @@ where $\mu = {\bf X} \beta$.
 \item Set the score equal to 0 and solve for $\beta$ to get
 $$\widehat{\beta} = ({\bf X}^T {\bf X})^{-1} {\bf X}^T {\bf Y}$$
 
-\item 
+\item Show that the Hessian of the log likelihood, in matrix form, is given by
+$$H(\beta) = -\frac{1}{\sigma^2} {\bf X}^T {\bf X}$$
+
+\item As we can see from (c), for \textit{linear} regression we can get a closed form for $\widehat{\beta}$. But for the sake of comparison with logistic regression, let's suppose instead that we use Fisher scoring. Let $\beta^{(0)}$ be \textit{any} initial estimate of $\beta$. Show that the result from a single iteration of Fisher scoring is
+$$\beta^{(1)} = \widehat{\beta} = ({\bf X}^T {\bf X})^{-1} {\bf X}^T {\bf Y}$$
+(in other words, Fisher scoring converges in a single step).
 \end{enumerate}
 
 \end{enumerate}
