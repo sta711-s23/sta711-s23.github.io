@@ -1,0 +1,69 @@
+---
+title: Fisher information
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: Newton's method
+
+.large[
+To find $\beta^*$ such that $U(\beta^*) = 0$, when there is no closed-form solution we use Newton's method:
+
+* Begin with an initial guess $\beta^{(0)}$
+* Iteratively update: $\beta^{(r + 1)} = \beta^{(r)} - {\bf H}^{-1}(\beta^{(r)}) U(\beta^{(r)})$
+* Stop when the algorithm converges
+]
+
+---
+
+### Some intuition about Hessians
+
+.large[
+**Example:** Suppose that $\beta = (\beta_0, \beta_1)^T \in \mathbb{R}^2$, and
+$$\ell(\beta) = - \beta_0^2 - 100 \beta_1^2$$
+.question[
+Calculate the score function 
+$$U(\beta) = \begin{bmatrix}
+\frac{\partial \ell}{\partial \beta_0} \\
+\frac{\partial \ell}{\partial \beta_1}
+\end{bmatrix}$$
+
+and the Hessian
+$${\bf H}(\beta) = \begin{bmatrix}
+\frac{\partial^2 \ell}{\partial \beta_0^2} & \frac{\partial^2 \ell}{\partial \beta_0 \partial \beta_1} \\
+\frac{\partial^2 \ell}{\partial \beta_1 \partial \beta_0} & \frac{\partial^2 \ell}{\partial \beta_1^2}
+\end{bmatrix}$$
+]
+]
+
+---
+
+### Fisher information
+
+---
+
+### Example: Bernoulli sample
+
+.large[
+Suppose that $Y_1,...,Y_n \overset{iid}{\sim} Bernoulli(p_i)$.
+]
+
+---
+
+### Properties
+
+---
+
+### Example: Bernoulli sample
+
+.large[
+Suppose that $Y_1,...,Y_n \overset{iid}{\sim} Bernoulli(p_i)$.
+]

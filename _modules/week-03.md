@@ -15,7 +15,8 @@ January 23
 : Dunn and Smyth 4.8
 
 January 25
-: Fisher information and Fisher scoring
+: Fisher information
+  : [Slides](https://sta711-s23.github.io/slides/lecture_7.pdf)
 
 January 27
 : Logistic regression diagnostics
