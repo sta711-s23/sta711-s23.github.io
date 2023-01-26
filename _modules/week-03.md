@@ -19,6 +19,10 @@ January 25
   : [Slides](https://sta711-s23.github.io/slides/lecture_7.pdf)
 
 January 27
-: Logistic regression diagnostics
+: Fisher scoring
+  : [Slides](https://sta711-s23.github.io/slides/lecture_8.pdf)
 
 : **Homework 3 released**{: .label .label-yellow }
+  : [HW 3](https://sta711-s23.github.io/homework/HW3.pdf)
+
+: Dunn and Smyth 6.6, 6.7

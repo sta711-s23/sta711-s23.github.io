@@ -40,8 +40,8 @@ where $\lambda, \sigma > 0$. Find the maximum likelihood estimators of $\lambda$
 \item[2.] Let $Y_1,...,Y_n \overset{iid}{\sim} Poisson(\lambda)$.
 \begin{enumerate}
 \item Find the score function $U(\lambda)$.
-\item Calculate the Fisher information $\mathcal{I}(\lambda)$ using $Var(U(\lambda))$.
-\item Calculate the Fisher information $\mathcal{I}(\lambda)$ using $-\mathbb{E}\left[ \dfrac{d^2}{d \lambda^2} \ell(\lambda | {\bf Y}) \right]$ (the required regularity conditions hold in this example).
+\item Calculate the Fisher information $\mathcal{I}(\lambda)$ using $Var(U(\lambda) | \lambda)$.
+\item Calculate the Fisher information $\mathcal{I}(\lambda)$ using $-\mathbb{E}\left[ \dfrac{d^2}{d \lambda^2} \ell(\lambda | {\bf Y}) \ \biggr\lvert \ \lambda \right]$ (the required regularity conditions hold in this example).
 \end{enumerate}
 
 \item[3.] Consider a clinical trial to compare two treatments. $n_1$ subjects are given treatment 1, and $n_2$ subjects are given treatment 2. Let $Y_1$ be the number of people on treatment 1 who respond favorably, and $Y_2$ the number of people on treatment 2 who respond favorably. Assume that $Y_1 \sim Binomial(n_1, p_1)$ and $Y_2 \sim Binomial(n_2, p_2)$. The quantity of interest is the difference in the two treatments: $\psi = p_1 - p_2$.
@@ -49,15 +49,11 @@ where $\lambda, \sigma > 0$. Find the maximum likelihood estimators of $\lambda$
 \begin{enumerate}
 \item Find the maximum likelihood estimate $\widehat{\psi}$ for $\psi$.
 
-\item Since we have \textit{two} parameters, $p_1$ and $p_2$, Fisher information is no longer a scalar. Instead, $\mathcal{I}(p_1, p_2)$ is a $2 \times 2$ matrix. By definition, the $i,j$ entry of this Fisher information matrix is
-$$[\mathcal{I}(p_1, p_2)]_{ij} = \mathbb{E} \left[ \left(\frac{\partial}{\partial p_i} \ell(p_1, p_2 | {\bf Y}) \right) \left(\frac{\partial}{\partial p_j} \ell(p_1, p_2 | {\bf Y}) \right) \right]. $$
-Use this definition to find $\mathcal{I}(p_1, p_2)$.
-
-\item The definition in part (b) is often a clunky way to calculate Fisher information. Under appropriate regularity conditions, it can be shown that the Fisher information is also
+\item Since we have \textit{two} parameters, $p_1$ and $p_2$, Fisher information is no longer a scalar. Instead, $\mathcal{I}(p_1, p_2)$ is a $2 \times 2$ matrix. Under appropriate regularity conditions, it can be shown that the Fisher information matrix is given by
 $$[\mathcal{I}(p_1, p_2)]_{ij} = - \mathbb{E}\left[ \frac{\partial^2}{\partial p_i \partial p_j} \ell(p_1, p_2 | {\bf Y}) \right].$$
-Confirm that this second method of calculating $\mathcal{I}(p_1, p_2)$ gives the same answer as in part (b).
+Use this to calculate the Fisher information matrix $\mathcal{I}(p_1, p_2)$.
 
-\item A sufficient condition for the formula in part (c) is given in Lemma 7.3.11 of Casella \& Berger, which essentially requires that we can differentiate under the integral sign. Read Section 2.4 of Casella \& Berger (particularly Theorem 2.4.2), on rules for differentiating under the integral sign. Then explain why the regularity conditions hold for this problem.
+\item A sufficient condition for the formula in part (b) is given in Lemma 7.3.11 of Casella \& Berger, which essentially requires that we can differentiate under the integral sign. Read Section 2.4 of Casella \& Berger, on rules for differentiating under the integral sign. Then explain why the regularity conditions hold for this problem.
 \end{enumerate}
 \end{enumerate}
 
@@ -138,18 +134,57 @@ where $\beta = (\beta_0, \beta_1, ..., \beta_k)^T$ and $X_i = (1, X_{i,1},...,X_
 \item Write down the log likelihood function $\ell(\beta | {\bf X}, {\bf Y})$.
 
 \item Show that the score function, in matrix form, is given by
-$$U(\beta) = \frac{1}{\sigma^2} {\bf X}^T ({\bf Y} - \mu),$$
-where $\mu = {\bf X} \beta$.
+$$U(\beta) = \frac{1}{\sigma^2} {\bf X}^T ({\bf Y} - \bm{\mu}),$$
+where $\bm{\mu} = {\bf X} \beta$.
 
 \item Set the score equal to 0 and solve for $\beta$ to get
 $$\widehat{\beta} = ({\bf X}^T {\bf X})^{-1} {\bf X}^T {\bf Y}$$
 
 \item Show that the Hessian of the log likelihood, in matrix form, is given by
-$$H(\beta) = -\frac{1}{\sigma^2} {\bf X}^T {\bf X}$$
+$${\bf H}(\beta) = -\frac{1}{\sigma^2} {\bf X}^T {\bf X}$$
 
 \item As we can see from (c), for \textit{linear} regression we can get a closed form for $\widehat{\beta}$. But for the sake of comparison with logistic regression, let's suppose instead that we use Fisher scoring. Let $\beta^{(0)}$ be \textit{any} initial estimate of $\beta$. Show that the result from a single iteration of Fisher scoring is
 $$\beta^{(1)} = \widehat{\beta} = ({\bf X}^T {\bf X})^{-1} {\bf X}^T {\bf Y}$$
 (in other words, Fisher scoring converges in a single step).
+\end{enumerate}
+
+\end{enumerate}
+
+\section*{Sneak peek: Poisson regression}
+
+\begin{enumerate}
+\item[7.] So far, we have worked with logistic regression models for a binary response. In STA 712, we will work with other types of response variables, like a Poisson response. This question will give you a preview of Poisson regression, while giving you practice with Fisher scoring. \\
+
+Consider the Poisson regression model
+\begin{align*}
+Y_i &\sim Poisson(\lambda_i) \\
+\log(\lambda_i) &= \beta^T X_i,
+\end{align*}
+where $\beta = (\beta_0, \beta_1, ..., \beta_k)^T$ and $X_i = (1, X_{i,1},...,X_{i,k})^T$. Suppose we observe data $(X_1, Y_1),...,(X_n, Y_n)$, where $X_i = (1, X_{i,1},...,X_{i,k})^T \in \mathbb{R}^{k+1}$. (Since $\lambda > 0$ for a Poisson variable, $\log(\lambda) \in (-\infty, \infty)$, which makes it reasonable for $\log(\lambda_i)$ to be a linear function of the $X$s).
+
+\begin{enumerate}
+\item Show that the score function is
+\begin{align*}
+U(\beta) = \mathbf{X}^T({\bf Y} - \bm{\lambda}),
+\end{align*}
+where $\bm{\lambda} = (\lambda_1,...,\lambda_n)^T$.
+
+\item Let ${\bf W} = \text{diag}(\lambda_1,...,\lambda_n)$, where $\lambda_i = \exp\{ \bm{\beta}^T X_i \}$. By calculating the variance of $U(\beta)$, show that the Fisher information is
+\begin{align*}
+\mathcal{I}(\beta) = {\bf X}^T {\bf W} {\bf X}.
+\end{align*}
+
+\item In R, simulate $n = 500$ observations $(X_1, Y_1),...,(X_n, Y_n)$. Draw $X_{i,1} \overset{iid}{\sim} N(0, 1)$, and $Y_i \sim Poisson(\lambda_i)$, where $\log(\lambda_i) = -2 + 2 X_{i,1}$. 
+
+\item Using your simulated data from part (c), fit a Poisson regression model of $Y$ on $X$, and report the fitted model coefficients. To fit a Poisson regression model in R: 
+
+\begin{verbatim}
+glm(y ~ x, family = poisson)
+\end{verbatim}
+
+\item Modify your code from question 4 to implement Fisher scoring for Poisson regression with the simulated data. Begin with $\beta^{(0)} = (0, 0)^T$, and stop when
+$$\max \{ |\beta_0^{(r+1)} - \beta_0^{(r)}|, \ |\beta_1^{(r+1)} - \beta_1^{(r)}| \} < 0.0001$$
+Does your final estimate match the estimated coefficients in (d)? How many scoring iterations did it take to converge?
 \end{enumerate}
 
 \end{enumerate}

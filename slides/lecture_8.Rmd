@@ -1,0 +1,49 @@
+---
+title: Fisher scoring
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: Fisher information
+
+---
+
+### Properties
+
+.large[
+**Theorem:** Under appropriate regularity conditions,
+$$\mathbb{E}[U(\theta) \ | \ \theta] = 0$$
+]
+
+---
+
+### Properties
+
+.large[
+**Theorem:** Under appropriate regularity conditions,
+$$\mathcal{I}(\theta) = - \mathbb{E}\left[ \frac{\partial^2}{\partial \theta^2} \ell(\theta | {\bf Y}) \ \biggr\lvert \ \theta \right]$$
+]
+
+---
+
+### Fisher information vs. Hessian
+
+---
+
+### Fisher scoring
+
+---
+
+### IRLS for logistic regression
+
+---
+
+### A preview of Fisher information properties
