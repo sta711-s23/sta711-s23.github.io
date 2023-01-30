@@ -12,6 +12,9 @@ In this class activity, we will explore quantile residuals as a diagnostic tool 
 Here is some code to simulate data for which the logistic regression model assumptions hold:
 
 ```r
+library(tidyverse)
+library(statmod)
+
 # simulate a single explanatory variable from a Normal distribution
 x <- rnorm(1000)
 
