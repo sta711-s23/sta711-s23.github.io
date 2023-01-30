@@ -1,0 +1,39 @@
+---
+title: "Class Activity, January 30"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+In this class activity, we will explore quantile residuals as a diagnostic tool for logistic regression. Quantile residuals can be calculated for a fitted GLM in R using the `qresid()` function in the `statmod` package (you may need to install this package).
+
+Here is some code to simulate data for which the logistic regression model assumptions hold:
+
+```r
+# simulate a single explanatory variable from a Normal distribution
+x <- rnorm(1000)
+
+# create P(Y = 1 | X) for each entry in x
+# Here log odds = -1 + 2x
+p <- exp(-1 + 2*x)/(1 + exp(-1 + 2*x))
+
+# Finally, simulate a binary response at each x
+y <- rbinom(1000, 1, p)
+
+# fit the model and plot the quantile residuals against x
+# add a smooth fit to see if there is a relationship
+m1 <- glm(y ~ x, family = binomial)
+data.frame(x = x, residuals = qresid(m1)) %>%
+  ggplot(aes(x = x, y = residuals)) +
+  geom_point() +
+  geom_smooth() +
+  theme_bw()
+```
+
+## Questions
+
+1. Run the code above to simulate data, fit the model, and generate the quantile residual plot. Confirm that when the logistic regression assumptions are satisfied, the quantile residual plot looks good.
+
+2. Modify the simulation code above so that the log odds are *not* a linear function of $X$. Fit the same logistic regression model as above (`y ~ x`, which is now wrong) and make a quantile residual plot. Does the plot show that the assumptions are violated?
