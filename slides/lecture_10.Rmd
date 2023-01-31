@@ -1,0 +1,62 @@
+---
+title: Logistic regression assumptions and diagnostics
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Don't use usual residuals for logistic regression
+
+.large[
+Fitted model: $\log \left(\dfrac{\widehat{p}_i}{1 - \widehat{p}_i}\right) = 1.737 - 0.361 \ WBC_i$
+]
+
+.large[
+Residuals $Y_i - \widehat{p}_i$:
+]
+
+```{r echo=F, message=F, fig.width=7, fig.height = 5, fig.align='center'}
+library(tidyverse)
+dengue <- read.csv("https://sta279-s22.github.io/labs/dengue.csv")
+
+m1 <- glm(Dengue ~ WBC, data = dengue, family = binomial)
+data.frame(WBC = dengue$WBC,
+           Residual = dengue$Dengue - m1$fitted.values) %>%
+  ggplot(aes(x = WBC, y = Residual)) +
+  geom_point(size=1.5) +
+  geom_abline(slope = 0, intercept = 0, color="blue", lwd=1.2) +
+  theme_bw() +
+  theme(text = element_text(size = 20))
+```
+
+---
+
+### Quantile residuals for logistic regression
+
+---
+
+### Class activity, Part I
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_10.html](https://sta711-s23.github.io/class_activities/ca_lecture_10.html)
+]
+
+---
+
+### Leverage and Cook's distance 
+
+---
+
+### Class activity, Part II
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_10.html](https://sta711-s23.github.io/class_activities/ca_lecture_10.html)
+]
+
