@@ -16,5 +16,7 @@ February 1
 
 February 3
 : Multicollinearity and variance inflation factors
+  : [Slides](https://sta711-s23.github.io/slides/lecture_11.pdf), [Class activity](https://sta711-s23.github.io/class_activities/ca_lecture_11.html)
 
 : **Homework 4 released**{: .label .label-yellow }
+  : [HW 4](https://sta711-s23.github.io/homework/HW4.pdf)

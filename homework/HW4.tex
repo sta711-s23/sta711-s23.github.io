@@ -1,0 +1,151 @@
+\documentclass[11pt]{article}
+\usepackage{url}
+\usepackage{alltt}
+\usepackage{bm}
+\usepackage{bbm}
+\linespread{1}
+\textwidth 6.5in
+\oddsidemargin 0.in
+\addtolength{\topmargin}{-1in}
+\addtolength{\textheight}{2in}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+
+\begin{center}
+\Large
+STA 711 Homework 4\\
+\normalsize
+\vspace{5mm}
+\end{center}
+
+\noindent \textbf{Due:} Friday, February 10, 12:00pm (noon) on Canvas.\\ 
+
+\noindent \textbf{Instructions:} Submit your work as a single PDF. For this assignment, you may include written work by scanning it and incorporating it into the PDF. Include all R code needed to reproduce your results in your submission.
+
+\section*{(Randomized) quantile residuals}
+
+\begin{enumerate}
+\item[1.] In class, we talked about (randomized) quantile residuals as a method of assessing the shape assumption in logistic regression. To formally define quantile residuals, we will follow Dunn and Smyth (Section 8.3.4.2).\\
+
+Suppose we have a logistic regression model:
+\begin{align*}
+Y_i & \sim Bernoulli(p_i) \\
+\log \left( \dfrac{p_i}{1 - p_i} \right) &= \beta_0 + \beta_1 X_{i,1} + \cdots + \beta_k X_{i,k}.
+\end{align*}
+We observe data $(X_1, Y_1), ..., (X_n, Y_n)$ and fit the model, producing coefficient estimates $\widehat{\beta}$ which give estimated probabilities $\widehat{p}_i$. The \textit{(randomized) quantile residual} $r_{Q,i}$ for the $i$th observation is defined by
+\begin{align*}
+r_{Q, i} = \Phi^{-1}(u), \hspace{1cm} u \sim \begin{cases}
+Uniform(1 - \widehat{p}_i, 1) & Y_i = 1 \\
+Uniform(0, 1 - \widehat{p}_i) & Y_i = 0,
+\end{cases}
+\end{align*}
+where $\Phi$ is the standard normal CDF.
+
+\begin{enumerate}
+\item Show that if $\widehat{p}_i = p_i$ (our estimated probability is correct), then $r_{Q,i} \sim N(0, 1)$. \textit{Hint: treat the response $Y_i$ as a random variable, and note that $Y_i \sim Bernoulli(\widehat{p}_i)$ if $p_i = \widehat{p}_i$.}
+
+\item Show that $\mathbb{E}[r_{Q,i}] > 0$ when $\widehat{p}_i < p_i$, and $\mathbb{E}[r_{Q,i}] < 0$ when $\widehat{p}_i > p_i$.
+
+\item Write your own function in R to compute randomized quantile residuals for a binary logistic regression model. (Your function may not call the \texttt{qresid} function from the \texttt{statmod} package).
+
+\item Generate data for which the logistic regression shape assumption is satisfied. Then create a quantile residual plot using your R function, and show that the residuals $r_{Q,i}$ are randomly scattered around the horizontal line at 0.
+
+\item Generate data for which the logistic regression shape assumption is \textit{not} satisfied. Then create a quantile residual plot using your R function, and show that the plot shows a violation of the shape assumption.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Looking ahead: multivariate normal distributions}
+
+\noindent The multivariate normal distribution will appear frequently in 711, for example as the asymptotic distribution of our coefficient estimates $\widehat{\beta}$. The purpose of this section is to derive a basic property of the multivariate normal distribution that we use regularly, for example in constructing our Wald test statistic.\\
+
+
+\noindent One way to define a multivariate normal distribution is with its \textit{moment generating function} (MGF).  Let $X \in \mathbb{R}^k$ be a random vector. The (multivariate) moment generating function $M_X(t)$ of $X$ is defined by
+$$M_X(t) = \mathbb{E}[e^{t^T X}],$$
+where $t \in \mathbb{R}^k$. As with univariate MGFs, if $M_X(t) = M_Y(t)$ for all $t$, then the two random variables $X$ and $Y$ have the same distribution.\\
+
+\noindent We say that the random vector $X \in \mathbb{R}^k$ follows a multivariate normal distribution with mean $\mu \in \mathbb{R}^k$ and variance matrix $\Sigma \in \mathbb{R}^{k \times k}$, and write $X \sim N(\mu, \Sigma)$, if 
+$$M_X(t) = e^{t^T \mu} e^{\frac{1}{2} t^T \Sigma t}.$$
+
+\begin{enumerate}
+\item[2.] An important property of multivariate normal random variables is that if $X \sim N(\mu, \Sigma)$, then
+$$\bm{a} + \bm{B} X \sim N(\bm{a} + \bm{B} \mu, \bm{B} \Sigma \bm{B}^T),$$
+where $\bm{a} \in \mathbb{R}^m$ and $\bm{B} \in \mathbb{R}^{m \times k}$. Our goal is to use MGFs to prove this property.
+
+\begin{enumerate}
+\item Show that for any random vector $X$ in $\mathbb{R}^k$, the MGF of $Y = \bm{a} + \bm{B} X$ is given by
+$$M_Y(t) = e^{t^T \bm{a}} M_X(\bm{B}^T t).$$
+
+\item Using (a), show that if $X \sim N(\mu, \Sigma)$, then $\bm{a} + \bm{B} X \sim N(\bm{a} + \bm{B} \mu, \bm{B} \Sigma \bm{B}^T)$.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Data analysis}
+
+Here we work with data from a website called ScienceForums.Net (SFN), which has been open since 2002 and hosts conversations on a range of topics from biological and physical science to religion and philosophy. Each row in the data represents one ‘thread’, which is comprised of a series of posts stemming from an initial post. For each thread, we have some information that SFN collects such as the number of views and the number of authors. The threads present in the data are a random sample of threads from 2002-2014, with the data collected in 2014. SFN moderators are interested in using this data to determine which threads warrant the most attention.\\
+
+\noindent You can load the SFN data into R by
+
+\begin{verbatim}
+sfn <- read.csv("https://sta711-s23.github.io/homework/sfn.csv")
+\end{verbatim}
+
+\noindent The sfn dataset contains the following columns:
+
+\begin{itemize}
+\item Age: the age of the thread (in days) when the data was collected in 2014, measured from the first post in the thread
+\item State: sometimes moderators close threads if they are inappropriate. closed indicates the thread has been closed, otherwise State is open
+\item Posts: the number of posts in the thread
+\item Views: the total number of views of the thread
+\item Duration: the number of days between the first and last posts in the thread
+\item Authors: the number of distinct authors posting in the thread
+\item AuthorExperience: the number of days the author of the first post in the thread had been registered on SFN when the thread began (0 indicates they registered that day)
+\item DeletedPosts: the number of posts in the thread that have been deleted by a moderator
+\item Forum: the forum in which the thread was posted (e.g., Science)
+\item AuthorBanned: whether the original author of the thread is currently banned from posting on SFN (at the time of data collection, not when the thread was first posted)
+\end{itemize}
+
+\noindent \textbf{Research question:} Suppose you have been approached by moderators at SFN. They give you the data, and ask the following question:
+\begin{itemize}
+\item Is there a relationship between the number of Posts in a thread and whether a thread will have \textit{at least one} deleted post, after accounting for the number of Views, the number of Authors, and the Forum?
+\end{itemize}
+
+\begin{enumerate}
+\item[3.] Here you will use logistic regression to answer the moderators' question.
+
+\begin{enumerate}
+\item Which variables should we focus on to answer the moderators' question? Which of these is our response variable, and which will be our explanatory variables, for logistic regression?
+\item Perform univariate exploratory data analysis (EDA) for your selected variables in (a): 
+\begin{itemize}
+\item For categorical variables, present a table showing the number of observations in each category
+\item For quantitative variables, present a histogram and summarize the distribution of the variable (give summary statistics and describe center, shape, spread, and any potential outliers)
+\item Discuss whether there are any missing or erroneous values in the data, and if so how you will handle them
+\end{itemize}
+\item Perform multivariate EDA for your selected variables in (a):
+\begin{itemize}
+\item Create empirical logit plots to summarize the relationship between quantitative predictors and your binary response. Details on creating empirical logit plots, with examples, can be found at\\ \url{https://sta711-s23.github.io/homework/empirical_logits.html}
+\item Using the empirical logit plots, discuss whether any transformations are needed on the explanatory variables.
+\item Use a correlation matrix to summarize pairwise relationships between the quantitative explanatory variables. Should we be concerned with potential multicollinearity?
+\end{itemize}
+\item Based on your exploratory data analysis, write down a logistic regression model that will allow you to answer the moderators' question. Describe how you will use the model to answer their question.
+\item Fit your model from (d), and report the equation of the fitted model. Interpret any estimated coefficients which address the moderators' question.
+\item Assess your model assumptions:
+\begin{itemize}
+\item Create quantile residual plots to check the shape assumption for quantitative variables (you may use the \texttt{qresid} function in the \texttt{statmod} package)
+\item Calculate Cook's distance to check for any influential points (use a threshold of 0.5 or 1 to identify influential points)
+\item Calculate variance inflation factors to check for multicollinearity (see the \texttt{vif} function in the \texttt{car} package, and use a threshold of 5 or 10 to identify high multicollinearity). 
+\end{itemize}
+\item Address any violations to the model assumptions (transformations for shape violations; report results with and without influential points; and combine or remove columns for high multicollinearity). If you made any changes to your model from (e), report and interpret your new fitted model here.
+\item Carry out a hypothesis test to investigate the moderators' question. You should:
+\begin{itemize}
+\item State the null and alternative hypotheses in terms of one or more $\beta$s
+\item Calculate a test statistic and p-value
+\item Make a conclusion in the context of the original question
+\end{itemize}
+\end{enumerate} 
+\end{enumerate}
+
+\end{document}
