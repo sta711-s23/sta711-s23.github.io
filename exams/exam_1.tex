@@ -1,0 +1,133 @@
+\documentclass[11pt]{article}
+\usepackage{url}
+\usepackage{alltt}
+\usepackage{bm}
+\usepackage{bbm}
+\linespread{1}
+\textwidth 6.5in
+\oddsidemargin 0.in
+\addtolength{\topmargin}{-1in}
+\addtolength{\textheight}{2in}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+
+\begin{center}
+\Large
+STA 711 Exam 1\\
+\normalsize
+\vspace{5mm}
+\end{center}
+
+\noindent \textbf{Due:} Friday, February 17, 12:00pm (noon) on Canvas.\\ 
+
+\noindent \textbf{Instructions:} Submit your work as a single PDF. For this assignment, you may include written work by scanning it and incorporating it into the PDF. Include all R code needed to reproduce your results in your submission.\\
+
+\noindent \textbf{Rules:} This is a closed-book, closed-notes exam. You may:
+\begin{itemize}
+\item Email me, or come to office hours, with specific questions (I may be somewhat less helpful than for regular assignments)
+\item Use the internet for general R help and debugging
+\item Use R for question 7
+\end{itemize}
+You may \textit{not}:
+\begin{itemize}
+\item Use any resources from the course (the textbook, the course website, class notes, previous assignments, etc.)
+\item Use the internet to look up any questions on the exam
+\item Discuss the exam with anyone else
+\end{itemize}
+
+\newpage
+
+\section*{Maximum likelihood and Fisher information}
+
+\begin{enumerate}
+\item Let $Y_1,...,Y_n \overset{iid}{\sim} Uniform(a, b)$, where $a$ and $b$ are unknown and $a < b$. Recall that a uniform distribution has pdf
+\begin{align*}
+f(y|a,b) = \begin{cases}
+\frac{1}{b - a} & a \leq y \leq b \\
+0 & \text{else}
+\end{cases}
+\end{align*}
+\begin{enumerate}
+\item Find the maximum likelihood estimators $\widehat{a}$ and $\widehat{b}$.
+\item Let $\tau = \mathbb{E}[Y_1]$. Find the MLE $\widehat{\tau}$.
+\end{enumerate}
+
+\item Let $Y_1,...,Y_n$ be iid from a distribution with pdf
+$$f(y|\lambda) = \frac{2}{\lambda \sqrt{2 \pi}} e^y \exp \left\lbrace \frac{-(e^y - 1)^2}{2\lambda^2} \right\rbrace,$$
+where $y > 0$ and $\lambda > 0$. Find the MLE of $\lambda$.
+
+\item Let $Y_1,...,Y_n$ be an iid sample from a continuous distribution with pdf 
+$$f(y|\theta) = \frac{1}{2} \exp\{-|y - \theta|\},$$
+where $-\infty < y < \infty$ and $-\infty < \theta < \infty$. Find the maximum likelihood estimator of $\theta$. \textit{Hints:}
+\begin{itemize}
+\item Avoid calculus
+\item Work with order statistics, and consider $Y_{(j)} \leq \theta \leq Y_{(j+1)}$
+\item Separate cases for when $n$ is odd vs. even
+\end{itemize}
+
+\item Let $Y_1,...,Y_n \overset{iid}{\sim} N(\mu, \sigma^2)$. Recall that the normal distribution has pdf
+$$f(y|\mu, \sigma^2) = \dfrac{1}{\sigma \sqrt{2 \pi}} \exp \left\lbrace -\frac{1}{2\sigma^2}(y - \mu)^2 \right\rbrace,$$
+where $y \in (-\infty, \infty)$, $\mu \in (-\infty, \infty)$, and $\sigma^2 > 0$. Find the Fisher information matrix $\mathcal{I}(\mu, \sigma)$. (You may assume that desired regularity conditions hold for the normal distribution).
+
+\end{enumerate}
+
+\newpage
+
+\section*{Zero-truncated Poisson}
+
+Suppose that the Deacon OneCard Office is tired of Wake Forest students losing their ID card and having to get a replacement. The office posits a relationship between the number of credits a student has completed at the university, and the number of ID cards the student has been issued (all students have been issued at least one ID card).\\
+
+\noindent The \textit{number of ID cards} a student has been issued is a \textit{count} variable (i.e., it takes integer values). A popular choice for modeling a count variable is the Poisson distribution. However, the Poisson distribution takes values 0, 1, 2, ... etc., whereas we know every student has been issued at least one ID card. So, the Poisson distribution is not appropriate for modeling the number of ID cards issued.\\
+
+\noindent One strategy for dealing with a count variable which cannot be 0 is to use a \textit{zero-truncated Poisson}, also called a \textit{positive Poisson}.
+
+\begin{enumerate}
+\item[5.] Formally, we say that $Y$ follows a positive Poisson distribution with parameter $\lambda$, and write $Y \sim PosPoisson(\lambda)$, if
+$$P(Y = y) = P(V = y | V > 0), \hspace{1cm} y = 1, 2, 3, ...$$
+where $V \sim Poisson(\lambda)$ and $\lambda > 0$.
+\begin{enumerate}
+\item Show that if $Y \sim PosPoisson(\lambda)$, then the pmf of $Y$ is given by
+$$f(y|\lambda) = \frac{\lambda^y e^{-\lambda}}{y! (1 - e^{-\lambda})}$$
+Recall that if $V \sim Poisson(\lambda)$, then $P(V = v) = \dfrac{\lambda^v e^{-\lambda}}{v!}$
+
+\item Show that if $Y \sim PosPoisson(\lambda)$, then
+$$\mathbb{E}[Y] = \frac{\lambda}{1 - e^{-\lambda}}$$
+and
+$$Var(Y) = \frac{\lambda + \lambda^2}{1 - e^{-\lambda}} - \frac{\lambda^2}{(1 - e^{-\lambda})^2}$$
+\end{enumerate}
+
+\item[6.] The Deacon OneCard Office wants to model the relationship between the number of credits a student has completed, and the number of ID cards they have been issued. They propose the following model:
+\begin{align*}
+Cards_i \sim PosPoisson(\lambda_i) \\
+\log(\lambda_i) = \beta^T X_i,
+\end{align*}
+where $\beta = (\beta_0, \beta_1,...,\beta_k)^T \in \mathbb{R}^{k+1}$ is a vector of regression coefficients, and $X_i = (1, X_{i,1},...,X_{i,k})^T \in \mathbb{R}^{k+1}$ is a vector of explanatory variables for the $i$th student in the data. We observe data $(X_1, Y_1),...,(X_n, Y_n)$, and want to estimate $\beta$.
+
+\begin{enumerate}
+\item Derive a matrix form for the score function $U(\beta)$.
+
+\item Derive a matrix form for the Fisher information $\mathcal{I}(\beta)$. You may assume that desired regularity conditions hold.
+\end{enumerate}
+
+\item[7.] We observe data on a sample of 1000 Wake students, and record the number of ID cards they have been issued and the number of credits they have completed. The model is therefore 
+
+\begin{align*}
+Cards_i \sim PosPoisson(\lambda_i) \\
+\log(\lambda_i) = \beta_0 + \beta_1 Credits_i,
+\end{align*}
+
+You can load the data into R by (TODO). 
+
+\begin{enumerate}
+\item In R, write functions \verb;U; and \verb;I; to calculate $U(\beta)$ and $\mathcal{I}(\beta)$ using the observed data.
+
+\item Use your functions to estimate $\beta$ using Fisher information with the observed. Iterate the Fisher scoring algorithm until convergence, beginning with $\beta^{(0)} = (1.8, 0)^T$. For the purpose of this question, stop when 
+$$\max \{ |\beta_0^{(r+1)} - \beta_0^{(r)}|, \ |\beta_1^{(r+1)} - \beta_1^{(r)}| \} < 0.0001$$
+\end{enumerate}
+\end{enumerate}
+
+\end{document}

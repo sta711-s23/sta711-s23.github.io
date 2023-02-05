@@ -1,0 +1,21 @@
+---
+title: Probability inequalities and asymptotics
+---
+
+February 6
+: Probability inequalities
+  : [Slides](https://sta711-s23.github.io/slides/lecture_12.pdf)
+      
+: Casella and Berger 3.6, 3.8.2, 4.7
+
+February 8
+: Convergence of random variables
+
+: Casella and Berger 5.5
+
+February 10
+: Convergence of random variables
+
+: Casella and Berger 5.5
+
+: **Exam 1 released**{: .label .label-yellow }

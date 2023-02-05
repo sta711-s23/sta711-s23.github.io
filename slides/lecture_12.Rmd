@@ -1,0 +1,122 @@
+---
+title: Inequalities and Asymptotics
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+### Wald tests for single parameters
+
+.large[
+Logistic regression model for the dengue data:
+
+$$Y_i \sim Bernoulli(p_i)$$
+]
+
+.large[
+$$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 WBC_i + \beta_2 PLT_i$$
+
+.question[
+Researchers want to know if there is a relationship between white blood cell count and the probability a patient has dengue, after accounting for platelet count. What hypotheses should the researchers test?
+]
+]
+
+---
+
+### Wald tests for single parameters
+
+```{r include=F}
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(more, x[lines], more)
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+
+dengue <- read.csv("https://sta712-f22.github.io/homework/dengue.csv")
+```
+
+.large[
+```{r, output.lines = 10:14}
+m1 <- glm(Dengue ~ WBC + PLT, data = dengue, 
+          family = binomial)
+summary(m1)
+```
+]
+
+---
+
+### What this requires
+
+---
+
+### What we need to do
+
+---
+
+### Markov's inequality
+
+.large[
+**Theorem:** Let $Y$ be a non-negative random variable, and suppose that $\mathbb{E}[Y]$ exists. Then for any $t > 0$,
+$$P(Y > t) \leq \frac{\mathbb{E}[Y]}{t}$$
+]
+
+---
+
+### Chebyshev's inequality
+
+.large[
+**Theorem:** Let $Y$ be a random variable, and let $\mu = \mathbb{E}[Y]$ and $\sigma^2 = Var(Y)$. Then
+$$P(|Y - \mu| \geq t) \leq \frac{\sigma^2}{t^2}$$
+
+.question[
+With your neighbor, apply Markov's inequality to prove Chebyshev's inequality.
+]
+]
+
+---
+
+### Cauchy-Schwarz inequality
+
+.large[
+**Theorem:** For any two random variables $X$ and $Y$,
+$$|\mathbb{E}[XY]| \leq \mathbb{E}|XY| \leq (\mathbb{E}[X^2])^{1/2}(\mathbb{E}[Y^2])^{1/2}$$
+
+.question[
+**Example:** The *correlation* between $X$ and $Y$ is defined by
+$$\rho(X, Y) = \dfrac{Cov(X, Y)}{\sqrt{Var(X)} \sqrt{Var(Y)}}$$
+Working with a neighbor, use the Cauchy-Schwarz inequality to prove that $-1 \leq \rho(X, Y) \leq 1$.
+]
+]
+
+---
+
+### Jensen's inequality
+
+.large[
+**Theorem:** For any random variable $Y$, if $g$ is a convex function, then
+$$\mathbb{E}[g(Y)] \geq g(\mathbb{E}[Y])$$
+]
