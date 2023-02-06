@@ -1,0 +1,95 @@
+---
+title: Convergence of random variables
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Where we're heading
+
+---
+
+### Convergence in probability
+
+.large[
+**Definition:** A sequence of random variables $X_1, X_2,...$ *converges in probability* to a random variable $X$ if, for every $\varepsilon > 0$,
+$$\lim \limits_{n \to \infty} P(|X_n - X| \geq \varepsilon) = 0$$
+We write $X_n \overset{p}{\to} X$.
+
+**Example:** (Weak law of large numbers) 
+]
+
+---
+
+### WLLN
+
+.large[
+**Theorem:** Let $X_1, X_2, ...$ be iid random variables with $\mathbb{E}[X_i] = \mu$ and $Var(X_i) = \sigma^2 < \infty$. Then
+$$\overline{X}_n \overset{p}{\to} \mu$$
+
+.question[
+Working with your neighbor, apply Chebyshev's inequality to prove the WLLN.
+]
+]
+
+---
+
+### Another example
+
+.large[
+Let $U \sim Uniform(0, 1)$, and let $X_n = \sqrt{n} \ \mathbb{I} \{U \leq 1/n \}$.
+
+.question[
+Show that $X_n \overset{p}{\to} 0$.
+]
+]
+
+---
+
+### Almost sure convergence
+
+.large[
+**Definition:** A sequence of random variables $X_1, X_2,...$ *converges almost surely* to a random variable $X$ if, for every $\varepsilon > 0$,
+$$P( \lim \limits_{n \to \infty} |X_n - X| < \varepsilon) = 1$$
+We write $X_n \overset{a.s.}{\to} X$.
+
+**Example:** (Strong law of large numbers) 
+]
+
+---
+
+### Convergence in distribution
+
+.large[
+**Definition:** A sequence of random variables $X_1, X_2,...$ *converges in distribution* to a random variable $X$ if
+
+$$\lim \limits_{n \to \infty} F_{X_n}(x) = F_X(x)$$
+at all points where $F_X(x)$ is continuous. We write $X_n \overset{d}{\to} X$.
+
+**Example:** (Central limit theorem) 
+]
+
+---
+
+### Another example
+
+.large[
+Let $X \sim N(0, 1)$, and let $X_n = -X$ for $n = 1, 2, 3, ...$. 
+
+.question[
+Show that $X_n \overset{d}{\to} X$, but $X_n$ does *not* converge to $X$ in probability.
+]
+]
+
+
+---
+
+### Relationships between types of convergence
+
