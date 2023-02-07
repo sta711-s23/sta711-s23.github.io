@@ -39,6 +39,8 @@ You may \textit{not}:
 \item Discuss the exam with anyone else
 \end{itemize}
 
+\noindent \textbf{Mastery:} There are 7 questions on this exam. To receive credit for this exam, you must master at least 6 of the 7 questions.
+
 \newpage
 
 \section*{Maximum likelihood and Fisher information}
@@ -102,10 +104,10 @@ $$Var(Y) = \frac{\lambda + \lambda^2}{1 - e^{-\lambda}} - \frac{\lambda^2}{(1 - 
 
 \item[6.] The Deacon OneCard Office wants to model the relationship between the number of credits a student has completed, and the number of ID cards they have been issued. They propose the following model:
 \begin{align*}
-Cards_i \sim PosPoisson(\lambda_i) \\
-\log(\lambda_i) = \beta^T X_i,
+Cards_i &\sim PosPoisson(\lambda_i) \\
+\log(\lambda_i) &= \beta^T X_i,
 \end{align*}
-where $\beta = (\beta_0, \beta_1,...,\beta_k)^T \in \mathbb{R}^{k+1}$ is a vector of regression coefficients, and $X_i = (1, X_{i,1},...,X_{i,k})^T \in \mathbb{R}^{k+1}$ is a vector of explanatory variables for the $i$th student in the data. We observe data $(X_1, Y_1),...,(X_n, Y_n)$, and want to estimate $\beta$.
+where $\beta = (\beta_0, \beta_1,...,\beta_k)^T \in \mathbb{R}^{k+1}$ is a vector of regression coefficients, and $X_i = (1, X_{i,1},...,X_{i,k})^T \in \mathbb{R}^{k+1}$ is a vector of explanatory variables for the $i$th student in the data. We observe $n$ independent observations $(X_1, Y_1),...,(X_n, Y_n)$, and want to estimate $\beta$.
 
 \begin{enumerate}
 \item Derive a matrix form for the score function $U(\beta)$.
@@ -125,7 +127,7 @@ You can load the data into R by (TODO).
 \begin{enumerate}
 \item In R, write functions \verb;U; and \verb;I; to calculate $U(\beta)$ and $\mathcal{I}(\beta)$ using the observed data.
 
-\item Use your functions to estimate $\beta$ using Fisher information with the observed. Iterate the Fisher scoring algorithm until convergence, beginning with $\beta^{(0)} = (1.8, 0)^T$. For the purpose of this question, stop when 
+\item Use your functions to estimate $\beta$ using Fisher scoring with the observed data. Iterate the Fisher scoring algorithm until convergence, beginning with $\beta^{(0)} = (1.8, 0)^T$. For the purpose of this question, stop when 
 $$\max \{ |\beta_0^{(r+1)} - \beta_0^{(r)}|, \ |\beta_1^{(r+1)} - \beta_1^{(r)}| \} < 0.0001$$
 \end{enumerate}
 \end{enumerate}
