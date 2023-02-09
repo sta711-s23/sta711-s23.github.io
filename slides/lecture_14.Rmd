@@ -1,0 +1,47 @@
+---
+title: Convergence of random variables
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Warm-up
+
+.large[
+Suppose that $X_1, X_2,... \overset{iid}{\sim} Uniform(0, 1)$. Let $X_{(n)} = \max\{X_1,...,X_n\}$.
+
+.question[
+Working with a neighbor, argue that $X_{(n)} \overset{p}{\to} 1$.
+]
+]
+
+---
+
+### Warm-up
+
+.large[
+Suppose that $X_1, X_2,... \overset{iid}{\sim} Uniform(0, 1)$. Let $X_{(n)} = \max\{X_1,...,X_n\}$.
+
+.question[
+Show that $n(1 - X_{(n)}) \overset{d}{\to} Y$, where $Y \sim Exp(1)$.
+]
+]
+
+---
+
+### Relationships between types of convergence
+
+---
+
+### Continuous mapping theorem
+
+---
+
+### Slutsky's theorem
