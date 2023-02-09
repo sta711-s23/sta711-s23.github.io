@@ -122,12 +122,16 @@ Cards_i \sim PosPoisson(\lambda_i) \\
 \log(\lambda_i) = \beta_0 + \beta_1 Credits_i,
 \end{align*}
 
-You can load the data into R by (TODO). 
+You can load the data into R by
+
+\begin{verbatim}
+deacon_cards <- read.csv("https://sta711-s23.github.io/exams/deacon_cards.csv")
+\end{verbatim} 
 
 \begin{enumerate}
 \item In R, write functions \verb;U; and \verb;I; to calculate $U(\beta)$ and $\mathcal{I}(\beta)$ using the observed data.
 
-\item Use your functions to estimate $\beta$ using Fisher scoring with the observed data. Iterate the Fisher scoring algorithm until convergence, beginning with $\beta^{(0)} = (1.8, 0)^T$. For the purpose of this question, stop when 
+\item Use your functions to estimate $\beta$ using Fisher scoring with the observed data. Iterate the Fisher scoring algorithm until convergence, beginning with $\beta^{(0)} = (0, 0)^T$. For the purpose of this question, stop when 
 $$\max \{ |\beta_0^{(r+1)} - \beta_0^{(r)}|, \ |\beta_1^{(r+1)} - \beta_1^{(r)}| \} < 0.0001$$
 \end{enumerate}
 \end{enumerate}
