@@ -1,0 +1,49 @@
+---
+title: Convergence of the MLE
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Some more theorems about convergence
+
+.large[
+**Continuous mapping theorem:**
+
+<br/>
+
+<br/>
+
+<br/>
+
+**Slutsky's theorem:**
+]
+
+---
+
+### Convergence of the MLE
+
+---
+
+### Intermediate steps
+
+.large[
+.question[
+Using results we have previously derived, argue that:
+
+* $\frac{1}{n} \ell^{''}(\theta | {\bf Y}) \overset{p}{\to} - \mathcal{I}_1(\theta)$
+* $\frac{1}{\sqrt{n}} \ell^{'}(\theta | {\bf Y}) \overset{d}{\to} N(0, \mathcal{I}_1(\theta))$
+]
+]
+
+---
+
+### Regularity conditions
+

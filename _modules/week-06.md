@@ -10,6 +10,7 @@ February 13
 
 February 15
 : Asymptotic normality of the MLE
+  : [Slides](https://sta711-s23.github.io/slides/lecture_15.pdf)
 
 February 17
 : Asymptotic normality of the MLE
