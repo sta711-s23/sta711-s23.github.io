@@ -1,0 +1,135 @@
+\documentclass[11pt]{article}
+\usepackage{url}
+\usepackage{alltt}
+\usepackage{bm}
+\usepackage{bbm}
+\linespread{1}
+\textwidth 6.5in
+\oddsidemargin 0.in
+\addtolength{\topmargin}{-1in}
+\addtolength{\textheight}{2in}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+
+\begin{center}
+\Large
+STA 711 Homework 5\\
+\normalsize
+\vspace{5mm}
+\end{center}
+
+\noindent \textbf{Due:} Friday, February 21, 12:00pm (noon) on Canvas.\\ 
+
+\noindent \textbf{Instructions:} Submit your work as a single PDF. For this assignment, you may include written work by scanning it and incorporating it into the PDF. Include all R code needed to reproduce your results in your submission.
+
+\section*{Convergence of random variables}
+
+\begin{enumerate}
+\item For each of the following sequences $\{Y_n\}$, show that $Y_n \overset{p}{\to} 1$.
+\begin{enumerate}
+\item $Y_n = 1 + n X_n$, where $X_n \sim Bernoulli(1/n)$
+
+\item $Y_n = \frac{1}{n} \sum \limits_{i=1}^n X_i^2$, where $X_i \overset{iid}{\sim} N(0, 1)$
+\end{enumerate}
+
+\item Suppose that $Y_1, Y_2,... \overset{iid}{\sim} Beta(1, \beta)$. Find a value of $\nu$ such that $n^{\nu}(1 - Y_{(n)})$ converges in distribution.
+
+\item Suppose that $Y_1, Y_2,... \overset{iid}{\sim} Exponential(1)$. Find a sequence $a_n$ such that $Y_{(n)} - a_n$ converges in distribution.
+
+\item In this problem, we will prove part of the continuous mapping theorem. Let $\{Y_n\}$ be a sequence of random variables such that $Y_n \overset{p}{\to} Y$ for some random variable $Y$. Let $g$ be a continuous function; recall that $g$ is continuous if for all $\varepsilon > 0$, there exists some $\delta > 0$ such that $|g(x) - g(y)| < \varepsilon$ whenever $|x - y| < \delta$. Prove that $g(Y_n) \overset{p}{\to} g(Y)$.
+
+\end{enumerate}
+
+
+
+\section*{Normal distributions and the Wald test}
+
+Suppose that $\widehat{\theta}$ is some estimator of a parameter of interest $\theta \in \mathbb{R}^d$. We want to test the hypotheses
+$$H_0: \theta = \theta_0 \hspace{0.5cm} \text{vs.} \hspace{0.5cm} H_A: \theta \neq \theta_0.$$
+If $\widehat{\theta}$ is approximately normal, then we can use the Wald test (often $\widehat{\theta}$ will be the MLE, but the Wald test can be applied to any asymptotically normal estimator, not just to the MLE). Formally, suppose that
+$$\sqrt{n}(\widehat{\theta} - \theta) \overset{d}{\to} N(0, V),$$
+and let $\widehat{V}$ be some estimator of the covariance matrix $V$, such that $\widehat{V} \overset{p}{\to} V$. Then the Wald test statistic is
+$$W = n(\widehat{\theta} - \theta_0)^T \widehat{V}^{-1} (\widehat{\theta} - \theta_0).$$
+
+\vspace{0.5cm}
+
+\noindent The goal of this section is to verify that $W \overset{d}{\to} \chi^2_d$ if $H_0$ is true. Our derivation will rely on the following properties of multivariate normal distributions, and positive semi-definite matrices:
+
+\begin{itemize}
+\item Recall from HW 4 that if $X \sim N(\mu, \Sigma)$, then
+$$\bm{a} + \bm{B} X \sim N(\bm{a} + \bm{B} \mu, \bm{B} \Sigma \bm{B}^T)$$
+
+\item For any random vector $X$, the covariance matrix $\Sigma = Var(X)$ is positive semi-definite (you may use this without proof)
+
+\item If $\Sigma$ is a positive semi-definite matrix, then there exists a unique positive semi-definite matrix $\Sigma^{\frac{1}{2}}$ such that $\Sigma = \Sigma^{\frac{1}{2}} \Sigma^{\frac{1}{2}}$ (you may use this without proof)
+
+\item $Z \sim N(0, {\bf I})$ if and only if $Z = (Z_1,...,Z_q)^T \overset{iid}{\sim} N(0, 1)$ (you may use this without proof).
+
+\item Suppose that $X = (X_1,...,X_q)^T \sim N(\mu, \Sigma)$. The entries $X_i$ and $X_j$ are independent \textit{if and only} if $\Sigma_{ij} = Cov(X_i, X_j) = 0$. This is a special property of multivariate normal distributions, which we will prove below.
+
+\item If $Z \sim N(0, {\bf I})$ is a $q$-dimensional multivariate normal variable, where ${\bf I}$ is the identity matrix, then $Z^TZ \sim \chi^2_q$ (we will prove this below).
+
+\end{itemize}
+
+\begin{enumerate}
+
+\item[5.] Let us begin by proving some results for the multivariate normal.
+
+\begin{enumerate}
+
+\item Show that if $X \sim N(\mu, \Sigma)$, then $\Sigma^{-\frac{1}{2}} (X - \mu) \sim N(0, {\bf I})$, where ${\bf I}$ is the identity matrix.
+
+\item Show that $X \sim N(\mu, \Sigma)$ if and only if $X = \mu + \Sigma^{\frac{1}{2}} Z$ where $Z \sim N(0, {\bf I})$.
+
+\item Let $X \sim N(\mu, \Sigma)$, where $X \in \mathbb{R}^q$. Suppose that for some $1 \leq p < q$, $\Sigma$ can be partitioned as
+$$\Sigma = \begin{pmatrix}
+\Sigma_{11} & 0_{p \times (q - p)} \\
+0_{(q - p) \times p} & \Sigma_{22}
+\end{pmatrix},$$
+where $\Sigma_{11}$ is $p \times p$, $\Sigma_{22}$ is $(q - p) \times (q - p)$, and $0_{m \times n}$ denotes the matrix of zeros of the specified dimensions. Similarly partition 
+$$X = \begin{pmatrix}
+X_{(1)} \\
+X_{(2)}
+\end{pmatrix} \hspace{1cm} \mu = \begin{pmatrix}
+\mu_{(1)} \\
+\mu_{(2)}
+\end{pmatrix},$$
+into vectors of length $p$ and $q - p$. Prove that 
+$$X_{(1)} \sim N(\mu_{(1)}, \Sigma_{11}), \hspace{0.5cm} X_{(2)} \sim N(\mu_{(2)}, \Sigma_{22}),$$
+and $X_{(1)}$ and $X_{(2)}$ are independent.
+
+\item Using (c), conclude that if $X = (X_1,...,X_q)^T \sim N(\mu, \Sigma)$, then the entries $X_i$ and $X_j$ are independent \textit{if and only} if $\Sigma_{ij} = Cov(X_i, X_j) = 0$.
+
+\end{enumerate}
+
+\item[6.] Now let's derive the relationship between the normal distribution and the $\chi^2$ distribution. 
+
+\begin{enumerate}
+\item Let $Z \sim N(0, 1)$ be a standard normal variable. Show that $Z^2 \sim \chi^2_1$ (a $\chi^2$ distribution with 1 degree of freedom), by proving that the pdf of $Y = Z^2$ is 
+$$f_{Y}(y) = \frac{1}{\sqrt{2 \pi}} \frac{1}{\sqrt{y}} e^{-y/2}.$$
+
+\item Suppose that $Z_1, Z_2,...,Z_q \overset{iid}{\sim} N(0, 1)$. Show that $\sum \limits_{i=1}^q Z_i^2 \sim \chi^2_q$ (a $\chi^2$ distribution with $q$ degrees of freedom). 
+
+\item Let $\theta \in \mathbb{R}$ be a parameter of interest, and $\widehat{\theta}_n$ the maximum likelihood from a sample of size $n$. Let 
+$$Z_n = \sqrt{n \mathcal{I}_1(\theta)}(\widehat{\theta}_n - \theta).$$
+Asymptotic normality of the MLE tells us that $Z_n \overset{d}{\to} N(0, 1)$. Show that $Z_n^2 \overset{d}{\to} \chi^2_1$.
+\end{enumerate}
+
+
+\item[7.] Finally, let's connect the multivariate normal with the $\chi^2$.
+
+\begin{enumerate}
+
+
+\item Show that if $X \sim N(\mu, \Sigma)$, then $(X - \mu)^T \Sigma^{-1} (X - \mu) \sim \chi^2_q$.
+
+\item Suppose that $\widehat{\theta}$ is some estimator of $\theta \in \mathbb{R}^d$, and $\sqrt{n}(\widehat{\theta} - \theta) \overset{d}{\to} N(0, V)$. Let $\widehat{V}$ be an estimator of $V$ such that $\widehat{V} \overset{p}{\to} V$, and let $W = n(\widehat{\theta} - \theta_0)^T \widehat{V}^{-1} (\widehat{\theta} - \theta_0)$. Prove that $W \overset{d}{\to} \chi^2_d$ if the null hypothesis $H_0: \theta = \theta_0$ is true.
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}

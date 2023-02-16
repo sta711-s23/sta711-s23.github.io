@@ -1,0 +1,68 @@
+\documentclass[11pt]{article}
+\usepackage{url}
+\usepackage{alltt}
+\usepackage{bm}
+\usepackage{bbm}
+\linespread{1}
+\textwidth 6.5in
+\oddsidemargin 0.in
+\addtolength{\topmargin}{-1in}
+\addtolength{\textheight}{2in}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+
+\begin{center}
+\Large
+STA 711 Homework 5\\
+\normalsize
+\vspace{5mm}
+\end{center}
+
+\noindent \textbf{Due:} Friday, February 21, 12:00pm (noon) on Canvas.\\ 
+
+\noindent \textbf{Instructions:} Submit your work as a single PDF. For this assignment, you may include written work by scanning it and incorporating it into the PDF. Include all R code needed to reproduce your results in your submission.
+
+
+
+\section*{Central limit theorem with estimated variance}
+
+The central limit theorem tells us that if $Y_1, Y_2,...$ is a sequence of iid random variables, then
+\begin{align*}
+\dfrac{\sqrt{n}(\overline{Y}_n - \mu)}{\sigma} \overset{d}{\to} N(0, 1),
+\end{align*}
+where $\overline{Y}_n = \frac{1}{n} \sum \limits_{i=1}^n Y_i$, $\mu = \mathbb{E}[Y_i]$, and $\sigma^2 = Var(Y_i)$. This limiting distribution is useful when we want to construct confidence intervals and tests for $\mu$, but it requires us to know $\sigma^2$. When $\sigma^2$ is unknown, we replace it with an estimate. Two possible estimators of $\sigma^2$ are:
+
+\begin{align*}
+\widehat{\sigma}^2 &= \frac{1}{n} \sum \limits_{i=1}^n (Y_i - \overline{Y}_n)^2 \\
+s^2 &= \frac{1}{n-1} \sum \limits_{i=1}^n (Y_i - \overline{Y}_n)^2
+\end{align*}
+
+\begin{enumerate}
+\item[5.] Our goal is to show that using $\widehat{\sigma}^2$ or $s^2$ in place of $\sigma^2$ does not change our limiting normal distribution. For the purposes of this problem, suppose that $Y_1, Y_2,...$ is a sequence of iid random variables, and that the moment generating function of $Y_i$ exists in a neighborhood of 0.
+
+\begin{enumerate}
+\item Show that $\widehat{\sigma}^2 \overset{p}{\to} \sigma^2$ and $s^2 \overset{p}{\to} \sigma^2$.
+
+\item Show that
+
+\begin{align*}
+\dfrac{\sqrt{n}(\overline{Y}_n - \mu)}{\widehat{\sigma}} \overset{d}{\to} N(0, 1)
+\end{align*}
+and
+\begin{align*}
+\dfrac{\sqrt{n}(\overline{Y}_n - \mu)}{s} \overset{d}{\to} N(0, 1).
+\end{align*}
+
+\item If both $\widehat{\sigma}^2$ and $s^2$ can be used as estimates of the population variance $\sigma^2$, why do we have two estimates? The reason is that $\widehat{\sigma}^2$ is a \textit{biased} estimator of $\sigma^2$ (that is, $\mathbb{E}[\widehat{\sigma}^2] \neq \sigma^2$), whereas $s^2$ is \textit{unbiased} (that is, $\mathbb{E}[s^2] = \sigma^2$). Later in the course we will discuss the bias of estimators in more detail.\\
+
+Calculate $\mathbb{E}[\widehat{\sigma}^2]$ and $\mathbb{E}[s^2]$.
+\end{enumerate}
+\end{enumerate}
+
+
+
+\end{document}

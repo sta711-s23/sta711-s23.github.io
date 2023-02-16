@@ -1,3 +1,5 @@
+library(extraDistr)
+
 set.seed(3)
 credits <- rpois(1000, 60)
 lambda <- exp(-1 + 0.02*credits)

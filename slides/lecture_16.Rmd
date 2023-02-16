@@ -1,0 +1,85 @@
+---
+title: Convergence of the MLE, Wald tests
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: convergence of the MLE
+
+.large[
+Under regularity conditions,
+
+* $\widehat{\theta}_n \overset{p}{\to} \theta$ 
+* $\sqrt{n}(\widehat{\theta}_n - \theta) \overset{d}{\to} N(0, \mathcal{I}^{-1}_1(\theta))$
+
+]
+
+---
+
+### Regularity conditions
+
+---
+
+### Application to logistic regression
+
+---
+
+### Wald tests for single parameters
+
+.large[
+Logistic regression model for the dengue data:
+
+$$Y_i \sim Bernoulli(p_i)$$
+]
+
+.large[
+$$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 WBC_i + \beta_2 PLT_i$$
+
+$H_0: \beta_1 = 0 \hspace{1cm} H_A: \beta_1 \neq 0$
+
+]
+
+---
+
+### Class activity
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_16.html](https://sta711-s23.github.io/class_activities/ca_lecture_11.html)
+]
+
+---
+
+### Class activity
+
+```{r, include=F}
+library(tidyverse)
+dengue <- read.csv("https://sta712-f22.github.io/homework/dengue.csv")
+```
+
+```{r}
+m1 <- glm(Dengue ~ WBC + PLT, data = dengue, family = binomial)
+X <- model.matrix(m1)
+solve(t(X) %*% diag(m1$weights) %*% X)
+```
+
+```{r}
+vcov(m1)
+```
+
+```{r}
+summary(m1)$coefficients[,2]^2
+```
+
+
+---
+
+### Class activity
+

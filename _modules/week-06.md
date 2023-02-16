@@ -13,6 +13,8 @@ February 15
   : [Slides](https://sta711-s23.github.io/slides/lecture_15.pdf)
 
 February 17
-: Asymptotic normality of the MLE
+: Asymptotic normality of the MLE, Wald tests
+  : [Slides](https://sta711-s23.github.io/slides/lecture_16.pdf), [Class activity](https://sta711-s23.github.io/class_activities/ca_lecture_16.html)
 
 : **HW 5 released**{: .label .label-yellow }
+  : [HW 5](https://sta711-s23.github.io/homework/HW5.pdf)
