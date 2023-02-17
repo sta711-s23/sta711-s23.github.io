@@ -25,4 +25,4 @@ $$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 WBC_i + \beta_2 P
 
 3. Confirm that the diagonal entries of $\mathcal{I}(\widehat{\beta})^{-1} = (X^TWX)^{-1}$ agree with the estimated coefficient variances in the summary output from your fitted logistic regression model in question 1.
 
-4. Use a Wald test to test the hypotheses $H_0: \beta_1 = $ vs. $H_A: \beta_1 \neq 0$.
+4. Use a Wald test to test the hypotheses $H_0: \beta_1 = 0$ vs. $H_A: \beta_1 \neq 0$.
