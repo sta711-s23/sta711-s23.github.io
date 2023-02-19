@@ -1,0 +1,24 @@
+---
+title: "Class Activity, February 20"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+In this class activity, we will explore Wald tests with the dengue data. You can load the dengue data into R with the following code:
+
+```r
+dengue <- read.csv("https://sta711-s23.github.io/homework/dengue.csv")
+```
+
+## Questions
+
+1. Fit the following logistic regression model in R:
+
+$$Y_i \sim Bernoulli(p_i)$$
+
+$$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 WBC_i + \beta_2 PLT_i$$
+
+2. Use a Wald test for multiple parameters to test the hypotheses $H_0: \beta_1 = \beta_2 = 0$ vs. $H_A: \text{at least one of } \beta_1, \beta_2 \neq 0$.

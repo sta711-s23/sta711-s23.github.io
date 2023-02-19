@@ -1,0 +1,117 @@
+---
+title: Wald tests
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Where we're going
+
+---
+
+### Formal definition
+
+---
+
+### Hypothesis tests for a population mean
+
+.large[
+Let $Y_1, Y_2, ..., Y_n$ be an iid sample from a population with mean $\mu$ and variance $\sigma^2$. We want to test
+
+$H_0: \mu = \mu_0 \hspace{1cm} H_A: \mu \neq \mu_0$
+]
+
+---
+
+### Hypothesis tests for a population proportion
+
+.large[
+Let $Y_1, Y_2, ..., Y_n \overset{iid}{\sim} Bernoulli(p)$. We want to test
+
+$H_0: p = p_0 \hspace{1cm} H_A: p \neq p_0$
+
+.question[
+What is our Wald test statistic?
+]
+]
+
+---
+
+### Testing multiple parameters
+
+.large[
+Logistic regression model for the dengue data:
+
+$$Y_i \sim Bernoulli(p_i)$$
+]
+
+.large[
+$$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 WBC_i + \beta_2 PLT_i$$
+
+.question[
+Researchers want to know if there is any relationship between white blood cell count or platelet count, and the probability a patient has dengue. What hypotheses should they test?
+]
+]
+
+---
+
+### Testing multiple parameters
+
+```{r include=F}
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(more, x[lines], more)
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+
+dengue <- read.csv("https://sta712-f22.github.io/homework/dengue.csv")
+```
+
+.large[
+```{r, output.lines = 10:14}
+m1 <- glm(Dengue ~ WBC + PLT, data = dengue, 
+          family = binomial)
+summary(m1)
+```
+]
+
+.large[
+.question[
+Can the researchers test their hypotheses using this output?
+]
+]
+
+---
+
+### Class activity
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_17.html](https://sta711-s23.github.io/class_activities/ca_lecture_17.html)
+
+.question[
+* Wald tests for the dengue data
+]
+]
