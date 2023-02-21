@@ -9,7 +9,10 @@ February 20
 : Casella and Berger 10.3.2
 
 February 22
-: Contrasts
+: Wald tests and contrasts
+  : [Slides](https://sta711-s23.github.io/slides/lecture_18.pdf), [Class activity](https://sta711-s23.github.io/class_activities/ca_lecture_18.html)
+  
+: Casella and Berger 10.3.2
 
 February 24
 : Hypothesis testing framework

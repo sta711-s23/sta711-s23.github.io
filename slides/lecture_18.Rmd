@@ -1,5 +1,5 @@
 ---
-title: Contrasts
+title: Wald tests
 output:
   xaringan::moon_reader:
     css: "lab-slides.css"
@@ -10,6 +10,117 @@ output:
       countIncrementalSlides: false
 editor_options: 
   chunk_output_type: console
+---
+
+### Recap
+
+---
+
+### General Wald test
+
+---
+
+### Class activity, Part I
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_18.html](https://sta711-s23.github.io/class_activities/ca_lecture_18.html)
+]
+
+---
+
+### Class activity
+
+```{r, include=F}
+library(tidyverse)
+titanic <- read.csv("https://sta711-s23.github.io/homework/Titanic.csv")
+m1 <- glm(Survived ~ Sex + Age + as.factor(Pclass),
+          data = titanic, family = binomial)
+```
+
+```{r}
+betahat <- m1$coefficients[4:5]
+V <- vcov(m1)[4:5, 4:5]
+test_stat <- t(betahat) %*% solve(V) %*% betahat
+test_stat
+```
+
+---
+
+### Class activity
+
+```{r}
+betahat <- m1$coefficients[4:5]
+V <- vcov(m1)[4:5, 4:5]
+test_stat <- t(betahat) %*% solve(V) %*% betahat
+test_stat
+
+# rejection region for alpha = 0.05
+qchisq(0.05, df=2, lower.tail=F)
+
+# p-value
+pchisq(test_stat, df=2, lower.tail=F)
+```
+
+
+---
+
+### A different question
+
+.large[
+We have the model
+]
+
+$$Y_i \sim Bernoulli(p_i)$$
+
+$$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 Sex_i + \beta_2 Age_i + \beta_3 SecondClass_i + \beta_4 ThirdClass_i$$
+
+.large[
+We want to test whether there is a difference in the chance of survival for second and third class passengers, holding age and sex fixed. 
+
+.question[
+What hypotheses should we test?
+]
+]
+
+---
+
+### Contrasts
+
+---
+
+### Class activity, Part II
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_18.html](https://sta711-s23.github.io/class_activities/ca_lecture_18.html)
+]
+
+---
+
+### Class activity
+
+```{r}
+a <- c(0, 0, 0, -1, 1)
+test_stat <- (t(a) %*% coef(m1))/sqrt(t(a) %*% vcov(m1) %*% a)
+test_stat
+```
+
+---
+
+### Class activity
+
+```{r}
+a <- c(0, 0, 0, -1, 1)
+test_stat <- (t(a) %*% coef(m1))/sqrt(t(a) %*% vcov(m1) %*% a)
+test_stat
+
+# rejection region for alpha = 0.05
+qnorm(0.025, lower.tail=F)
+
+# p-value
+2*pnorm(abs(test_stat), lower.tail=F)
+```
+
+
 ---
 
 ### A two-sample test for a difference in means

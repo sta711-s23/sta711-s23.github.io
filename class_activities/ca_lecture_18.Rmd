@@ -1,0 +1,37 @@
+---
+title: "Class Activity, February 22"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# Hypothesis testing with the Titanic data
+
+In this class activity, we will construct confidence intervals for quantities of interest in the titanic data. Let $Y_i$ denote whether passenger $i$ survived. We will use the model
+
+$$Y_i \sim Bernoulli(p_i)$$
+
+$$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 Sex_i + \beta_2 Age_i + \beta_3 SecondClass_i + \beta_4 ThirdClass_i$$
+
+The Titanic data can be imported into R with
+
+```{r}
+titanic <- read.csv("https://sta711-s23.github.io/homework/Titanic.csv")
+```
+
+
+## Part I
+
+1. Fit the logistic regression model in R.
+
+2. Use a Wald test to test 
+
+$$H_0: \beta_3 = \beta_4 = 0 \hspace{1cm} H_A: \text{at least one of } \beta_3, \beta_4 \neq 0$$
+
+## Part II
+
+3. Use a Wald test to test
+
+$$H_0: \beta_4 - \beta_3 = 0 \hspace{1cm} H_A: \beta_4 - \beta_3 \neq 0$$
