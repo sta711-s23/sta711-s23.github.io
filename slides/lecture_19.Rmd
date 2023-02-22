@@ -1,0 +1,160 @@
+---
+title: Hypothesis testing framework
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Summary of Wald tests
+
+.large[
+Let $\theta \in \mathbb{R}^p$ be some parameter of interest. We wish to test the hypotheses
+$$H_0: C\theta = \gamma_0 \hspace{1cm} H_A: C\theta \neq \gamma_0$$
+for some $C \in \mathbb{R}^{q \times p}$. Given an estimator $\widehat{\theta}_n$ such that
+$$V_n^{-\frac{1}{2}}(\widehat{\theta}_n - \theta) \overset{d}{\to} N(0, I),$$
+
+the **Wald test** rejects when
+
+$$(C \widehat{\theta}_n - \gamma_0)^T V_n^{-1} (C \widehat{\theta}_n - \gamma_0) > \chi^2_{q, \alpha}$$
+]
+
+---
+
+### General framework for hypothesis tests
+
+.large[
+**Definition:** Let $\theta \in \mathbb{R}^p$ be some parameter of interest. A **hypothesis** is a statement about $\theta$. The goal of a hypothesis test is to compare two competing hypotheses:
+
+$$H_0: \theta \in \Theta_0 \hspace{1cm} H_A: \theta \in \Theta_1$$
+]
+
+---
+
+### Outcomes
+
+.large[
+$$H_0: \theta \in \Theta_0 \hspace{1cm} H_A: \theta \in \Theta_1$$
+
+The outcome of the test is a decision to either **reject** $H_0$ or **fail to reject** $H_0$.
+]
+
+---
+
+### Constructing a test
+
+.large[
+$$H_0: \theta \in \Theta_0 \hspace{1cm} H_A: \theta \in \Theta_1$$
+]
+
+---
+
+### Power function
+
+.large[
+Suppose we reject $H_0$ when $(X_1,...,X_n) \in R$. The **power function** $\beta(\theta)$ is
+$$\beta(\theta) = P_{\theta}((X_1,...,X_n) \in R)$$
+]
+
+---
+
+### Example
+
+.large[
+$X_1,...,X_n$ iid from a population with mean $\mu$ and variance $\sigma^2$. 
+
+$$H_0: \mu = \mu_0 \hspace{1cm} H_A: \mu > \mu_0$$
+]
+
+---
+
+### Class activity
+
+.large[
+$$\beta(\mu) \approx 1 - \Phi\left(z_\alpha - \dfrac{(\mu - \mu_0)}{\sigma/\sqrt{n}} \right)$$
+
+.question[
+* Suppose that $\mu_0 = 0$, $n = 100$, and $\sigma = 1$. Make a plot of $\beta(\mu)$ vs. $\mu$ for $\alpha = 0.05$.
+* Now consider testing $H_0: \mu \leq \mu_0$ vs. $H_A: \mu > \mu_0$. Will this change our rejection region if we want a size $\alpha$ test?
+]
+]
+
+---
+
+### Class activity
+
+```{r, echo=F, message=F, warning=F, fig.align='center', fig.width=10, fig.height=4}
+library(tidyverse)
+library(gridExtra)
+
+mu0 <- 0
+mu <- seq(-0.5, 0.5, 0.01)
+sigma <- 1
+n <- 100
+alpha <- 0.05
+z <- qnorm(alpha, lower.tail=F)
+power <- 1 - pnorm(z - (mu - mu0)/(sigma/sqrt(n)))
+p1 <- data.frame(mu, power) %>%
+  ggplot(aes(x = mu, y = power)) +
+  geom_line(lwd = 1) +
+  theme_bw() +
+  theme(text = element_text(size = 20))
+  
+
+mu <- seq(-0.1, 0.1, 0.01)
+power <- 1 - pnorm(z - (mu - mu0)/(sigma/sqrt(n)))
+p2 <- data.frame(mu, power) %>%
+  ggplot(aes(x = mu, y = power)) +
+  geom_line(lwd = 1) +
+  theme_bw() +
+  theme(text = element_text(size = 20)) +
+  geom_hline(yintercept = 0.05, color="blue", lty=2, lwd=1)
+
+grid.arrange(p1, p2, ncol=2)
+```
+
+---
+
+### Simulation verification
+
+.large[
+```{r}
+n <- 100
+sigma <- 1
+mu0 <- 0
+nreps <- 5000
+test_stats <- rep(0, nreps)
+for(i in 1:nreps){
+  x <- rnorm(n, mu0, sigma)
+  test_stats[i] <- (mean(x) - mu0)/(sigma/sqrt(n))
+}
+mean(test_stats > qnorm(0.05, lower.tail=F))
+```
+]
+
+---
+
+### Simulation verification
+
+.large[
+```{r}
+n <- 100
+sigma <- 1
+mu0 <- 0
+nreps <- 5000
+test_stats <- rep(0, nreps)
+for(i in 1:nreps){
+  x <- rnorm(n, 0.1, sigma)
+  test_stats[i] <- (mean(x) - mu0)/(sigma/sqrt(n))
+}
+mean(test_stats > qnorm(0.05, lower.tail=F))
+```
+]
+
+
