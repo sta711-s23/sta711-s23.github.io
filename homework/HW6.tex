@@ -17,12 +17,12 @@
 
 \begin{center}
 \Large
-STA 711 Homework 5\\
+STA 711 Homework 6\\
 \normalsize
 \vspace{5mm}
 \end{center}
 
-\noindent \textbf{Due:} Friday, February 21, 12:00pm (noon) on Canvas.\\ 
+\noindent \textbf{Due:} Friday, March 3, 12:00pm (noon) on Canvas.\\ 
 
 \noindent \textbf{Instructions:} Submit your work as a single PDF. For this assignment, you may include written work by scanning it and incorporating it into the PDF. Include all R code needed to reproduce your results in your submission.
 
@@ -42,7 +42,7 @@ s^2 &= \frac{1}{n-1} \sum \limits_{i=1}^n (Y_i - \overline{Y}_n)^2
 \end{align*}
 
 \begin{enumerate}
-\item[5.] Our goal is to show that using $\widehat{\sigma}^2$ or $s^2$ in place of $\sigma^2$ does not change our limiting normal distribution. For the purposes of this problem, suppose that $Y_1, Y_2,...$ is a sequence of iid random variables, and that the moment generating function of $Y_i$ exists in a neighborhood of 0.
+\item[1.] Our goal is to show that using $\widehat{\sigma}^2$ or $s^2$ in place of $\sigma^2$ does not change our limiting normal distribution. For the purposes of this problem, suppose that $Y_1, Y_2,...$ is a sequence of iid random variables, and that the moment generating function of $Y_i$ exists in a neighborhood of 0.
 
 \begin{enumerate}
 \item Show that $\widehat{\sigma}^2 \overset{p}{\to} \sigma^2$ and $s^2 \overset{p}{\to} \sigma^2$.
@@ -63,6 +63,44 @@ Calculate $\mathbb{E}[\widehat{\sigma}^2]$ and $\mathbb{E}[s^2]$.
 \end{enumerate}
 \end{enumerate}
 
+\section*{Wald testing in practice}
+
+In the second part of this assignment, you will work with a dataset from DrivenData, an online data competition site that hosts competitions aimed at improving education, health, safety, and general well being for individuals around the world.\\
+
+\noindent Our data come from the 2015 Gorkha earthquake in Nepal. After the earthquake, a large scale survey was conducted to determine the amount of damage the earthquake caused for homes, businesses and other structures. This is one of the largest post-disaster surveys in the world, and researchers are interested in which building characteristics are associated with earthquake damage.\\
+
+\noindent You will work with a subset of the earthquake data, consisting of 211774 buildings, containing the following variables:
+\begin{itemize}
+\item \verb;Damage;: whether the building sustained any damage (1) or not (0)
+
+\item \verb;Age;: the age of the building (in years)
+
+\item \verb;Surface;: a categorical variable recording the surface condition of the land around the building. There are three different levels: \verb;n;, \verb;o;, and \verb;t;. (The researchers who collected the data anonymized the level names to protect inhabitants' privacy).
+\end{itemize}
+
+\noindent You can load the data into R by
+\begin{verbatim}
+earthquake <- read.csv("https://sta711-s23.github.io/homework/earthquake_small.csv")
+\end{verbatim}
+
+\noindent You will work with the following logistic regression model (you may assume all assumptions are met; no transformations or diagnostics are needed):
+$$Damage_i \sim Bernoulli(p_i)$$
+$$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 Age_i + \beta_2 SurfaceO_i + \beta_3 SurfaceT_i + \beta_4 Age_i \cdot SurfaceO_i + \beta_5 Age_i \cdot SurfaceT_i$$
+
+where $SurfaceO$ and $SurfaceT$ are indicator variables for whether surface is o or t, respectively.\\
+
+\begin{enumerate}
+\item[2.] 
+\begin{enumerate}
+\item Fit the logistic regression model in R, and interpret the estimated slope $\widehat{\beta}_1$ in terms of the \textit{odds} of damage.
+
+\item Calculate the estimated probability of damage for a 50 year old building with surface condition = t.
+\end{enumerate}
+
+\item[3.] The researchers want to know whether the relationship between Age and the probability of damage is the same for buildings in all three surface conditions. Use a hypothesis test to address the researchers' question; you should state the hypotheses in terms of one or more model parameters, calculate a test statistic and p-value, and make a conclusion.
+
+\item[4.] Now the researchers want to test whether there is a difference in the probability of damage between surface \verb;o; and surface \verb;t;, for a 25 year old building. Use a hypothesis test to address the researchers' question; you should state the hypotheses in terms of one or more model parameters, calculate a test statistic and p-value, and make a conclusion.
+\end{enumerate}
 
 
 \end{document}
