@@ -17,6 +17,93 @@ class: center, middle, inverse, title-slide
 ---
 
 
+### Last time
+
+.large[
+We have the model
+]
+
+`$$Y_i \sim Bernoulli(p_i)$$`
+
+`$$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 Sex_i + \beta_2 Age_i + \beta_3 SecondClass_i + \beta_4 ThirdClass_i$$`
+
+.large[
+We want to test whether there is a difference in the chance of survival for second and third class passengers, holding age and sex fixed. 
+
+.question[
+What hypotheses should we test?
+]
+]
+
+---
+
+### Contrasts
+
+---
+
+### Class activity
+
+.large[
+Work on Part II from last class:
+
+[https://sta711-s23.github.io/class_activities/ca_lecture_18.html](https://sta711-s23.github.io/class_activities/ca_lecture_18.html)
+]
+
+---
+
+### Class activity
+
+
+
+
+```r
+a &lt;- c(0, 0, 0, -1, 1)
+test_stat &lt;- (t(a) %*% coef(m1))/sqrt(t(a) %*% vcov(m1) %*% a)
+test_stat
+```
+
+```
+##           [,1]
+## [1,] -5.207289
+```
+
+---
+
+### Class activity
+
+
+```r
+a &lt;- c(0, 0, 0, -1, 1)
+test_stat &lt;- (t(a) %*% coef(m1))/sqrt(t(a) %*% vcov(m1) %*% a)
+test_stat
+```
+
+```
+##           [,1]
+## [1,] -5.207289
+```
+
+```r
+# rejection region for alpha = 0.05
+qnorm(0.025, lower.tail=F)
+```
+
+```
+## [1] 1.959964
+```
+
+```r
+# p-value
+2*pnorm(abs(test_stat), lower.tail=F)
+```
+
+```
+##              [,1]
+## [1,] 1.916191e-07
+```
+
+---
+
 ### Summary of Wald tests
 
 .large[
@@ -94,7 +181,7 @@ Suppose we reject `\(H_0\)` when `\((X_1,...,X_n) \in R\)`. The **power function
 
 ### Class activity
 
-&lt;img src="lecture_19_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_19_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -116,7 +203,7 @@ mean(test_stats &gt; qnorm(0.05, lower.tail=F))
 ```
 
 ```
-## [1] 0.0524
+## [1] 0.0548
 ```
 ]
 
@@ -140,7 +227,7 @@ mean(test_stats &gt; qnorm(0.05, lower.tail=F))
 ```
 
 ```
-## [1] 0.257
+## [1] 0.2646
 ```
 ]
 
