@@ -1,0 +1,103 @@
+\documentclass[11pt]{article}
+\usepackage{url}
+\usepackage{alltt}
+\usepackage{bm}
+\usepackage{bbm}
+\linespread{1}
+\textwidth 6.5in
+\oddsidemargin 0.in
+\addtolength{\topmargin}{-1in}
+\addtolength{\textheight}{2in}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+
+\begin{center}
+\Large
+STA 711 Exam 1 Make-up\\
+\normalsize
+\vspace{5mm}
+\end{center}
+
+\noindent \textbf{Due:} Friday, March 3, 12:00pm (noon) on Canvas.\\ 
+
+\noindent \textbf{Instructions:} Submit your work as a single PDF. For this assignment, you may include written work by scanning it and incorporating it into the PDF. Include all R code needed to reproduce your results in your submission.\\
+
+\noindent \textbf{Rules:} This is a closed-book, closed-notes exam. You may:
+\begin{itemize}
+\item Email me, or come to office hours, with specific questions (I may be somewhat less helpful than for regular assignments)
+\item Use the internet for general R help and debugging
+\item Use R for question 7
+\end{itemize}
+You may \textit{not}:
+\begin{itemize}
+\item Use any resources from the course (the textbook, the course website, class notes, previous assignments, etc.)
+\item Use the internet to look up any questions on the exam
+\item Discuss the exam with anyone else
+\end{itemize}
+
+\newpage
+
+\section*{Maximum likelihood and Fisher information}
+
+\begin{enumerate}
+\item Let $Y_1,...,Y_n$ be iid random variables with pdf
+$$f(y|\mu, \sigma^2) = \frac{1}{y \sqrt{2 \pi \sigma^2}} \exp \left\lbrace -\frac{1}{2\sigma^2}(\log(y) - \mu)^2 \right\rbrace$$
+where $\sigma^2 > 0$, $y > 0$, and $\mu \in \mathbb{R}$. Find the maximum likelihood estimators $\widehat{\mu}$ and $\widehat{\sigma}^2$.
+
+\item Let $Y_1,...,Y_n \overset{iid}{\sim} Gamma(\alpha, \beta)$. Recall that the gamma distribution has pdf
+$$f(y|\alpha, \beta) = \dfrac{\beta^\alpha}{\Gamma(\alpha)} y^{\alpha - 1} e^{-\beta y}$$
+where $y > 0$, $\alpha > 0$, and $\beta > 0$. Find the Fisher information matrix $\mathcal{I}(\alpha, \beta)$. (You may assume that desired regularity conditions hold for the gamma distribution). Note: the derivative of the gamma function $\Gamma(x)$ has no nice closed form. You may use $\psi(x)$ to represent $\frac{d}{dx} \log \Gamma(x)$ (the digamma function), and $\psi_1(x)$ to represent $\frac{d}{dx} \psi(x)$ (the trigamma function).
+
+\end{enumerate}
+
+\newpage
+
+\section*{Modeling an Exponential response}
+
+In this section, you will model a response variable $Y_i \sim Exponential(\lambda_i)$.
+
+\begin{enumerate}
+\item[3.] Recall that if $Y \sim Exponential(\lambda)$, then the pdf of $Y$ is given by
+$$f(Y;\lambda) = \frac{1}{\lambda} e^{-Y / \lambda}$$
+Show that $\mathbb{E}[Y] = \lambda$ and $Var(Y) = \lambda^2$.
+
+\item[4.] Suppose that $Y_i$ is a response variable of interest, and we use the following model for $Y_i$:
+\begin{align*}
+Y_i &\sim Exponential(\lambda_i) \\
+\dfrac{1}{\lambda_i} &= \beta^T X_i,
+\end{align*}
+where $X_i = (1, X_{i,1},...,X_{i,k})^T \in \mathbb{R}^{k+1}$, and $\beta = (\beta_0, ..., \beta_k) \in \mathbb{R}^{k+1}$ is the vector of regression coefficients. We observe $n$ independent observations $(X_1, Y_1),...,(X_n, Y_n)$.
+
+\begin{enumerate}
+\item Derive a matrix form for the score $U(\beta)$.
+\item Derive a matrix form for the Fisher information $\mathcal{I}(\beta)$. You may assume that desired regularity conditions hold.
+\end{enumerate}
+
+\item[5.] Now we apply the model from Question 4 to real data. A factory is interested in the relationship between the amount of stress applied to a piece of steel, and the time it takes until that steel breaks. We use the following model:
+\begin{align*}
+time_i &\sim Exponential(\lambda_i) \\
+\dfrac{1}{\lambda_i} &= \beta_0 + \beta_1 stress_i
+\end{align*}
+The raw data contains $n = 40$ observations $(stress_1, \ time_1),...,(stress_{40}, \ time_{40})$.\\
+
+\noindent You can load the data into R by
+\begin{verbatim}
+steel <- read.csv("https://sta711-s23.github.io/exams/steel.csv")
+\end{verbatim}
+
+In this question, we want to begin Fisher scoring to estimate $\beta_0$ and $\beta_1$ using the observed data.
+
+\begin{enumerate}
+\item In R, write functions \verb;U; and \verb;I; to calculate $U(\beta)$ and $\mathcal{I}(\beta)$ using the observed data.
+
+\item Use your functions to estimate $\beta$ using Fisher scoring with the observed data. Iterate the Fisher scoring algorithm until convergence, beginning with $\beta^{(0)} = (1, 0)^T$. For the purpose of this question, stop when 
+$$\max \{ |\beta_0^{(r+1)} - \beta_0^{(r)}|, \ |\beta_1^{(r+1)} - \beta_1^{(r)}| \} < 0.0001$$
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
