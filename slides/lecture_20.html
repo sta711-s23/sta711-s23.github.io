@@ -17,132 +17,16 @@ class: center, middle, inverse, title-slide
 ---
 
 
-### Last time
-
-.large[
-We have the model
-]
-
-`$$Y_i \sim Bernoulli(p_i)$$`
-
-`$$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 Sex_i + \beta_2 Age_i + \beta_3 SecondClass_i + \beta_4 ThirdClass_i$$`
-
-.large[
-We want to test whether there is a difference in the chance of survival for second and third class passengers, holding age and sex fixed. 
-
-.question[
-What hypotheses should we test?
-]
-]
-
----
-
-### Contrasts
-
----
-
-### Class activity
-
-.large[
-Work on Part II from last class:
-
-[https://sta711-s23.github.io/class_activities/ca_lecture_18.html](https://sta711-s23.github.io/class_activities/ca_lecture_18.html)
-]
-
----
-
-### Class activity
-
-
-
-
-```r
-a &lt;- c(0, 0, 0, -1, 1)
-test_stat &lt;- (t(a) %*% coef(m1))/sqrt(t(a) %*% vcov(m1) %*% a)
-test_stat
-```
-
-```
-##           [,1]
-## [1,] -5.207289
-```
-
----
-
-### Class activity
-
-
-```r
-a &lt;- c(0, 0, 0, -1, 1)
-test_stat &lt;- (t(a) %*% coef(m1))/sqrt(t(a) %*% vcov(m1) %*% a)
-test_stat
-```
-
-```
-##           [,1]
-## [1,] -5.207289
-```
-
-```r
-# rejection region for alpha = 0.05
-qnorm(0.025, lower.tail=F)
-```
-
-```
-## [1] 1.959964
-```
-
-```r
-# p-value
-2*pnorm(abs(test_stat), lower.tail=F)
-```
-
-```
-##              [,1]
-## [1,] 1.916191e-07
-```
-
----
-
-### Summary of Wald tests
-
-.large[
-Let `\(\theta \in \mathbb{R}^p\)` be some parameter of interest. We wish to test the hypotheses
-`$$H_0: C\theta = \gamma_0 \hspace{1cm} H_A: C\theta \neq \gamma_0$$`
-for some `\(C \in \mathbb{R}^{q \times p}\)`. Given an estimator `\(\widehat{\theta}_n\)` such that
-`$$V_n^{-\frac{1}{2}}(\widehat{\theta}_n - \theta) \overset{d}{\to} N(0, I),$$`
-
-the **Wald test** rejects when
-
-`$$(C \widehat{\theta}_n - \gamma_0)^T (CV_nC^T)^{-1} (C \widehat{\theta}_n - \gamma_0) &gt; \chi^2_{q, \alpha}$$`
-]
-
----
-
-### General framework for hypothesis tests
-
-.large[
-**Definition:** Let `\(\theta \in \mathbb{R}^p\)` be some parameter of interest. A **hypothesis** is a statement about `\(\theta\)`. The goal of a hypothesis test is to compare two competing hypotheses:
-
-`$$H_0: \theta \in \Theta_0 \hspace{1cm} H_A: \theta \in \Theta_1$$`
-]
-
----
-
-### Outcomes
+### Recap: Constructing a test
 
 .large[
 `$$H_0: \theta \in \Theta_0 \hspace{1cm} H_A: \theta \in \Theta_1$$`
 
-The outcome of the test is a decision to either **reject** `\(H_0\)` or **fail to reject** `\(H_0\)`.
-]
+Observe data `\(X_1,...,X_n\)`.
 
----
-
-### Constructing a test
-
-.large[
-`$$H_0: \theta \in \Theta_0 \hspace{1cm} H_A: \theta \in \Theta_1$$`
+* Calculate a test statistic `\(T_n = T(X_1,...,X_n)\)`
+* Choose a rejection region `\(R = \{ (x_1,...,x_n): \text{ reject } H_0\}\)`
+* Reject `\(H_0\)` if `\((X_1,...,X_n) \in R\)`
 ]
 
 ---
@@ -181,56 +65,71 @@ Suppose we reject `\(H_0\)` when `\((X_1,...,X_n) \in R\)`. The **power function
 
 ### Class activity
 
-&lt;img src="lecture_19_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_20_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
-### Simulation verification
+### Rejecting `\(H_0\)`
 
 .large[
+`$$H_0: \theta \in \Theta_0 \hspace{1cm} H_A: \theta \in \Theta_1$$`
 
-```r
-n &lt;- 100
-sigma &lt;- 1
-mu0 &lt;- 0
-nreps &lt;- 5000
-test_stats &lt;- rep(0, nreps)
-for(i in 1:nreps){
-  x &lt;- rnorm(n, mu0, sigma)
-  test_stats[i] &lt;- (mean(x) - mu0)/(sigma/sqrt(n))
-}
-mean(test_stats &gt; qnorm(0.05, lower.tail=F))
-```
-
-```
-## [1] 0.0474
-```
+.question[
+A hypothesis test rejects `\(H_0\)` if `\((X_1,...,X_n)\)` is in the rejection region `\(R\)`. Are there any issues if we only use a rejection region to test hypotheses?
+]
 ]
 
 ---
 
-### Simulation verification
+### p-values
 
 .large[
+`$$H_0: \theta \in \Theta_0 \hspace{1cm} H_A: \theta \in \Theta_1$$`
 
-```r
-n &lt;- 100
-sigma &lt;- 1
-mu0 &lt;- 0
-nreps &lt;- 5000
-test_stats &lt;- rep(0, nreps)
-for(i in 1:nreps){
-  x &lt;- rnorm(n, 0.1, sigma)
-  test_stats[i] &lt;- (mean(x) - mu0)/(sigma/sqrt(n))
-}
-mean(test_stats &gt; qnorm(0.05, lower.tail=F))
-```
+Given `\(\alpha\)`, we construct a rejection region `\(R\)` and reject `\(H_0\)` when `\((X_1,...,X_n) \in R\)`. Let `\((x_1,...,x_n)\)` be an observed set of data. 
 
-```
-## [1] 0.253
-```
+**Definition:** The **p-value** for the observed data `\((x_1,...,x_n)\)` is the smallest `\(\alpha\)` for which we reject `\(H_0\)`.
 ]
 
+---
+
+### Example
+
+.large[
+`\(X_1,...,X_n\)` iid from a population with mean `\(\mu\)` and variance `\(\sigma^2\)`. 
+
+`$$H_0: \mu = \mu_0 \hspace{1cm} H_A: \mu &gt; \mu_0$$`
+]
+
+---
+
+### Next steps
+
+.large[
+.question[
+So far, we have discussed the Wald test in detail. What other hypothesis tests have you seen in statistics courses?
+]
+]
+
+---
+
+### Class activity
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_20.html](https://sta711-s23.github.io/class_activities/ca_lecture_20.html)
+]
+
+---
+
+### Class activity
+
+&lt;img src="lecture_20_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+
+.large[
+.question[
+If we reject `\(H_0: \mu = \mu_0\)` when `\(\frac{\sqrt{n}(\overline{X}_n - \mu_0)}{s} &gt; z_{\alpha}\)`, why does type I error increase as `\(n\)` decreases?
+]
+]
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

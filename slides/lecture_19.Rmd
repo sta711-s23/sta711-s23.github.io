@@ -89,7 +89,7 @@ $$V_n^{-\frac{1}{2}}(\widehat{\theta}_n - \theta) \overset{d}{\to} N(0, I),$$
 
 the **Wald test** rejects when
 
-$$(C \widehat{\theta}_n - \gamma_0)^T V_n^{-1} (C \widehat{\theta}_n - \gamma_0) > \chi^2_{q, \alpha}$$
+$$(C \widehat{\theta}_n - \gamma_0)^T (CV_nC^T)^{-1} (C \widehat{\theta}_n - \gamma_0) > \chi^2_{q, \alpha}$$
 ]
 
 ---

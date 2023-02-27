@@ -1,0 +1,40 @@
+---
+title: "Class Activity, February 27"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# Wald test with Normal data
+
+The purpose of this class activity is to check, with simulated data, whether the empirical type I error for a Wald test matches the theoretical type I error.
+
+Suppose we observe data $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$. We wish to test $H_0: \mu = \mu_0$ vs. $H_A: \mu > \mu_0$, and we reject when 
+$$Z_n = \frac{\sqrt{n}(\overline{X}_n - \mu_0)}{\sigma} > z_{\alpha}$$
+
+Suppose that $\mu_0 = 0$, $n = 100$, $\sigma = 1$, and $\alpha = 0.05$.
+
+1. Run the following code to empirically evaluate the type I error, and confirm it is approximately 0.05 (the true type I error really is 0.05 here, but you will get a number slightly different from 0.05 since we are running the simulation a finite number of times).
+
+```{r, eval=F}
+n <- 100
+mu0 <- 0
+sigma <- 1
+alpha <- 0.05
+nreps <- 5000
+test_stats <- rep(0, nreps)
+for(i in 1:nreps){
+  x <- rnorm(n, mu0, sigma)
+  test_stats[i] <- (mean(x) - mu0)/(sigma/sqrt(n))
+}
+mean(test_stats > qnorm(0.05, lower.tail=F))
+```
+
+
+2. Repeat question 1 for $n = 5, 10, 25, 50$. Plot the empirical type I error against $n$.
+
+3. Our test statistic so far assumes we know $\sigma$. If we don't know $\sigma$, then we reject $H_0$ when
+$$\frac{\sqrt{n}(\overline{X}_n - \mu_0)}{s} > z_{\alpha},$$
+where $s = \sqrt{\frac{1}{n - 1} \sum \limits_{i=1}^n (X_i - \overline{X}_n)^2}$. Show through simulations that when we use $s$ instead of $\sigma$, type I error increases as $n$ decreases.
