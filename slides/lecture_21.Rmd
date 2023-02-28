@@ -216,7 +216,7 @@ Why is a $t$-test not appropriate?
 $$Y_i \sim Bernoulli(p_i) \hspace{1cm} \log \left( \dfrac{p_i}{1 - p_i} \right) = \beta^T X_i$$
 
 We want to test
-$$H_0: CB = \gamma_0 \hspace{1cm} H_A: CB \neq \gamma_0$$
+$$H_0: C\beta = \gamma_0 \hspace{1cm} H_A: C\beta \neq \gamma_0$$
 
 <br/>
 
