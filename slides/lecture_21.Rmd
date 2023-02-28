@@ -1,0 +1,245 @@
+---
+title: t-tests
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Next steps
+
+.large[
+.question[
+So far, we have discussed the Wald test in detail. What other hypothesis tests have you seen in statistics courses?
+]
+]
+
+---
+
+### Recap: power function
+
+.large[
+$$H_0: \theta \in \Theta_0 \hspace{1cm} H_A: \theta \in \Theta_1$$
+
+Suppose we reject $H_0$ when $(X_1,...,X_n) \in R$. The **power function** $\beta(\theta)$ is
+$$\beta(\theta) = P_{\theta}((X_1,...,X_n) \in R)$$
+
+.question[
+**Example:** $X_1,...,X_n$ iid from a population with mean $\mu$ and variance $\sigma^2$. 
+
+$$H_0: \mu = \mu_0 \hspace{1cm} H_A: \mu > \mu_0$$
+$$\beta(\mu) \approx 1 - \Phi\left(z_\alpha - \dfrac{(\mu - \mu_0)}{\sigma/\sqrt{n}} \right)$$
+]
+]
+
+---
+
+### Class activity, Part I
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_21.html](https://sta711-s23.github.io/class_activities/ca_lecture_21.html)
+]
+
+---
+
+### Class activity
+
+```{r, echo=F, message=F, fig.align='center', fig.width=10, fig.height=4}
+library(tidyverse)
+library(gridExtra)
+set.seed(3)
+ns <- c(5, 10, 25, 50, 100)
+mu0 <- 0
+sigma <- 1
+alpha <- 0.05
+nreps <- 5000
+error_known <- rep(0, length(ns))
+error_unknown <- rep(0, length(ns))
+for(j in 1:length(ns)){
+  n <- ns[j]
+  test_stats <- rep(0, nreps)
+  test_stats_est <- rep(0, nreps)
+  for(i in 1:nreps){
+    x <- rnorm(n, mu0, sigma)
+    test_stats[i] <- (mean(x) - mu0)/(sigma/sqrt(n))
+    test_stats_est[i] <- (mean(x) - mu0)/(sd(x)/sqrt(n))
+  }
+  error_known[j] <- mean(test_stats > qnorm(0.05, lower.tail=F))
+  error_unknown[j] <- mean(test_stats_est > qnorm(0.05, lower.tail=F))
+}
+
+p1 <- data.frame(n = ns, error = error_known) %>%
+  ggplot(aes(x = n, y = error)) +
+  geom_point(size = 2) +
+  geom_hline(yintercept = 0.05) +
+  theme_bw() +
+  labs(y = "Type I error") +
+  theme(text = element_text(size = 20)) +
+  scale_y_continuous(limits = c(0, 0.1))
+
+p2 <- data.frame(n = ns, error = error_unknown) %>%
+  ggplot(aes(x = n, y = error)) +
+  geom_point(size = 2) +
+  geom_hline(yintercept = 0.05) +
+  theme_bw() +
+  labs(y = "Type I error") +
+  theme(text = element_text(size = 20)) +
+  scale_y_continuous(limits = c(0, 0.1))
+
+grid.arrange(p1, p2, ncol=2)
+```
+
+.large[
+.question[
+If we reject $H_0: \mu = \mu_0$ when $\frac{\sqrt{n}(\overline{X}_n - \mu_0)}{s} > z_{\alpha}$, why does type I error increase as $n$ decreases?
+]
+]
+
+---
+
+### Issue: Wald tests with small $n$
+
+.large[
+The Wald test for a population mean $\mu$ relies on
+$$Z_n = \frac{\sqrt{n}(\overline{X}_n - \mu)}{s} \approx N(0,1)$$
+* $Z_n \overset{d}{\to} N(0,1)$ as $n \to \infty$
+* But for small $n$, $Z_n$ is not normal, even if $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$
+
+.question[
+Suppose $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$. What is the exact distribution of $\frac{\sqrt{n}(\overline{X}_n - \mu)}{s}$?
+]
+]
+
+---
+
+### $t$ distribution
+
+.large[
+If $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$, then
+$$\frac{\sqrt{n}(\overline{X}_n - \mu)}{s} \sim t_{n-1}$$
+]
+
+---
+
+### Class activity, Part II
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_21.html](https://sta711-s23.github.io/class_activities/ca_lecture_21.html)
+]
+
+---
+
+### Class activity
+
+```{r, echo=F, message=F, fig.align='center', fig.width=10, fig.height=4}
+set.seed(3)
+ns <- c(5, 10, 25, 50, 100)
+mu0 <- 0
+sigma <- 1
+alpha <- 0.05
+nreps <- 5000
+error_z <- rep(0, length(ns))
+error_t <- rep(0, length(ns))
+for(j in 1:length(ns)){
+  n <- ns[j]
+  test_stats <- rep(0, nreps)
+  for(i in 1:nreps){
+    x <- rnorm(n, mu0, sigma)
+    test_stats[i] <- (mean(x) - mu0)/(sd(x)/sqrt(n))
+  }
+  error_z[j] <- mean(test_stats > qnorm(0.05, lower.tail=F))
+  error_t[j] <- mean(test_stats > qt(0.05, df=n-1, lower.tail=F))
+}
+
+p1 <- data.frame(n = ns, error = error_z) %>%
+  ggplot(aes(x = n, y = error)) +
+  geom_point(size = 2) +
+  geom_hline(yintercept = 0.05) +
+  theme_bw() +
+  labs(y = "Type I error", title = "Wald test") +
+  theme(text = element_text(size = 20)) +
+  scale_y_continuous(limits = c(0, 0.1))
+
+p2 <- data.frame(n = ns, error = error_t) %>%
+  ggplot(aes(x = n, y = error)) +
+  geom_point(size = 2) +
+  geom_hline(yintercept = 0.05) +
+  theme_bw() +
+  labs(y = "Type I error", title = "t test") +
+  theme(text = element_text(size = 20)) +
+  scale_y_continuous(limits = c(0, 0.1))
+
+grid.arrange(p1, p2, ncol=2)
+```
+
+---
+
+### Example: two-sample $t$-test for a difference in means
+
+.large[
+Suppose that $X_1,...,X_{n_1} \overset{iid}{\sim} N(\mu_1, \sigma^2)$ and $Y_1,...,Y_{n_2} \overset{iid}{\sim} N(\mu_2, \sigma^2)$ are independent samples. We want to test
+$$H_0: \mu_1 = \mu_2 \hspace{1cm} H_A: \mu_1 \neq \mu_2$$
+]
+
+---
+
+### Example: test for a population mean
+
+.large[
+Suppose $Y_1,...,Y_n \overset{iid}{\sim} Bernoulli(p)$. We want to test 
+$$H_0: p = p_0 \hspace{1cm} H_A: p \neq p_0$$
+
+**Wald test:**
+
+<br/>
+
+<br/>
+
+<br/>
+
+.question[
+Why is a $t$-test not appropriate?
+]
+]
+
+---
+
+### Example: logistic regression
+
+.large[
+$$Y_i \sim Bernoulli(p_i) \hspace{1cm} \log \left( \dfrac{p_i}{1 - p_i} \right) = \beta^T X_i$$
+
+We want to test
+$$H_0: CB = \gamma_0 \hspace{1cm} H_A: CB \neq \gamma_0$$
+
+<br/>
+
+<br/>
+
+<br/>
+
+.question[
+Why is a $t$-test not appropriate?
+]
+]
+
+---
+
+### Philosophical question
+
+.large[
+* If $X_1,...,X_n$ are iid from a population with mean $\mu$ and variance $\sigma^2$, then $\frac{\sqrt{n}(\overline{X}_n - \mu)}{s} \overset{d}{\to} N(0, 1)$
+* If $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$, then $\frac{\sqrt{n}(\overline{X}_n - \mu)}{s} \sim t_{n-1}$
+* **Position 1:** For any reasonable sample size, the test statistic is approximately normal. And we never really have data from a normal distribution, so the $t$ distribution is an approximation anyway. So always use the normal distribution
+* **Position 2:** We always have a finite sample size, so our test statistic is never truly normal. And the $t$ distribution is more conservative than the normal (heavier tails). So always use the $t$ distribution
+
+.question[
+With which position do you agree?
+]
+]

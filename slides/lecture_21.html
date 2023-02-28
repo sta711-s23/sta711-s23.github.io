@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>t-tests</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.16/header-attrs.js"></script>
+    <link rel="stylesheet" href="lab-slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# t-tests
+]
+
+---
+
+
+### Next steps
+
+.large[
+.question[
+So far, we have discussed the Wald test in detail. What other hypothesis tests have you seen in statistics courses?
+]
+]
+
+---
+
+### Recap: power function
+
+.large[
+`$$H_0: \theta \in \Theta_0 \hspace{1cm} H_A: \theta \in \Theta_1$$`
+
+Suppose we reject `\(H_0\)` when `\((X_1,...,X_n) \in R\)`. The **power function** `\(\beta(\theta)\)` is
+`$$\beta(\theta) = P_{\theta}((X_1,...,X_n) \in R)$$`
+
+.question[
+**Example:** `\(X_1,...,X_n\)` iid from a population with mean `\(\mu\)` and variance `\(\sigma^2\)`. 
+
+`$$H_0: \mu = \mu_0 \hspace{1cm} H_A: \mu &gt; \mu_0$$`
+`$$\beta(\mu) \approx 1 - \Phi\left(z_\alpha - \dfrac{(\mu - \mu_0)}{\sigma/\sqrt{n}} \right)$$`
+]
+]
+
+---
+
+### Class activity, Part I
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_21.html](https://sta711-s23.github.io/class_activities/ca_lecture_21.html)
+]
+
+---
+
+### Class activity
+
+&lt;img src="lecture_21_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+
+.large[
+.question[
+If we reject `\(H_0: \mu = \mu_0\)` when `\(\frac{\sqrt{n}(\overline{X}_n - \mu_0)}{s} &gt; z_{\alpha}\)`, why does type I error increase as `\(n\)` decreases?
+]
+]
+
+---
+
+### Issue: Wald tests with small `\(n\)`
+
+.large[
+The Wald test for a population mean `\(\mu\)` relies on
+`$$Z_n = \frac{\sqrt{n}(\overline{X}_n - \mu)}{s} \approx N(0,1)$$`
+* `\(Z_n \overset{d}{\to} N(0,1)\)` as `\(n \to \infty\)`
+* But for small `\(n\)`, `\(Z_n\)` is not normal, even if `\(X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)\)`
+
+.question[
+Suppose `\(X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)\)`. What is the exact distribution of `\(\frac{\sqrt{n}(\overline{X}_n - \mu)}{s}\)`?
+]
+]
+
+---
+
+### `\(t\)` distribution
+
+.large[
+If `\(X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)\)`, then
+`$$\frac{\sqrt{n}(\overline{X}_n - \mu)}{s} \sim t_{n-1}$$`
+]
+
+---
+
+### Class activity, Part II
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_21.html](https://sta711-s23.github.io/class_activities/ca_lecture_21.html)
+]
+
+---
+
+### Class activity
+
+&lt;img src="lecture_21_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Example: two-sample `\(t\)`-test for a difference in means
+
+.large[
+Suppose that `\(X_1,...,X_{n_1} \overset{iid}{\sim} N(\mu_1, \sigma^2)\)` and `\(Y_1,...,Y_{n_2} \overset{iid}{\sim} N(\mu_2, \sigma^2)\)` are independent samples. We want to test
+`$$H_0: \mu_1 = \mu_2 \hspace{1cm} H_A: \mu_1 \neq \mu_2$$`
+]
+
+---
+
+### Example: test for a population mean
+
+.large[
+Suppose `\(Y_1,...,Y_n \overset{iid}{\sim} Bernoulli(p)\)`. We want to test 
+`$$H_0: p = p_0 \hspace{1cm} H_A: p \neq p_0$$`
+
+**Wald test:**
+
+&lt;br/&gt;
+
+&lt;br/&gt;
+
+&lt;br/&gt;
+
+.question[
+Why is a `\(t\)`-test not appropriate?
+]
+]
+
+---
+
+### Example: logistic regression
+
+.large[
+`$$Y_i \sim Bernoulli(p_i) \hspace{1cm} \log \left( \dfrac{p_i}{1 - p_i} \right) = \beta^T X_i$$`
+
+We want to test
+`$$H_0: CB = \gamma_0 \hspace{1cm} H_A: CB \neq \gamma_0$$`
+
+&lt;br/&gt;
+
+&lt;br/&gt;
+
+&lt;br/&gt;
+
+.question[
+Why is a `\(t\)`-test not appropriate?
+]
+]
+
+---
+
+### Philosophical question
+
+.large[
+* If `\(X_1,...,X_n\)` are iid from a population with mean `\(\mu\)` and variance `\(\sigma^2\)`, then `\(\frac{\sqrt{n}(\overline{X}_n - \mu)}{s} \overset{d}{\to} N(0, 1)\)`
+* If `\(X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)\)`, then `\(\frac{\sqrt{n}(\overline{X}_n - \mu)}{s} \sim t_{n-1}\)`
+* **Position 1:** For any reasonable sample size, the test statistic is approximately normal. And we never really have data from a normal distribution, so the `\(t\)` distribution is an approximation anyway. So always use the normal distribution
+* **Position 2:** We always have a finite sample size, so our test statistic is never truly normal. And the `\(t\)` distribution is more conservative than the normal (heavier tails). So always use the `\(t\)` distribution
+
+.question[
+With which position do you agree?
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
