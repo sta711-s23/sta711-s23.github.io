@@ -1,0 +1,120 @@
+---
+title: t-tests
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: $t$ distribution
+
+.large[
+If $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$, then
+$$\frac{\sqrt{n}(\overline{X}_n - \mu)}{s} \sim t_{n-1}$$
+
+**Definition:** Let $Z \sim N(0, 1)$ and $V \sim \chi^2_d$ be independent. Then 
+$$T = \frac{Z}{\sqrt{V/d}} \sim t_d$$
+]
+
+---
+
+### t-distribution
+
+```{r, echo=F, message=F, warning=F, fig.align='center', fig.width=10, fig.height=6}
+library(tidyverse)
+x <- seq(-4, 4, 0.01)
+y <- c(dt(x, 1), dt(x, 2), dt(x, 5), dnorm(x))
+df <- rep(c("df = 1", "df=2", "df=5", "N(0, 1)"), each = length(x))
+data.frame(x = rep(x, 4), y, df) %>%
+  ggplot(aes(x = x, y = y, color = df)) +
+  geom_line(lwd = 1) +
+  labs(y = "Density", color="") +
+  theme_bw() +
+  theme(text = element_text(size = 20))
+```
+
+
+---
+
+### Cochran's theorem
+
+.large[
+Let $Z_1,...,Z_n \overset{iid}{\sim} N(0, 1)$, and let $Z = [Z_1,...,Z_n]^T$. Let $A_1,...,A_k \in \mathbb{R}^{n \times n}$ be symmetric matrices such that $Z^TZ = \sum \limits_{i=1}^k Z^T A_i Z$, and let $r_i = rank(A_i)$. Then the following are equivalent:
+
+* $r_1 + \cdots + r_k = n$
+* The $Z^T A_i Z$ are independent
+* Each $Z^T A_i Z \sim \chi^2_{r_i}$
+]
+
+---
+
+### Application to t-tests
+
+---
+
+### Global F tests for linear regression
+
+---
+
+### Test for a population mean
+
+.large[
+Suppose $Y_1,...,Y_n \overset{iid}{\sim} Bernoulli(p)$. We want to test 
+$$H_0: p = p_0 \hspace{1cm} H_A: p \neq p_0$$
+
+**Wald test:**
+
+<br/>
+
+<br/>
+
+<br/>
+
+.question[
+Why is a $t$-test not appropriate?
+]
+]
+
+---
+
+### Test for logistic regression
+
+.large[
+$$Y_i \sim Bernoulli(p_i) \hspace{1cm} \log \left( \dfrac{p_i}{1 - p_i} \right) = \beta^T X_i$$
+
+We want to test
+$$H_0: C\beta = \gamma_0 \hspace{1cm} H_A: C\beta \neq \gamma_0$$
+
+<br/>
+
+<br/>
+
+<br/>
+
+.question[
+Why is a $t$-test not appropriate?
+]
+]
+
+---
+
+### Philosophical question
+
+.large[
+* If $X_1,...,X_n$ are iid from a population with mean $\mu$ and variance $\sigma^2$, then $\frac{\sqrt{n}(\overline{X}_n - \mu)}{s} \overset{d}{\to} N(0, 1)$
+* If $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$, then $\frac{\sqrt{n}(\overline{X}_n - \mu)}{s} \sim t_{n-1}$
+* **Position 1:** For any reasonable sample size, the test statistic is approximately normal. And we never really have data from a normal distribution, so the $t$ distribution is an approximation anyway. So always use the normal distribution
+* **Position 2:** We always have a finite sample size, so our test statistic is never truly normal. And the $t$ distribution is more conservative than the normal (heavier tails). So always use the $t$ distribution
+
+.question[
+With which position do you agree?
+]
+]
+
+

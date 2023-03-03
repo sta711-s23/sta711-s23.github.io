@@ -14,3 +14,4 @@ March 1
 
 March 3
 : t tests
+  : [Slides](https://sta711-s23.github.io/slides/lecture_22.pdf)
