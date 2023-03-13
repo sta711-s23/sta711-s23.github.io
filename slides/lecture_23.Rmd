@@ -1,0 +1,96 @@
+---
+title: Neyman-Pearson lemma
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Wald test for normal mean
+
+.large[
+Let $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$ with $\sigma^2$ known. We wish to test
+$$H_0: \mu = \mu_0 \hspace{1cm} H_A: \mu = \mu_1$$
+where $\mu_1 > \mu_0$. 
+]
+
+---
+
+### Wald test for normal mean
+
+.large[
+Let $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$ with $\sigma^2$ known. We wish to test
+$$H_0: \mu = \mu_0 \hspace{1cm} H_A: \mu = \mu_1$$
+where $\mu_1 > \mu_0$. 
+
+The Wald test rejects if
+
+$$\overline{X}_n > \mu_0 + \frac{\sigma}{\sqrt{n}} z_\alpha$$
+We know that $\beta(\mu_0) = \alpha$ for this test. 
+
+.question[
+Does there exist a different test, with power function $\beta^*(\mu)$, such that $\beta^*(\mu_0) \leq \alpha$ and $\beta^*(\mu_1) > \beta(\mu_1)$?
+]
+]
+
+---
+
+### Rearranging the Wald test for a population mean
+
+---
+
+### Rearranging the Wald test for a population mean
+
+.large[
+Let ${\bf X} = X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$ with $\sigma^2$ known. We wish to test
+$$H_0: \mu = \mu_0 \hspace{1cm} H_A: \mu = \mu_1$$
+where $\mu_1 > \mu_0$. 
+
+The Wald test rejects if $\overline{X}_n > t_0$, which is equivalent to rejecting when
+$$\dfrac{L(\mu_1 | {\bf X})}{L(\mu_0 | {\bf X})} = \dfrac{f(X_1,...,X_n | \mu_1)}{f(X_1,...,X_n | \mu_0)} > k_0$$
+
+**Intuition:** Reject $H_0$ if the likelihood of $\mu_1$ is sufficiently greater than the likelihood of $\mu_0$.
+]
+
+---
+
+### Neyman-Pearson test
+
+---
+
+### Neyman-Pearson lemma
+
+---
+
+### Example
+
+.large[
+Let ${\bf X} = X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$ with $\sigma^2$ known. We wish to test
+$$H_0: \mu = \mu_0 \hspace{1cm} H_A: \mu = \mu_1$$
+where $\mu_1 > \mu_0$. 
+
+The Wald test rejects when 
+$$\dfrac{L(\mu_1 | {\bf X})}{L(\mu_0 | {\bf X})} > k,$$
+where $k$ is chosen such that $\beta(\mu_0) = \alpha$.
+]
+
+---
+
+### Example
+
+.large[
+Let $X_1,...,X_n \overset{iid}{\sim} Exponential(\theta)$, with pdf $f(x|\theta) = \theta e^{-\theta x}$. We want to test
+$$H_0: \theta = \theta_0 \hspace{1cm} H_A: \theta = \theta_1,$$
+where $\theta_1 < \theta_0$. The Neyman-Pearson test rejects when
+$$\dfrac{L(\theta_1 | {\bf X})}{L(\theta_0 | {\bf X})} > k.$$
+
+.question[
+Find $k$ such that the test has size $\alpha$.
+]
+]
