@@ -1,0 +1,65 @@
+---
+title: Neyman-Pearson and likelihood ratio tests
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: Neyman-Pearson test
+
+.large[
+Let $X_1,...,X_n$ be a sample from a distribution with probability function $f$, and parameter $\theta$. To test
+$$H_0: \theta = \theta_0 \hspace{1cm} H_A: \theta = \theta_1,$$
+the Neyman-Pearson test rejects $H_0$ when
+$$\frac{L(\theta_1 | {\bf X})}{L(\theta_0 | {\bf X})} > k,$$
+where $k$ is chosen so that $\beta(\theta_0) = \alpha$.
+]
+
+---
+
+### Recap: Neyman-Pearson lemma
+
+.large[
+The Neyman-Pearson test is a *uniformly most power* level $\alpha$ test of $H_0: \theta = \theta_0$ vs. $H_A: \theta = \theta_1$.
+]
+
+---
+
+### Composite hypotheses with a UMP test
+
+.large[
+Let ${\bf X} = X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$ with $\sigma^2$ known. We wish to test
+$$H_0: \mu = \mu_0 \hspace{1cm} H_A: \mu > \mu_0$$
+
+**Claim:** the Wald test is a uniformly most powerful level $\alpha$ test for these hypotheses.
+]
+
+---
+
+### Composite hypotheses without a UMP test
+
+.large[
+Let ${\bf X} = X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$ with $\sigma^2$ known. We wish to test
+$$H_0: \mu = \mu_0 \hspace{1cm} H_A: \mu \neq \mu_0$$
+
+**Claim:** there is no uniformly most powerful level $\alpha$ test for these hypotheses.
+]
+
+---
+
+### The likelihood ratio test
+
+---
+
+### Example
+
+.large[
+Let $X_1,...,X_n \overset{iid}{\sim} Poisson(\lambda)$. We wish to test $H_0: \lambda = \lambda_0$ vs. $H_A: \lambda \neq \lambda_0$.
+]

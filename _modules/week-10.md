@@ -9,7 +9,10 @@ March 13
 : Casella and Berger 8.3
 
 March 15
-: Likelihood ratio tests
+: Neyman-Pearson and likelihood ratio tests
+  : [Slides](https://sta711-s23.github.io/slides/lecture_24.pdf)
+
+: Casella and Berger 8.2
 
 March 17
 : Likelihood ratio tests
