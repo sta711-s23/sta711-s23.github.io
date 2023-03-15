@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}
+\usepackage{url}
+\usepackage{alltt}
+\usepackage{bm}
+\usepackage{bbm}
+\linespread{1}
+\textwidth 6.5in
+\oddsidemargin 0.in
+\addtolength{\topmargin}{-1in}
+\addtolength{\textheight}{2in}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+
+\begin{center}
+\Large
+STA 711 Homework 7\\
+\normalsize
+\vspace{5mm}
+\end{center}
+
+\noindent \textbf{Due:} Friday, March 24, 12:00pm (noon) on Canvas.\\ 
+
+\noindent \textbf{Instructions:} Submit your work as a single PDF. For this assignment, you may include written work by scanning it and incorporating it into the PDF. Include all R code needed to reproduce your results in your submission.
+
+
+\begin{enumerate}
+\item Let $X_1,...,X_n$ be an iid sample from a population with mean $\mu$ and variance $\sigma^2$, and suppose that $\sigma^2$ is known. We wish to test the hypotheses $H_0: \mu = \mu_0$ vs. $H_A: \mu \neq \mu_0$.
+
+\begin{enumerate}
+\item Write an expression for the (approximate) power function for the Wald test of these hypotheses.
+\item Plot power as a function of $\mu$, using $\mu = \mu_0$, $n = 100$, and $\sigma^2 = 1$.
+\item Let $\beta(\mu)$ be the (approximate) power function for the Wald test. Show mathematically that for each $\mu \neq \mu_0$, $\beta(\mu) \to 1$ as $n \to \infty$.
+\item Suppose that $\mu_0 = 0$ and $\sigma^2 = 1$. What is the minimum sample size $n$ needed such that $\beta(0.5) > 0.7$?
+\end{enumerate}
+
+\item Suppose that $X_1,...,X_n \overset{iid}{\sim} N(0, \sigma^2)$. We wish to test the hypotheses $H_0: \sigma^2 = \sigma_0^2$ vs. $H_A: \sigma^2 = \sigma_1^2$, were $\sigma_0^2 < \sigma_1^2$.
+
+\begin{enumerate}
+\item Show that the most powerful test of these hypotheses rejects when $\sum \limits_{i=1}^n X_i^2 > c$, for some value $c$.
+\item Find $c$ such that the test in part (a) has size $\alpha$.
+\end{enumerate}
+
+\item Suppose that $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$, with both $\mu$ and $\sigma^2$ unknown. Our hypotheses are $H_0: \sigma^2 = \sigma_0^2$ vs. $H_A: \sigma^2 \neq \sigma_0^2$. Propose a test statistic and rejection region for testing these hypotheses, such that the resulting test is size $\alpha$.
+
+\item Suppose that $X_1,...,X_n \overset{iid}{\sim} Pareto(\theta, \nu)$, with pdf
+$$f(x |\theta, \nu) = \dfrac{\theta \nu^{\theta}}{x^{\theta + 1}} \mathbbm{1}\{x \geq \nu\},$$
+where $\theta, \nu > 0$. 
+
+\begin{enumerate}
+\item Find the maximum likelihood estimators of $\theta$ and $\nu$.
+
+\item We wish to test $H_0: \theta = 1$ vs. $H_A: \theta \neq 1$, and $\nu$ is unknown.
+\end{enumerate}
+
+\item (Global $F$-test for linear regression) Suppose that $V_1 \sim \chi^2_{d_1}$ and $V_2 \sim \chi^2_{d_2}$ are independent $\chi^2$ random variables. Then $F = \dfrac{V_1/d_1}{V_2/d_2} \sim F_{d_1, d_2}$, where $F_{d_1, d_2}$ denotes the $F$-distribution with numerator degrees of freedom $d_1$ and denominator degrees of freedom $d_2$.\\
+
+The $F$-distribution is important for hypothesis testing in linear regression models. Suppose we observe independent data $(X_1, Y_1),...,(X_n, Y_n)$, where $Y_i = \beta^T X_i + \varepsilon_i$, with $\beta = (\beta_0, ..., \beta_k)^T$ and $\varepsilon_i \overset{iid}{\sim} N(0, \sigma^2)$. We wish to test the hypotheses
+$$H_0: \beta_1 = \cdots = \beta_k = 0 \hspace{1cm} H_A: \text{at least one of } \beta_1,...,\beta_k \neq 0.$$
+The $F$-test for these hypotheses is based on the $F$-statistic
+$$F = \dfrac{(SSTO - SSE)/k}{SSE/(n - k - 1)},$$
+where $F \sim F_{k, n-k-1}$ under $H_0$, and
+\begin{align*}
+SSTO = \sum \limits_{i=1}^n (Y_i - \overline{Y})^2 \hspace{1cm} SSE = \sum \limits_{i=1}^n (Y_i - \widehat{\beta}^T X_i)^2
+\end{align*}
+
+The goal of this problem is to demonstrate that, indeed, $F \sim F_{k, n-k-1}$ under $H_0$.
+
+\begin{enumerate}
+\item Show that under $H_0$, $\frac{1}{\sigma^2}\sum \limits_{i=1}^n (Y_i - \beta_0)^2 \sim \chi^2_n$.
+
+\item Find symmetric matrices $A_1, A_2, A_3$ such that under $H_0$, 
+$$\frac{1}{\sigma^2}\sum \limits_{i=1}^n (Y_i - \beta_0)^2 = Z^T A_1 Z + Z^T A_2 Z + Z^T A_3 Z$$
+where $Z \sim N(0, I)$, $\frac{1}{\sigma^2} SSE = Z^T A_1 Z$, and $\frac{1}{\sigma^2} (SSTO - SSE) = Z^T A_2 Z$.
+
+\item Using the matrices $A_1, A_2, A_3$ from part (b), show that $rank(A_1) = n-k-1$, $rank(A_2) = k$, and $rank(A_3) = 1$.
+
+\item By applying Cochran's theorem, show that $F = \dfrac{(SSTO - SSE)/k}{SSE/(n - k - 1)} \sim F_{k, n-k-1}$ under $H_0$.
+\end{enumerate}
+
+\item When does the central limit theorem kick in?
+\end{enumerate}
+
+
+\end{document}
