@@ -32,9 +32,9 @@ STA 711 Homework 7\\
 
 \begin{enumerate}
 \item Write an expression for the (approximate) power function for the Wald test of these hypotheses.
-\item Plot power as a function of $\mu$, using $\mu = \mu_0$, $n = 100$, and $\sigma^2 = 1$.
+\item Plot power as a function of $\mu$, using $\alpha = 0.05$, $\mu = \mu_0$, $n = 100$, and $\sigma^2 = 1$.
 \item Let $\beta(\mu)$ be the (approximate) power function for the Wald test. Show mathematically that for each $\mu \neq \mu_0$, $\beta(\mu) \to 1$ as $n \to \infty$.
-\item Suppose that $\mu_0 = 0$ and $\sigma^2 = 1$. What is the minimum sample size $n$ needed such that $\beta(0.5) > 0.7$?
+\item Suppose that $\alpha = 0.05$, $\mu_0 = 0$ and $\sigma^2 = 1$. What is the minimum sample size $n$ needed such that $\beta(0.5) > 0.7$?
 \end{enumerate}
 
 \item Suppose that $X_1,...,X_n \overset{iid}{\sim} N(0, \sigma^2)$. We wish to test the hypotheses $H_0: \sigma^2 = \sigma_0^2$ vs. $H_A: \sigma^2 = \sigma_1^2$, were $\sigma_0^2 < \sigma_1^2$.
@@ -53,7 +53,19 @@ where $\theta, \nu > 0$.
 \begin{enumerate}
 \item Find the maximum likelihood estimators of $\theta$ and $\nu$.
 
-\item We wish to test $H_0: \theta = 1$ vs. $H_A: \theta \neq 1$, and $\nu$ is unknown.
+\item We wish to test $H_0: \theta = 1$ vs. $H_A: \theta \neq 1$, and $\nu$ is unknown. The likelihood ratio test rejects when
+$$\dfrac{\sup \limits_{\theta > 0, \nu > 0} L(\nu, \theta | {\bf X})}{\sup \limits_{\theta = 1, \nu > 0} L(\nu, \theta | {\bf X})} > k.$$
+Show that the likelihood ratio test is equivalent to rejecting when $T \leq c_1$ or $T \geq c_2$, where $0 < c_1 < c_2$ and
+$$T = \log \left( \frac{\prod \limits_{i=1}^n X_i}{X_{(1)}^n} \right).$$
+\end{enumerate}
+
+\item Suppose we have two independent samples $X_1,...,X_n \overset{iid}{\sim} Exponential(\theta)$ and $Y_1,...,Y_m \overset{iid}{\sim} Exponential(\mu)$.
+
+\begin{enumerate}
+\item The likelihood ratio test rejects when 
+$$\frac{\sup \limits_{\theta > 0, \mu > 0} L(\theta, \mu | {\bf X})}{\sup \limits_{\theta = \mu} L(\theta, \mu | {\bf X})} > k.$$
+Show that the LRT can be based on the statistic
+$$T = \frac{\sum \limits_{i=1}^n X_i}{\sum \limits_{i=1}^n X_i + \sum \limits_{j=1}^m Y_j}.$$
 \end{enumerate}
 
 \item (Global $F$-test for linear regression) Suppose that $V_1 \sim \chi^2_{d_1}$ and $V_2 \sim \chi^2_{d_2}$ are independent $\chi^2$ random variables. Then $F = \dfrac{V_1/d_1}{V_2/d_2} \sim F_{d_1, d_2}$, where $F_{d_1, d_2}$ denotes the $F$-distribution with numerator degrees of freedom $d_1$ and denominator degrees of freedom $d_2$.\\

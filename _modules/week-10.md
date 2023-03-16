@@ -16,5 +16,6 @@ March 15
 
 March 17
 : Likelihood ratio tests
+  : [Slides](https://sta711-s23.github.io/slides/lecture_25.pdf)
 
 : **HW 7 released**{: .label .label-yellow }

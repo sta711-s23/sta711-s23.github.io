@@ -1,0 +1,55 @@
+---
+title: Likelihood ratio tests
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: likelihood ratio test
+
+.large[
+Let $X_1,...,X_n$ be a sample from a distribution with parameter $\theta \in \mathbb{R}^d$. We wish to test $H_0: \theta \in \Theta_0$ vs. $H_A: \theta \in \Theta_1$.
+
+The **likelihood ratio test** (LRT) rejects $H_0$ when
+
+$$\frac{\sup \limits_{\theta \in \Theta_1} L(\theta | {\bf X})}{\sup \limits_{\theta \in \Theta_0} L(\theta | {\bf X})} > k,$$
+where $k$ is chosen such that $\sup \limits_{\theta \in \Theta_0} \beta_{LR}(\theta) \leq \alpha$.
+]
+
+---
+
+
+### Example: linear regression with normal data
+
+.large[
+Suppose we observe $(X_1, Y_1),...,(X_n, Y_n)$, where $Y_i = \beta^T X_i + \varepsilon_i$ and $\varepsilon_i \overset{iid}{\sim} N(0, \sigma^2)$. Partition $\beta = (\beta_{(1)}, \beta_{(2)})^T$. We wish to test $H_0: \beta_{(2)} = 0$ vs. $H_A: \beta_{(2)} \neq 0$.
+]
+
+---
+
+### Example: Poisson sample
+
+.large[
+Let $X_1,...,X_n \overset{iid}{\sim} Poisson(\lambda)$. We wish to test $H_0: \lambda = \lambda_0$ vs. $H_A: \lambda \neq \lambda_0$.
+
+.question[
+Write down the LRT statistic, and simplify as much as possible.
+]
+]
+
+---
+
+### Asymptotics of the LRT
+
+---
+
+### Generalization to higher dimensions
+
+
