@@ -22,7 +22,7 @@ STA 711 Homework 7\\
 \vspace{5mm}
 \end{center}
 
-\noindent \textbf{Due:} Friday, March 24, 12:00pm (noon) on Canvas.\\ 
+\noindent \textbf{Due:} Friday, March 31, 12:00pm (noon) on Canvas.\\ 
 
 \noindent \textbf{Instructions:} Submit your work as a single PDF. For this assignment, you may include written work by scanning it and incorporating it into the PDF. Include all R code needed to reproduce your results in your submission.
 
@@ -59,14 +59,10 @@ Show that the likelihood ratio test is equivalent to rejecting when $T \leq c_1$
 $$T = \log \left( \frac{\prod \limits_{i=1}^n X_i}{X_{(1)}^n} \right).$$
 \end{enumerate}
 
-\item Suppose we have two independent samples $X_1,...,X_n \overset{iid}{\sim} Exponential(\theta)$ and $Y_1,...,Y_m \overset{iid}{\sim} Exponential(\mu)$.
-
-\begin{enumerate}
-\item The likelihood ratio test rejects when 
+\item Suppose we have two independent samples $X_1,...,X_n \overset{iid}{\sim} Exponential(\theta)$ and $Y_1,...,Y_m \overset{iid}{\sim} Exponential(\mu)$. The likelihood ratio test rejects when 
 $$\frac{\sup \limits_{\theta > 0, \mu > 0} L(\theta, \mu | {\bf X})}{\sup \limits_{\theta = \mu} L(\theta, \mu | {\bf X})} > k.$$
 Show that the LRT can be based on the statistic
 $$T = \frac{\sum \limits_{i=1}^n X_i}{\sum \limits_{i=1}^n X_i + \sum \limits_{j=1}^m Y_j}.$$
-\end{enumerate}
 
 \item (Global $F$-test for linear regression) Suppose that $V_1 \sim \chi^2_{d_1}$ and $V_2 \sim \chi^2_{d_2}$ are independent $\chi^2$ random variables. Then $F = \dfrac{V_1/d_1}{V_2/d_2} \sim F_{d_1, d_2}$, where $F_{d_1, d_2}$ denotes the $F$-distribution with numerator degrees of freedom $d_1$ and denominator degrees of freedom $d_2$.\\
 
@@ -92,8 +88,6 @@ where $Z \sim N(0, I)$, $\frac{1}{\sigma^2} SSE = Z^T A_1 Z$, and $\frac{1}{\sig
 
 \item By applying Cochran's theorem, show that $F = \dfrac{(SSTO - SSE)/k}{SSE/(n - k - 1)} \sim F_{k, n-k-1}$ under $H_0$.
 \end{enumerate}
-
-\item When does the central limit theorem kick in?
 \end{enumerate}
 
 
