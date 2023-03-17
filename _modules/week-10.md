@@ -23,4 +23,4 @@ March 17
 : Dunn and Smyth 4.10
 
 : **HW 7 released**{: .label .label-yellow }
-  : [HW 5](https://sta711-s23.github.io/homework/HW7.pdf)
+  : [HW 7](https://sta711-s23.github.io/homework/Hw7.pdf)
