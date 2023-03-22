@@ -11,7 +11,8 @@ March 20
 : Dunn and Smyth 4.10
 
 March 22
-: Comparison of hypothesis tests
+: Wald vs. LRT
+  : [Slides](https://sta711-s23.github.io/slides/lecture_27.pdf), [Class activity](https://sta711-s23.github.io/class_activities/ca_lecture_27.html)
 
 March 24
 : Multiple testing issues

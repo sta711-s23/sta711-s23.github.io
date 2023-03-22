@@ -1,0 +1,59 @@
+---
+title: "Class Activity, March 22"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# Exploring Wald and likelihood ratio tests
+
+The purpose of this class activity is to compare the Wald and likelihood ratio test statistics, and their asymptotic distributions.
+
+For this class assignment, suppose we observe data $(X_1, Y_1), ..., (X_n, Y_n)$, where 
+$$X_i \overset{iid}{\sim} N(0, 1)$$
+$$Y_i \sim Bernoulli(p_i)$$
+$$\log \left( \frac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 X_i$$
+
+We wish to test the hypotheses $H_0: \beta_1 = 0$ vs. $H_A: \beta_1 \neq 0$. Recall that the Wald test statistic for these hypotheses is 
+$$W = \frac{(\widehat{\beta}_1 - 0)^2}{Var(\widehat{\beta}_1)}$$
+and the likelihood ratio test statistic is
+$$G = 2 \ell(\widehat{\beta}_{full}) - 2 \ell(\widehat{\beta}_{reduced})$$
+
+## Questions
+
+Use the code below to generate data from the model with $\beta_0 = 0.5$, $\beta_1 = 0$, and $n = 100$:
+
+```{r, eval=F}
+n <- 100
+beta0 <- 0.5
+beta1 <- 0
+x <- rnorm(n)
+p <- exp(beta0 + beta1 * x)/(1 + exp(beta0 + beta1 * x))
+y <- rbinom(n, 1, p)
+```
+
+1. Calculate the Wald statistic and the likelihood ratio statistic on the simulated data. Repeat many times, and confirm with simulations that $W \approx \chi^2_1$ and $G \approx \chi^2_1$ under $H_0$.
+
+2. Show in simulations that the distributions of $W$ and $G$ get closer to the $\chi^2_1$ distribution as $n \to \infty$ (under $H_0$).
+
+3. Plot $W$ against $G$ when $H_0$ is true. How does the relationship between the Wald and LRT statistic change as $n \to \infty$ (when $H_0$ is true)?
+
+4. Now modify the simulations with $n = 100$ and $\beta_1 = 0.5$. How do the distributions of the test statistics change for the new value of $\beta_1$?
+
+5. With $\beta_1 = 0.5$ and $n = 100$, estimate $\mathbb{E}(W)$. How does $\mathbb{E}(W)$ change as you change $n$?
+
+### Non-central $\chi^2$
+
+We know that if $Z \in \mathbb{R}^q$ and $Z \sim N(0, I)$, then $Z^T Z \sim \chi^2_q$. If $Z \sim N(\mu, I)$, then $Z^T Z \sim \chi^2_q(\lambda)$, where $\lambda = \mu^T \mu$ and $\chi^2_q(\lambda)$ is the *non-central* $\chi^2$ distribution with $q$ degrees of freedom and non-centrality parameter $\lambda$.
+
+6. Show that $W = \frac{(\widehat{\beta}_1 - 0)^2}{Var(\widehat{\beta}_1)} \approx \chi^2_1(\lambda)$, and find an expression for $\lambda$ in terms of $\beta_1$ and $Var(\widehat{\beta}_1)$. What happens to $\lambda$ as $n \to \infty$?
+
+### Local alternatives
+
+Now consider testing against a *local* alternative (i.e., the difference between the null and alternative hypotheses is 0 in the limit). Our hypotheses are still $H_0: \beta_1 = 0$ vs. $\beta_1 \neq 0$, but the true value of $\beta_1$ is $\beta_1 = 2/\sqrt{n}$.
+
+7. Show that $W = \frac{(\widehat{\beta}_1 - 0)^2}{Var(\widehat{\beta}_1)} \approx \chi^2_1(\lambda)$, and find an expression for $\lambda$ in terms of $\beta_1$ and $Var(\widehat{\beta}_1)$. What happens to $\lambda$ as $n \to \infty$? Verify with simulations.
+
+8. When $\beta_1 = 2/\sqrt{n}$, how does the distribution of $G$ compare to the distribution of $W$? Experiment with different values of $n$.

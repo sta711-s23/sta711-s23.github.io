@@ -1,0 +1,28 @@
+---
+title: Wald vs. likelihood ratio tests
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Class activity
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_27.html](https://sta711-s23.github.io/class_activities/ca_lecture_27.html)
+]
+
+---
+
+### Asymptotic distribution of the Wald statistic
+
+---
+
+### Equivalence of the Wald and LRT statistics
+
