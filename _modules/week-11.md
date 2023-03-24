@@ -16,5 +16,6 @@ March 22
 
 March 24
 : Multiple testing issues
+  : [Slides](https://sta711-s23.github.io/slides/lecture_28.pdf), [Class activity](https://sta711-s23.github.io/class_activities/ca_lecture_28.html)
 
 : **HW 8 released**{: .label .label-yellow }

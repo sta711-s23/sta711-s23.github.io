@@ -1,0 +1,102 @@
+---
+title: Multiple testing issues
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Motivation: differential gene expression
+
+.large[
+Suppose a biologist is interested in identifying genes which are *differentially expressed* under different biological treatments. The biologist observes 10 subjects under treatment A, and 10 subjects under treatment B. Gene expression measurements $X_{i,j}$ (treatment A) and $Y_{i,j}$ (treatment B) are recorded for 1000 different genes ( $i = 1,...,1000$, $j = 1,...,10$ ). 
+
+For each gene $i$, the biologist tests $H_0: \mu_{i,A} = \mu_{i,B}$, rejecting when the p-value is below a threshold $\alpha$.
+
+.question[
+If $H_0$ is actually true for all 1000 genes, how many false positives do we expect?
+]
+]
+
+---
+
+### Motivation: multiple testing
+
+.large[
+.question[
+In what other settings might we test many hypotheses?
+]
+]
+
+---
+
+### Family-wise error rate
+
+.large[
+**Definition:** Suppose we test $m$ null hypotheses $H_{0,1},...,H_{0,m}$. The *family-wise error rate* is the probability of making *at least one* type I error:
+$$FWER = P \left( \bigcup \limits_{i=1}^m \{\text{reject } H_{0,i} | H_{0,i} \text{ is true}\} \right)$$
+
+.question[
+Suppose all $m$ tests are independent. For each test, we reject if the corresponding p-value $p_i < \alpha$. What is the FWER?
+]
+]
+
+---
+
+### The Sidak correction
+
+.large[
+Suppose we test $m$ null hypotheses $H_{0,1},...,H_{0,m}$. The *family-wise error rate* is the probability of making *at least one* type I error:
+$$FWER = P \left( \bigcup \limits_{i=1}^m \{\text{reject } H_{0,i} | H_{0,i} \text{ is true}\} \right)$$
+
+.question[
+If all $m$ hypotheses are independent, at what threshold $\alpha^*$ should we reject each test, such FWER = $\alpha$? 
+]
+]
+
+---
+
+### The Bonferroni correction
+
+.large[
+Suppose we test $m$ null hypotheses $H_{0,1},...,H_{0,m}$. The *family-wise error rate* is the probability of making *at least one* type I error:
+$$FWER = P \left( \bigcup \limits_{i=1}^m \{\text{reject } H_{0,i} | H_{0,i} \text{ is true}\} \right)$$
+]
+
+---
+
+### Holm's procedure
+
+.large[
+.question[
+Suppose we test 5 hypotheses, and observe p-values 0.4, 0.01, 0, 0, 0. Does it still seem reasonable to use the Bonferroni cutoff $\alpha/5$ for each test?
+]
+]
+
+---
+
+### Holm's procedure
+
+.large[
+Suppose we test $m$ null hypotheses $H_{0,1},...,H_{0,m}$. Let $p_i$ be the corresponding p-value for test $i$.
+
+* Order the p-values $p_{(1)} \leq p_{(2)} \leq \cdots \leq p_{(m)}$
+* Let $i^* = \min \left\lbrace i: p_{(i)} > \frac{\alpha}{m - i + 1} \right\rbrace$
+* Reject $H_{0, (i)}$ for all $i < i^*$
+
+**Claim:** Holm's procedure controls FWER at level $\alpha$
+]
+
+---
+
+### Class activity
+
+.large[
+[https://sta711-s23.github.io/class_activities/ca_lecture_28.html](https://sta711-s23.github.io/class_activities/ca_lecture_28.html)
+]
