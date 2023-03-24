@@ -1,0 +1,120 @@
+\documentclass[11pt]{article}
+\usepackage{url}
+\usepackage{alltt}
+\usepackage{bm}
+\usepackage{bbm}
+\linespread{1}
+\textwidth 6.5in
+\oddsidemargin 0.in
+\addtolength{\topmargin}{-1in}
+\addtolength{\textheight}{2in}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+
+\begin{center}
+\Large
+STA 711 Homework 8\\
+\normalsize
+\vspace{5mm}
+\end{center}
+
+\noindent \textbf{Due:} Monday, April 3, 12:00pm (noon) on Canvas.\\ 
+
+\noindent \textbf{Instructions:} Submit your work as a single PDF. For this assignment, you may include written work by scanning it and incorporating it into the PDF. Include all R code needed to reproduce your results in your submission.
+
+
+
+\section*{Simulation study with the central limit theorem}
+
+The central limit theorem tells us that if $Y_1, Y_2,...$ is a sequence of iid random variables, then
+\begin{align*}
+\dfrac{\sqrt{n}(\overline{Y}_n - \mu)}{\sigma} \overset{d}{\to} N(0, 1),
+\end{align*}
+where $\overline{Y}_n = \frac{1}{n} \sum \limits_{i=1}^n Y_i$, $\mu = \mathbb{E}[Y_i]$, and $\sigma^2 = Var(Y_i)$. Using the central limit theorem, the Wald test rejects $H_0: \mu = \mu_0$ in favor of $H_A: \mu \neq \mu_0$ when 
+$$|Z_n| = |\sqrt{n}(\overline{Y} - \mu_0)/\sigma| > z_{\alpha/2}$$
+
+\noindent The goal of this section is investigate how large $n$ needs to be before the normal approximation from the central limit theorem is reasonable.
+
+\begin{enumerate}
+\item[1.] Choose a non-normal distribution (e.g., a Bernoulli, a Poisson, a Gamma, etc.). Let $\mu_0$ be the mean of your chosen distribution, and $\sigma^2$ the variance. Begin with $n = 5$.
+\begin{enumerate}
+\item Sample $Y_1,...,Y_n$ iid from your chosen distribution. Calculate $Z_n = \sqrt{n}(\overline{Y} - \mu_0)/\sigma$.
+\item Repeat (a) many times, and make a plot comparing the distribution of your simulated $Z_n$ to a $N(0, 1)$ distribution (e.g, a quantile-quantile plot). 
+\item If we were testing $H_0: \mu = \mu_0$ vs. $H_A: \mu \neq \mu_0$ at level $\alpha = 0.05$, for what fraction of the simulated tests in (b) do you reject $H_0$ (i.e., what is the type I error)?
+\item For the same chosen distribution, repeat (b) and (c) for $n = 10, 15, 20, 30, 50, 75, 100$. Make two plots: one comparing the distribution of your test statistics to a $N(0,1)$ for each $n$, and one plotting the type I error as a function of $n$.
+\item Using the plots in (d), how large does $n$ need to be before the normal approximation seems reasonable?
+\end{enumerate}
+
+\item[2.] Repeat question 1 for at least three other population distributions. Experiment in particular with population distributions which are very different from the normal distribution (e.g. discrete, or strongly skewed, or multimodal). Use your simulations to provide a rough guide for how large $n$ needs to be for the normal approximation to be reasonable.
+\end{enumerate}
+
+\section*{Likelihood ratio tests with logistic regression}
+
+In this part of the assignment, you will revisit the 2015 Gorkha earthquake data from HW 6.\\
+
+\noindent After the earthquake, a large scale survey was conducted to determine the amount of damage the earthquake caused for homes, businesses and other structures. This is one of the largest post-disaster surveys in the world, and researchers are interested in which building characteristics are associated with earthquake damage.\\
+
+\noindent You will work with a subset of the earthquake data, consisting of 211774 buildings, containing the following variables:
+\begin{itemize}
+\item \verb;Damage;: whether the building sustained any damage (1) or not (0)
+
+\item \verb;Age;: the age of the building (in years)
+
+\item \verb;Surface;: a categorical variable recording the surface condition of the land around the building. There are three different levels: \verb;n;, \verb;o;, and \verb;t;. (The researchers who collected the data anonymized the level names to protect inhabitants' privacy).
+\end{itemize}
+
+\noindent You can load the data into R by
+\begin{verbatim}
+earthquake <- read.csv("https://sta711-s23.github.io/homework/earthquake_small.csv")
+\end{verbatim}
+
+\noindent You will work with the following logistic regression model (you may assume all assumptions are met; no transformations or diagnostics are needed):
+$$Damage_i \sim Bernoulli(p_i)$$
+$$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 Age_i + \beta_2 SurfaceO_i + \beta_3 SurfaceT_i + \beta_4 Age_i \cdot SurfaceO_i + \beta_5 Age_i \cdot SurfaceT_i$$
+
+where $SurfaceO$ and $SurfaceT$ are indicator variables for whether surface is o or t, respectively.\\
+
+\begin{enumerate}
+
+\item[3.] The researchers want to know whether the relationship between Age and the probability of damage is the same for buildings in all three surface conditions. Use a likelihood ratio test to address the researchers' question; you should state the hypotheses in terms of one or more model parameters, calculate a test statistic and p-value, and make a conclusion.
+
+\item[4.] Now the researchers want to know whether there is \textit{any} relationship between Age and damage, after accounting for surface condition. Use a likelihood ratio test to address the researchers' question; you should state the hypotheses in terms of one or more model parameters, calculate a test statistic and p-value, and make a conclusion.
+\end{enumerate}
+
+\section*{Power calculation}
+
+Suppose we are working with researchers interested in the relation between caffeine intake and insomnia. The researchers conduct a sleep study with a set of $n$ subjects, all of whom have reported difficulty sleeping.\\
+
+\noindent In the study, subjects are given a warm cup of coffee at 10pm, and then asked to go to bed directly after drinking the coffee. The subjects receive coffees containing different quantities of caffeine, with $n/5$ patients randomly assigned to each of 5 treatment groups: 0mg caffeine, 25mg, 50mg, 75mg, and 100mg caffeine (for reference, a normal cup of coffee contains about 100mg of caffeine).\\
+
+\noindent For each subject, the researchers record whether they fell asleep in the first hour after consuming the coffee (\textit{note: time-to-event analysis is probably better here, but that is outside the scope of this course}). We plan to fit the following logistic regression model:
+$$Sleep_i \sim Bernoulli(p_i)$$
+$$\log \left( \frac{p_i}{1-p_i} \right) = \beta_0 + \beta_1 Caffeine_i$$
+where $Sleep_i = 1$ if subject $i$ fell asleep during the first hour, and $Caffeine_i$ is the quantity of caffeine consumed (in mg) by subject $i$.\\
+
+\noindent To test for a relationship, the researchers plan to test $H_0: \beta_1 = 0$ vs. $H_A: \beta_1 \neq 0$ using a Wald test, rejecting if the p-value is $< 0.05$. We also know that from prior observation, there is a 40\% probability that a subject drinking decaf coffee directly before bed will fall asleep within the first hour.
+
+\begin{enumerate}
+\item[5.] Recall that if $\theta \in \mathbb{R}^q$ is a parameter of interest, and $\widehat{\theta}$ is the maximum likelihood estimator, then $\sqrt{n}(\widehat{\theta} - \theta) \overset{d}{\to} N(0, \mathcal{I}_1^{-1}(\theta))$, and the Wald statistic is
+$$W = (\widehat{\theta} - \theta_0)^T \mathcal{I}(\widehat{\theta}) (\widehat{\theta} - \theta_0),$$
+where $\mathcal{I}_1(\theta)$ is the Fisher information for a single observation, and $\mathcal{I}(\theta) = n\mathcal{I}_1(\theta)$. Under $H_0$, $W \overset{d}{\to} \chi^2_q$.\\
+
+With some rearrangement, it can be shown (see the class notes from March 22) that if the true value of $\theta$ is $\theta_1 \neq \theta_0$, then $W \approx \chi^2_q(\lambda)$ (the non-central $\chi^2_q$ distribution with non-centrality parameter $\lambda$), where 
+$\lambda = (\theta_1 - \theta_0)^T \mathcal{I}(\theta_1)(\theta_1 - \theta_0)$. Given $n$ and $\theta$, the approximate power of the Wald test is then
+$$P(\chi^2_q(\lambda) > \chi^2_{q, \alpha}),$$
+where $\chi^2_{q, \alpha}$ is the upper $\alpha$ quantile of a $\chi^2_q$ distribution. In R, the \verb;pchisq(...); function allows you to specify the noncentrality parameter (\verb;ncp;).
+
+\begin{enumerate}
+\item Suppose we observe 50 subjects, and we believe that a one-mg increase in caffeine is associated with a decrease of 0.02 in the log-odds of sleep within the first hour. What is the approximate power of the Wald test for $H_0: \beta_1 = 0$ vs. $H_A: \beta_1 \neq 0$?
+
+\item Suppose we believe that a one-mg increase in caffeine is associated with a decrease of 0.02 in the log-odds of sleep within the first hour. How many subjects $n$ do we need to observe for the approximate power of the Wald test to be at least 0.8?
+
+\item Suppose we have 50 subjects. How small can the true effect of caffeine be (i.e., how small can $|\beta_1|$ be) if we want our Wald test to have an approximate power of at least 0.8?
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
