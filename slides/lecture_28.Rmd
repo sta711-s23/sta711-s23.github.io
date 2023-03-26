@@ -36,14 +36,18 @@ In what other settings might we test many hypotheses?
 
 ---
 
+### Outcomes for multiple hypothesis tests
+
+---
+
 ### Family-wise error rate
 
 .large[
 **Definition:** Suppose we test $m$ null hypotheses $H_{0,1},...,H_{0,m}$. The *family-wise error rate* is the probability of making *at least one* type I error:
-$$FWER = P \left( \bigcup \limits_{i=1}^m \{\text{reject } H_{0,i} | H_{0,i} \text{ is true}\} \right)$$
+$$FWER = P \left( \bigcup \limits_{i: H_{0,i} \text{ is true}} \{\text{reject } H_{0,i}\} \right)$$
 
 .question[
-Suppose all $m$ tests are independent. For each test, we reject if the corresponding p-value $p_i < \alpha$. What is the FWER?
+Suppose all $m$ tests are independent, and $H_{0,i}$ is true for all tests. For each test, we reject if the corresponding p-value $p_i < \alpha$. What is the FWER?
 ]
 ]
 
@@ -53,10 +57,10 @@ Suppose all $m$ tests are independent. For each test, we reject if the correspon
 
 .large[
 Suppose we test $m$ null hypotheses $H_{0,1},...,H_{0,m}$. The *family-wise error rate* is the probability of making *at least one* type I error:
-$$FWER = P \left( \bigcup \limits_{i=1}^m \{\text{reject } H_{0,i} | H_{0,i} \text{ is true}\} \right)$$
+$$FWER = P \left( \bigcup \limits_{i: H_{0,i} \text{ is true}} \{\text{reject } H_{0,i}\} \right)$$
 
 .question[
-If all $m$ hypotheses are independent, at what threshold $\alpha^*$ should we reject each test, such FWER = $\alpha$? 
+If all $m$ hypotheses are independent, at what threshold $\alpha^*$ should we reject each test, such FWER $\leq \alpha$? 
 ]
 ]
 
@@ -66,7 +70,7 @@ If all $m$ hypotheses are independent, at what threshold $\alpha^*$ should we re
 
 .large[
 Suppose we test $m$ null hypotheses $H_{0,1},...,H_{0,m}$. The *family-wise error rate* is the probability of making *at least one* type I error:
-$$FWER = P \left( \bigcup \limits_{i=1}^m \{\text{reject } H_{0,i} | H_{0,i} \text{ is true}\} \right)$$
+$$FWER = P \left( \bigcup \limits_{i: H_{0,i} \text{ is true}} \{\text{reject } H_{0,i}\} \right)$$
 ]
 
 ---
