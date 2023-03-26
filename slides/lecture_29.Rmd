@@ -1,0 +1,130 @@
+---
+title: Interval estimation
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Motivation
+
+.large[
+Suppose we have data $(X_1, Y_1),...,(X_n, Y_n)$ with
+$$Y_i \sim Bernoulli(p_i)$$
+$$\log \left( \dfrac{p_i}{1 - p_i} \right) = \beta^T X_i$$
+
+So far, we have discussed:
+
+* Finding point estimates $\widehat{\beta}$
+* Testing hypotheses about the true (but unknown) parameters $\beta$
+
+.question[
+What are the limitations of point estimates and hypothesis tests for inference about $\beta$?
+]
+]
+
+---
+
+### Confidence interval
+
+```{r include=F}
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(more, x[lines], more)
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+
+dengue <- read.csv("https://sta712-f22.github.io/homework/dengue.csv")
+```
+
+.large[
+```{r echo=F, output.lines = 10:14}
+m1 <- glm(Dengue ~ WBC + PLT, data = dengue, 
+          family = binomial)
+summary(m1)
+```
+
+.question[
+How would I calculate a 95% confidence interval for $\beta_1$ (the change in the log odds of dengue for a one-unit increase in WBC, holding PLT fixed)?
+]
+]
+
+---
+
+### Confidence interval
+
+.large[
+```{r echo=F, output.lines = 10:14}
+m1 <- glm(Dengue ~ WBC + PLT, data = dengue, 
+          family = binomial)
+summary(m1)
+```
+
+95% confidence interval for $\beta_1$: (-0.315, -0.262)
+
+.question[
+How do I interpret this confidence interval?
+]
+]
+
+---
+
+### Deriving the coverage probability
+
+---
+
+### Formal definition
+
+---
+
+### Inverting a test
+
+
+---
+
+### Example
+
+.large[
+Suppose $X_1,...,X_n \overset{iid}{\sim} Uniform[0, \theta]$. We want to test
+
+$$H_0: \theta = \theta_0 \hspace{1cm} H_A: \theta \neq \theta_0$$
+
+.question[
+Find the LRT statistic for this test.
+]
+]
+
+---
+
+### Example
+
+.large[
+Suppose $X_1,...,X_n \overset{iid}{\sim} Uniform[0, \theta]$. Inverting the LRT gives us a confidence interval of the form
+$$C(X_1,...,X_n) = \left\lbrace \theta: X_{(n)} \leq \theta \leq \frac{X_{(n)}}{k'} \right\rbrace$$
+
+.question[
+Find a value $k'$ such that the test is size $\alpha$.
+]
+]
