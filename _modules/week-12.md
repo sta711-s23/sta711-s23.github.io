@@ -12,11 +12,12 @@ March 27
 
 March 29
 : Inverting a test, pivots
+  : [Slides](https://sta711-s23.github.io/slides/lecture_30.pdf)
 
 : Casella and Berger 9.2.1, 9.2.2
 
 March 31
-: Pivots
+: Pivots, variance stabilizing transformations
 
 : Casella and Berger 9.2.2
 

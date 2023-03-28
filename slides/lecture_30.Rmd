@@ -1,0 +1,46 @@
+---
+title: Confidence intervals
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: confidence sets
+
+.large[
+Let $\theta \in \Theta$ be a parameter of interest, and $X_1,...,X_n$ a sample. A set $C(X_1,...,X_n) \subseteq \Theta$ is a $1 - \alpha$ **confidence set** for $\theta$ if
+$$\inf \limits_{\theta \in \Theta} P_\theta(\theta \in C(X_1,...,X_n)) = 1 - \alpha$$
+]
+
+---
+
+### Using confidence sets to test hypotheses
+
+---
+
+### Example: Inverting the t-test
+
+.large[
+Suppose that $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$. We want to construct a $1 - \alpha$ confidence interval for $\mu$.
+
+.question[
+Construct a $1 - \alpha$ confidence interval for $\mu$ by inverting the $t$-test.
+]
+]
+
+---
+
+### Pivotal quantities
+
+---
+
+### Example
+
+
