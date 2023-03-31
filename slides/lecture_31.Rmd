@@ -1,0 +1,64 @@
+---
+title: Confidence intervals
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Warm-up: Pivots
+
+.large[
+Let $X_1,...,X_n \overset{iid}{\sim} Exponential(\theta)$, with density $f(x|\theta) = \theta e^{-\theta x}$.
+
+.question[
+Find a pivotal quantity $Q(X_1,...,X_n, \theta)$ and construct a $1 - \alpha$ confidence interval for $\theta$ using the pivotal quantity.
+
+Hints:
+* Begin with the maximum likelihood estimate of $\theta$, which is $\widehat{\theta} = \dfrac{n}{\sum \limits_{i=1}^n X_i}$
+* If $X \sim Exponential(\theta)$, then $cX \sim Exponential\left( \frac{\theta}{c} \right)$
+* $Exponential\left( \frac{1}{2} \right) = \chi^2_2$
+]
+]
+
+---
+
+### Wald CI
+
+.large[
+Let $X_1,...,X_n \overset{iid}{\sim} Exponential(\theta)$, with density $f(x|\theta) = \theta e^{-\theta x}$.
+]
+
+---
+
+### Delta method
+
+.large[
+Suppose $\widehat{\theta}$ is an estimate of $\theta \in \mathbb{R}$, such that 
+$$\sqrt{n}(\widehat{\theta} - \theta) \overset{d}{\to} N(0, \sigma^2)$$
+for some $\sigma^2$, and $g$ is a continuously differentiable function with $g'(\theta) \neq 0$. Then
+$$\sqrt{n}(g(\widehat{\theta} - g(\theta)) \overset{d}{\to} N(0, \sigma^2 [g'(\theta)]^2)$$
+
+**Proof sketch:**
+
+* First-order Taylor expansion of $g(\widehat{\theta})$ around $\theta$
+* Slutsky's theorem
+]
+
+---
+
+### Variance stabilizing transformations
+
+---
+
+### Example
+
+.large[
+Suppose that $X_1,...,X_n \overset{iid}{\sim} Bernoulli(p)$.
+]

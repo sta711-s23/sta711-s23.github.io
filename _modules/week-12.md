@@ -18,7 +18,6 @@ March 29
 
 March 31
 : Pivots, variance stabilizing transformations
+  : [Slides](https://sta711-s23.github.io/slides/lecture_31.pdf)
 
-: Casella and Berger 9.2.2
-
-: **HW 9 released**{: .label .label-yellow }
+: Casella and Berger 9.2.2, 5.5.4
