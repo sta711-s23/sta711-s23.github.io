@@ -1,0 +1,59 @@
+---
+title: Variance stabilizing transformations
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: delta method
+
+.large[
+Suppose $\widehat{\theta}$ is an estimate of $\theta \in \mathbb{R}$, such that 
+$$\sqrt{n}(\widehat{\theta} - \theta) \overset{d}{\to} N(0, \sigma^2)$$
+for some $\sigma^2$, and $g$ is a continuously differentiable function with $g'(\theta) \neq 0$. Then
+$$\sqrt{n}(g(\widehat{\theta} - g(\theta)) \overset{d}{\to} N(0, \sigma^2 [g'(\theta)]^2)$$
+
+]
+
+---
+
+### Variance stabilizing transformations
+
+---
+
+### Example
+
+.large[
+Let $X_1,...,X_n \overset{iid}{\sim} Exponential(\theta)$, with density $f(x|\theta) = \theta e^{-\theta x}$.
+]
+
+---
+
+### Example
+
+.large[
+Suppose that $X_1,...,X_n \overset{iid}{\sim} Bernoulli(p)$.
+]
+
+---
+
+### Comparison
+
+.large[
+Two approaches to Wald confidence intervals for binomial probability:
+
+<br/>
+
+<br/>
+
+.question[
+How could we investigate their relative performance?
+]
+]
