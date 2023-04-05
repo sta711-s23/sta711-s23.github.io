@@ -1,10 +1,10 @@
 ---
-title: Confidence intervals
+title: Comparing estimators
 ---
 
 April 3
 : Variance stabilizing transformations
-  : [Slides](https://sta711-s23.github.io/slides/lecture_32.pdf)
+  : [Slides](https://sta711-s23.github.io/slides/lecture_32.pdf), [Code](https://sta711-s23.github.io/slides/lecture_32_code.R)
   
 : **HW 9 released**{: .label .label-yellow }
   : [HW 9](https://sta711-s23.github.io/homework/HW9.pdf)
@@ -14,5 +14,9 @@ April 3
 : Dunn and Smyth 3.9.2
 
 April 5
+: Method of moments
+  : [Slides](https://sta711-s23.github.io/slides/lecture_33.pdf)
+  
+: Casella and Berger 7.2.1
 
 April 7

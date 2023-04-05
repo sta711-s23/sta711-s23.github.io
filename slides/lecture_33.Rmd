@@ -1,0 +1,79 @@
+---
+title: Method of moments estimators
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Course so far
+
+.large[
+* Maximum likelihood estimation
+* Logistic regression
+* Asymptotics
+* Asymptotic properties of MLEs
+* Hypothesis testing
+* Confidence intervals
+
+.question[
+**Common theme:** Likelihoods and MLEs
+
+**Question:** Why maximum likelihood estimation?
+]
+]
+
+---
+
+### Example
+
+.large[
+Suppose $X_1,...,X_n \overset{iid}{\sim} Uniform[0, \theta]$. How could I estimate $\theta$?
+]
+
+---
+
+### Example
+
+.large[
+Suppose $X_1,...,X_n \overset{iid}{\sim} Uniform[a, b]$. How could I estimate $a$ and $b$?
+]
+
+---
+
+### Method of moments
+
+.large[
+Let $X_1,...,X_n$ be a sample from a distribution with probability function $f(x|\theta_1,...,\theta_k)$, with $k$ parameters $\theta_1,...,\theta_k$.
+]
+
+---
+
+### Example
+
+.large[
+Suppose $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$.
+
+.question[
+Find the method of moments estimates $\widehat{\mu}$ and $\widehat{\sigma}^2$.
+]
+]
+
+---
+
+### Example
+
+.large[
+Suppose $X_1,...,X_n \overset{iid}{\sim} Gamma(\alpha, \beta)$, i.e. $f(x| \alpha, \beta) = \dfrac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1} e^{-\beta x}$. Then
+$$\mu_1 = \mathbb{E}[X] = \dfrac{\alpha}{\beta} \hspace{1cm} \mu_2 = \mathbb{E}[X^2] = \left( \dfrac{\alpha}{\beta} \right)^2 + \dfrac{\alpha}{\beta^2}$$
+
+.question[
+Use the method of moments to estimate $\alpha$ and $\beta$.
+]
+]
