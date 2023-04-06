@@ -1,0 +1,61 @@
+---
+title: Comparing estimators
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Example
+
+.large[
+Suppose $X_1,...,X_n \overset{iid}{\sim} Uniform[0, \theta]$. Some possible estimates:
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+.question[
+What properties might I want an estimator $\widehat{\theta}$ to possess?
+]
+]
+
+---
+
+### Bias, Variance and MSE
+
+---
+
+### Example
+
+.large[
+Suppose $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$. On homework, we considered 
+$$\widehat{\sigma}^2 = \frac{1}{n} \sum \limits_{i=1}^n (X_i - \overline{X})^2 \hspace{1cm} s^2 = \frac{1}{n-1} \sum \limits_{i=1}^n (X_i - \overline{X})^2$$
+and we showed that $\mathbb{E}{\widehat{\sigma}^2} = \frac{n-1}{n}\sigma^2$, $\mathbb{E}(s^2) = \sigma^2$, and $\frac{(n-1)s^2}{\sigma^2} \sim \chi^2_{n-1}$.
+
+.question[
+Calculate the MSE of both $\widehat{\sigma}^2$ and $s^2$. It may help that if $V \sim \chi^2_\nu$, then $E[V] = \nu$ and $Var(V) = 2\nu$.
+]
+]
+
+---
+
+### MSE and consistency
+
+---
+
+### Best unbiased estimators
+
+---
+
+### Cramer-Rao lower bound

@@ -20,3 +20,7 @@ April 5
 : Casella and Berger 7.2.1
 
 April 7
+: Method of moments
+  : [Slides](https://sta711-s23.github.io/slides/lecture_34.pdf)
+  
+: Casella and Berger 7.2.2, 7.3, 10.1
