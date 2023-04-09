@@ -1,0 +1,27 @@
+---
+title: Cramer-Rao lower bound
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: MSE
+
+---
+
+### MSE and consistency
+
+---
+
+### Best unbiased estimators
+
+---
+
+### Cramer-Rao lower bound
