@@ -1,0 +1,58 @@
+---
+title: Unbiased estimators
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: Cramer-Rao lower bound
+
+.large[
+Let $X_1,...,X_n$ be a sample from a distribution with probability function $f(x|\theta)$, and let $\widehat{\theta}$ be an unbiased estimator of $\theta \in \mathbb{R}$. Then, under regularity conditions,
+$$Var(\widehat{\theta}) \geq \dfrac{1}{\mathcal{I}(\theta)}$$
+]
+
+---
+
+### Example
+
+.large[
+Suppose that $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$.
+
+.question[
+Calculate the Cramer-Rao lower bound for the variance of an unbiased estimator of $\sigma^2$. Does the sample variance $s^2 = \frac{1}{n-1} \sum_i (X_i - \overline{X})^2$ attain the Cramer-Rao lower bound?
+]
+]
+
+---
+
+### Attaining the CRLB
+
+---
+
+### Sufficient statistics
+
+.large[
+.question[
+Given an unbiased estimator, can I improve its variance?
+]
+]
+
+---
+
+### Rao-Blackwell
+
+---
+
+### Example
+
+.large[
+Let $X_1,...,X_n \overset{iid}{\sim} Poisson(\lambda)$. 
+]
