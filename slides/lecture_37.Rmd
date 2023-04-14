@@ -1,0 +1,43 @@
+---
+title: Rao-Blackwell and sufficiency
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: Rao-Blackwell
+
+---
+
+### Example: Rao-Blackwell
+
+.large[
+Let $X_1,...,X_n \overset{iid}{\sim} Poisson(\lambda)$. 
+]
+
+---
+
+### Example: sufficiency
+
+.large[
+Let $X_1,...,X_n \overset{iid}{\sim} Bernoulli(p)$.
+
+.question[
+Find a sufficient statistic for $p$.
+]
+]
+
+---
+
+### Factorization theorem
+
+---
+
+### Example

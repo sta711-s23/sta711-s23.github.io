@@ -15,6 +15,7 @@ April 12
 : Casella and Berger 7.3.3, 6.2.1-6.2.2
 
 April 14
-: Sufficiency
+: Sufficiency and Rao-Blackwell
+  : [Slides](https://sta711-s23.github.io/slides/lecture_37.pdf)
 
-: Casella and Berger 6.2
+: Casella and Berger 6.2, 7.3.3
