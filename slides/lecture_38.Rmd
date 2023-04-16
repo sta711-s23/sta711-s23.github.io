@@ -1,0 +1,40 @@
+---
+title: Sufficiency and minimal sufficiency
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Where we are and where we're going
+
+---
+
+### Recap: factorization theorem
+
+---
+
+### Example
+
+.large[
+Suppose $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$ with $\mu$ and $\sigma^2$ unknown. Let $\theta = (\mu, \sigma^2)$. 
+
+.question[
+Use the factorization theorem to find a sufficient statistic for $\theta$. (The dimension of the statistic will be greater than 1).
+]
+]
+
+---
+
+### Sufficient statistics as partitions
+
+---
+
+### Minimal sufficient statistics
+
