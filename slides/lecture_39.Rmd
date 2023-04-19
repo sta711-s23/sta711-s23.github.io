@@ -1,0 +1,59 @@
+---
+title: Minimal sufficiency and completeness
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Recap: minimal sufficient statistics
+
+.large[
+**Definition:** A statistic $T(X_1,...,X_n)$ is a *minimal sufficient statistic* if for any other sufficient statistic $T^*(X_1,...,X_n)$, $T(X_1,...,X_n)$ is a function of $T^*(X_1,...,X_n)$.
+]
+
+---
+
+### Example
+
+.large[
+Suppose $X_1,...,X_n \overset{iid}{\sim} Uniform[\theta, \theta + 1]$.
+]
+
+---
+
+### Example
+
+.large[
+Suppose $X_1,...,X_n \overset{iid}{\sim} Poisson(\lambda)$. 
+
+.question[
+Find a minimal sufficient statistic for $\lambda$.
+]
+]
+
+---
+
+### Recap: Rao-Blackwell
+
+.large[
+**Rao-Blackwell theorem:** Let $\theta$ be a parameter of interest, and $\widehat{\tau}$ an unbiased estimator of $\tau(\theta)$. If $T$ is a sufficient statistic for $\theta$, then $\tau^* = \mathbb{E}[\widehat{\tau} | T]$ is an unbiased estimator of $\tau(\theta)$, and $Var(\tau^*) \leq Var(\widehat{\tau})$.
+
+.question[
+If we condition on the "right" sufficient statistic, does this process find the best unbiased estimator?
+]
+]
+
+---
+
+### Completeness
+
+---
+
+### Lehmann-Scheffe theorem
