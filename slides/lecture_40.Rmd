@@ -1,0 +1,53 @@
+---
+title: Lehmann-Scheffe
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Lehmann-Scheffe theorem
+
+---
+
+### Example
+
+.large[
+Suppose $X_1,...,X_n \overset{iid}{\sim} Uniform[0, \theta]$.
+]
+
+---
+
+### Exponential families
+
+---
+
+### Example
+
+.large[
+Suppose that $X_1,...,X_n \overset{iid}{\sim} Poisson(\lambda)$.
+]
+
+---
+
+### Exponential families and completeness
+
+---
+
+### Example
+
+.large[
+Suppose that $X_1,...,X_n \overset{iid}{\sim} Bernoulli(p)$.
+
+.question[
+* Show the the Bernoulli is an exponential family distribution
+* Find a complete, sufficient statistic
+* Use the complete, sufficient statistic to find a best unbiased estimator of $p$
+]
+]
