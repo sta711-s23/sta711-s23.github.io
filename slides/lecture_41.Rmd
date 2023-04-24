@@ -1,0 +1,43 @@
+---
+title: Exponential Families
+output:
+  xaringan::moon_reader:
+    css: "lab-slides.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+### Exponential families and completeness
+
+---
+
+### Example
+
+.large[
+Suppose that $X_1,...,X_n \overset{iid}{\sim} Bernoulli(p)$.
+
+.question[
+* Show the the Bernoulli is an exponential family distribution
+* Find a complete, sufficient statistic
+* Use the complete, sufficient statistic to find a best unbiased estimator of $p$
+]
+]
+
+---
+
+### Example
+
+.large[
+Suppose that $X_1,...,X_n \overset{iid}{\sim} N(\mu, \sigma^2)$.
+
+.question[
+* Show the the normal is an exponential family distribution
+* Find a complete, sufficient statistic
+* Use the complete, sufficient statistic to find a best unbiased estimator of $\sigma^2$
+]
+]
