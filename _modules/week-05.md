@@ -18,4 +18,3 @@ February 10
 : **No class**{: .label .label-blue}
 
 : **Exam 1 released**{: .label .label-yellow }
-  : [Exam 1](https://sta711-s23.github.io/exams/exam_1.pdf)
